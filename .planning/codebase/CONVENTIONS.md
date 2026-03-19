@@ -31,6 +31,12 @@
 - Run formatting from workspace scripts in `apps/web/package.json` and `packages/ui/package.json` or through `pnpm format` in `package.json`.
 - Expect formatting drift in existing files. `apps/web/app/layout.tsx` and `packages/ui/postcss.config.mjs` currently diverge from the root Prettier settings, so use `.prettierrc` rather than copying local spacing or semicolon choices from those files.
 
+**Frontend Workflow:**
+- Invoke the `shadcn` skill before touching any frontend code, including pages, layouts, components, forms, navigation, styles, and UI states.
+- Use MCP shadcn as the primary workflow when creating, replacing, adding, or restructuring frontend components.
+- Prefer shadcn component composition over handcrafting a new visual component when an equivalent base component is viable.
+- Treat `pnpm dlx shadcn@latest add <component> -c apps/web` as the repository-level equivalent of the required MCP shadcn workflow when documenting or mirroring the same process outside agent tooling.
+
 **Linting:**
 - Treat `apps/web/eslint.config.js` and `packages/ui/eslint.config.js` as thin entrypoints that import shared rules from `packages/eslint-config/next.js` and `packages/eslint-config/react-internal.js`.
 - Use the shared base rules in `packages/eslint-config/base.js`, which layer `@eslint/js`, `typescript-eslint`, `eslint-config-prettier`, `eslint-plugin-turbo`, and `eslint-plugin-only-warn`.
