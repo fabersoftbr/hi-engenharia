@@ -54,7 +54,7 @@ export function BrandLogo({ variant = "full", className }: BrandLogoProps) {
   return (
     <span
       className={cn(
-        "font-sans font-bold tracking-tight",
+        "font-sans font-bold tracking-tight text-primary",
         isFullLogo ? "text-xl" : "text-base",
         className
       )}

@@ -18,14 +18,14 @@ export function DashboardSummaryGrid({ modules }: DashboardSummaryGridProps) {
           <Link key={mod.id} href={mod.route} className="block">
             <Card className="transition-colors hover:bg-muted/50">
               <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
-                <mod.icon className="size-5 text-muted-foreground" />
+                <mod.icon className="size-5 text-primary" />
                 <CardTitle className="text-sm font-medium">{mod.label}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between">
                   <span className="text-lg">{mod.activeCount} itens ativos</span>
                   {mod.pendingCount > 0 ? (
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="default" className="text-xs">
                       {mod.pendingCount} pendentes
                     </Badge>
                   ) : (

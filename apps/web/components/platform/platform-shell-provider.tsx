@@ -14,7 +14,7 @@ import { type ProfileKey, PROFILE_LABELS } from "@/lib/platform-config"
 const ACTIVE_PROFILE_STORAGE_KEY = "hi-active-profile"
 
 // Valid profile keys for validation
-const VALID_PROFILES: ProfileKey[] = ["admin", "commercial", "partner", "operations"]
+const VALID_PROFILES: ProfileKey[] = ["admin", "commercial", "partner", "operations", "cliente"]
 
 // Context type definition
 interface PlatformShellContextType {

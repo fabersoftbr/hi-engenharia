@@ -14,10 +14,10 @@ export function DashboardWelcome({
 }: DashboardWelcomeProps) {
   return (
     <Card>
-      <CardContent className="pt-6">
+      <CardContent>
         <div className="flex flex-col gap-2">
           <p className="text-lg font-medium">
-            {getGreeting()}, <Badge variant="secondary">{profileLabel}</Badge>.
+            {getGreeting()}, <Badge variant="default">{profileLabel}</Badge>.
             Voce tem {totalPendingCount} pendencias abertas.
           </p>
           <p className="text-muted-foreground">
