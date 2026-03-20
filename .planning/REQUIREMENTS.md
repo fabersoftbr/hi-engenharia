@@ -27,7 +27,7 @@
 ### CRM
 
 - [ ] **CRM-01**: Usuario pode listar oportunidades com filtros, etapa atual, responsavel e prioridade simulados
-- [ ] **CRM-02**: Usuario pode abrir o detalhe de um negocio com status por etapa, responsaveis e historico visual simulado
+- [x] **CRM-02**: Usuario pode abrir o detalhe de um negocio com status por etapa, responsaveis e historico visual simulado
 - [ ] **CRM-03**: Usuario pode visualizar um funil comercial em formato de pipeline com cards e contadores por etapa
 
 ### Pipelines
@@ -127,7 +127,7 @@
 | ORC-03 | Phase 3 | Pending |
 | ORC-04 | Phase 3 | Complete |
 | CRM-01 | Phase 4 | Pending |
-| CRM-02 | Phase 4 | Pending |
+| CRM-02 | Phase 4 | Complete |
 | CRM-03 | Phase 4 | Pending |
 | PIPE-01 | Phase 4 | Pending |
 | PIPE-02 | Phase 5 | Pending |
