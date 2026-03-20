@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-04-PLAN.md
-last_updated: "2026-03-20T22:11:50.826Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-20T22:53:04.324Z"
 progress:
   total_phases: 8
   completed_phases: 4
   total_plans: 20
-  completed_plans: 16
+  completed_plans: 17
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Dar a Hi Engenharia uma camada visual unica, clara e padronizada para navegar seus principais fluxos operacionais sem depender da experiencia fragmentada atual.
-**Current focus:** Phase 04 — crm-e-pipeline-comercial
+**Current focus:** Phase 05 — anteprojetos-propostas-e-pre-os
 
 ## Current Position
 
-Phase: 04 (crm-e-pipeline-comercial) — EXECUTING
-Plan: 1 of 1
+Phase: 05 (anteprojetos-propostas-e-pre-os) — EXECUTING
+Plan: 2 of 4
 
 ## Performance Metrics
 
@@ -75,6 +75,9 @@ Recent decisions affecting current work:
 - [Phase 03 P04]: Lifting submitted form data to parent state for dialog display
 - [Phase 04 P02]: Local React state with useState for CRM stage changes - no persistence, resets on navigation
 - [Phase 04 P02]: History entries prepend on stage change to show most recent first
+- [Phase 05 P02]: Local React state for anteprojeto pipeline changes - no persistence, resets on navigation
+- [Phase 05 P02]: History entries prepend on stage change to show most recent first
+- [Phase 05 P02]: Query param handoff clears sourceOpportunityId after successful creation
 
 ### Pending Todos
 
