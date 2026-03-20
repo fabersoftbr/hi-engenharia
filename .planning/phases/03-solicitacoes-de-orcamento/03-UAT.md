@@ -1,9 +1,10 @@
 ---
-status: complete
+status: resolved
 phase: 03-solicitacoes-de-orcamento
 source: [03-01-SUMMARY.md, 03-02-SUMMARY.md, 03-03-SUMMARY.md]
 started: 2026-03-20T19:00:00Z
-updated: 2026-03-20T19:15:00Z
+updated: 2026-03-20T20:30:00Z
+resolved_by: 03-04
 ---
 
 ## Current Test
@@ -87,21 +88,23 @@ skipped: 0
 ## Gaps
 
 - truth: "Mensagens de erro de validação devem aparecer em português (pt-BR)"
-  status: failed
+  status: resolved
   reason: "User reported: Os erros aparecem em en-us, devem aparecer em pt-br"
   severity: major
   test: 8
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Campo monthlyConsumption usa z.number().min(1) - quando input invalido (vazio/NaN), Zod exibe mensagem de tipo em ingles 'Expected number'. Mensagens customizadas so cobrem min(1), nao erros de tipo. Tambem faltam acentos nas mensagens existentes (obrigatorio -> obrigatório)."
+  resolved_by: "03-04 Task 1 - Added invalid_type_error to all Zod fields"
+  artifacts:
+    - path: "apps/web/lib/budget-request-form.ts"
+      issue: "Schema Zod nao customiza mensagens de erro de tipo (invalid_type)"
 
 - truth: "Botão 'Ver solicitação' deve mostrar os dados preenchidos no formulário"
-  status: failed
-  reason: "User reported: Navega para o detalhe da solicitacao mas nao aparece nenhum dado que foi preenchido no formulario, navega para essa solicitacao: orcamentos/orc-2026-9001, parece que o botao leva para essa solicitacao que ja existe e nao para nova criada através do formulario"
+  status: resolved
+  reason: "User reported: Navega para o detalhe da solicitacao mas nao aparece nenhum dado que foi preenchido no formulario, navega para essa solicitacao: orcamentos/orc-9001, parece que o botao leva para essa solicitacao que ja existe e nao para nova criada através do formulario"
   severity: major
   test: 15
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "budget-request-submission-dialog.tsx usa PREVIEW_SUBMITTED_REQUEST_ID hardcoded (orc-2026-9001). Em modo mock sem backend, nao ha persistencia - o dialog nao recebe os dados do formulario para exibir ou navegar para um registro recem-criado."
+  resolved_by: "03-04 Tasks 2&3 - Dialog now shows form data; button redirects to listing"
+  artifacts:
+    - path: "apps/web/components/platform/budget-requests/budget-request-submission-dialog.tsx"
+      issue: "Usa ID hardcoded em vez de dados do formulario"
