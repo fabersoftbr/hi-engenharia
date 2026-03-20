@@ -22,7 +22,14 @@ export function AppBreadcrumbs() {
   // Build breadcrumb items
   // Format: "Portal > Inicio" or "CRM > Detalhe"
   const moduleName = currentModule?.label ?? "Portal"
-  const pageLabel = currentModule?.breadcrumb ?? "Inicio"
+
+  // Determine page label based on route pattern
+  let pageLabel = currentModule?.breadcrumb ?? "Inicio"
+
+  // Handle dynamic CRM detail routes: /crm/{opportunityId}
+  if (segments[0] === "crm" && segments.length >= 2) {
+    pageLabel = "Detalhe"
+  }
 
   return (
     <Breadcrumb>
