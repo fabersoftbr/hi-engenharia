@@ -144,6 +144,11 @@ export function CrmOpportunityDetailPage({
               <CardTitle>Acoes</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
+              <Button asChild>
+                <Link href={`/anteprojetos?sourceOpportunityId=${opportunity.id}`}>
+                  Criar anteprojeto
+                </Link>
+              </Button>
               <CrmStageChangeSelect
                 currentStage={opportunity.stage}
                 onStageChange={handleStageChange}
