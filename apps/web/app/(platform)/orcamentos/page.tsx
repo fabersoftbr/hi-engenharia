@@ -1,17 +1,5 @@
-import { ModulePlaceholderPage } from "@/components/platform/module-placeholder-page"
-import { MODULES, MODULE_GROUPS } from "@/lib/platform-config"
+import { BudgetRequestsListPage } from "@/components/platform/budget-requests/budget-requests-list-page"
 
 export default function OrcamentosPage() {
-  const mod = MODULES.find((m) => m.id === "orcamentos")!
-  const group = MODULE_GROUPS[mod.group]
-
-  return (
-    <ModulePlaceholderPage
-      moduleId={mod.id}
-      title={mod.label}
-      section={group.label}
-      description="Gerenciamento de orcamentos."
-      iconName={mod.iconName}
-    />
-  )
+  return <BudgetRequestsListPage />
 }
