@@ -52,10 +52,11 @@ export function CrmPipelineCard({ opportunity, index }: CrmPipelineCardProps) {
             </div>
 
             <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <Avatar size="sm">
                   <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
                 </Avatar>
+                <span className="truncate">{owner?.name ?? "Nao atribuido"}</span>
               </div>
               <span>Ultimo contato: {formattedLastContact}</span>
             </div>
