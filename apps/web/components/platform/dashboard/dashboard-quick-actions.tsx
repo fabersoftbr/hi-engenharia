@@ -14,7 +14,7 @@ export function DashboardQuickActions({ actions }: DashboardQuickActionsProps) {
   return (
     <div className="flex flex-col gap-3">
       <h2 className="text-base font-medium">Acoes Rapidas</h2>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {actions.map((action, index) => (
           <Button key={index} variant="outline" asChild>
             <Link href={action.route}>
