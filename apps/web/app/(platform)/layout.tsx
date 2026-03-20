@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/platform/app-sidebar"
 import { AppHeader } from "@/components/platform/app-header"
 import { PlatformShellProvider } from "@/components/platform/platform-shell-provider"
 import { SidebarProvider, SidebarInset } from "@workspace/ui/components/sidebar"
+import { TooltipProvider } from "@workspace/ui/components/tooltip"
 
 export default async function PlatformLayout({
   children,
@@ -21,13 +22,15 @@ export default async function PlatformLayout({
 
   return (
     <PlatformShellProvider initialProfile={activeProfile}>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <AppHeader />
-          <main className="flex flex-1 flex-col gap-4 p-4">{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
+      <TooltipProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <AppHeader />
+            <main className="flex flex-1 flex-col gap-4 p-4">{children}</main>
+          </SidebarInset>
+        </SidebarProvider>
+      </TooltipProvider>
     </PlatformShellProvider>
   )
 }
