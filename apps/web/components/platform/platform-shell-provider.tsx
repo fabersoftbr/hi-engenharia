@@ -58,17 +58,27 @@ export function PlatformShellProvider({
   children,
   initialProfile = "admin",
 }: PlatformShellProviderProps) {
-  // Initialize state with the provided initial profile (from server session)
-  const [activeProfile, setActiveProfileState] = useState<ProfileKey>(initialProfile)
+  // Initialize state with lazy initializer to read from localStorage on first render
+  const [activeProfile, setActiveProfileState] = useState<ProfileKey>(() => {
+    // On the client, try to read from localStorage first
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(ACTIVE_PROFILE_STORAGE_KEY)
+      if (stored && isValidProfile(stored)) {
+        return stored
+      }
+    }
+    // Fall back to the initial profile from server session
+    return initialProfile
+  })
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const [isHydrated, setIsHydrated] = useState(false)
 
-  // Hydrate from localStorage on mount
+  // Sync with initialProfile prop when it changes (e.g., after navigation)
   useEffect(() => {
     const storedProfile = getInitialProfile(initialProfile)
-    setActiveProfileState(storedProfile)
-    setIsHydrated(true)
+    setActiveProfileState((current) =>
+      current === storedProfile ? current : storedProfile
+    )
   }, [initialProfile])
 
   // Persist profile changes to localStorage

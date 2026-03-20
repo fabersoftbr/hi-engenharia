@@ -11,7 +11,7 @@ import {
 } from "@workspace/ui/components/dropdown-menu"
 import { CheckIcon } from "lucide-react"
 import { useActiveProfile } from "./platform-shell-provider"
-import { PROFILE_LABELS, type ProfileKey } from "@/lib/platform-config"
+import { type ProfileKey } from "@/lib/platform-config"
 
 // Profile labels in Portuguese (exact copy from plan requirement)
 const PROFILE_OPTIONS: { key: ProfileKey; label: string }[] = [
