@@ -10,7 +10,6 @@ import {
   DialogFooter,
 } from "@workspace/ui/components/dialog"
 import { Button } from "@workspace/ui/components/button"
-import { PREVIEW_SUBMITTED_REQUEST_ID } from "@/lib/budget-requests-data"
 import type { BudgetRequestFormValues } from "@/lib/budget-request-form"
 
 interface BudgetRequestSubmissionDialogProps {
@@ -70,8 +69,8 @@ export function BudgetRequestSubmissionDialog({
 
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
           <Button variant="outline" asChild>
-            <Link href={`/orcamentos/${PREVIEW_SUBMITTED_REQUEST_ID}`}>
-              Ver solicitacao
+            <Link href="/orcamentos">
+              Ver listagem
             </Link>
           </Button>
           <Button variant="outline" onClick={handleNewRequest}>
