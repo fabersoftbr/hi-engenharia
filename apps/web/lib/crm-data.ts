@@ -371,6 +371,7 @@ export function getCrmPriorityOptions(): Array<{ value: CrmPriority | "all"; lab
  * Filter input for CRM opportunities.
  */
 export interface CrmFilterInput {
+  opportunities?: CrmOpportunityRecord[]
   responsibleFilter: string
   priorityFilter: string
   searchQuery: string
@@ -380,7 +381,8 @@ export interface CrmFilterInput {
  * Filter CRM opportunities based on the provided filters.
  */
 export function filterCrmOpportunities(input: CrmFilterInput): CrmOpportunityRecord[] {
-  return CRM_OPPORTUNITIES.filter((opp) => {
+  const source = input.opportunities ?? CRM_OPPORTUNITIES
+  return source.filter((opp) => {
     // Responsible filter
     if (input.responsibleFilter !== "all" && opp.ownerId !== input.responsibleFilter) {
       return false
