@@ -11,10 +11,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import { Button } from "@workspace/ui/components/button"
-import {
-  getBudgetRequestStatusOptions,
-  type BudgetRequestStatus,
-} from "@/lib/budget-requests-data"
+import { getBudgetRequestStatusOptions } from "@/lib/budget-requests-data"
 
 interface BudgetRequestsToolbarProps {
   statusFilter: string
