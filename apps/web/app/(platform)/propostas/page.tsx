@@ -11,7 +11,7 @@ export default function PropostasPage() {
       title={mod.label}
       section={group.label}
       description="Gerador de propostas comerciais."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

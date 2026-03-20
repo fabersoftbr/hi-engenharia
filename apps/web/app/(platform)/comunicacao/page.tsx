@@ -11,7 +11,7 @@ export default function ComunicacaoPage() {
       title={mod.label}
       section={group.label}
       description="Central de comunicacao e mensagens."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

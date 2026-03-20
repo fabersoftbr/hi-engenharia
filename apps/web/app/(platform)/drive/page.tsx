@@ -11,7 +11,7 @@ export default function DrivePage() {
       title={mod.label}
       section={group.label}
       description="Armazenamento e gestao de arquivos."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

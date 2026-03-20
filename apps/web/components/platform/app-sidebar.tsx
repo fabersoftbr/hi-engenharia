@@ -18,8 +18,22 @@ import { BrandLogo } from "@/components/brand-logo"
 import {
   getGroupedModulesForProfile,
   MODULE_GROUPS,
+  ICON_MAP,
 } from "@/lib/platform-config"
 import { useActiveProfile } from "./platform-shell-provider"
+
+// Helper component to render module link with icon
+function ModuleLink({ mod, isActive }: { mod: { id: string; route: string; label: string; iconName: keyof typeof ICON_MAP }; isActive: boolean }) {
+  const Icon = ICON_MAP[mod.iconName]
+  return (
+    <SidebarMenuButton asChild isActive={isActive} tooltip={mod.label}>
+      <Link href={mod.route}>
+        <Icon />
+        <span>{mod.label}</span>
+      </Link>
+    </SidebarMenuButton>
+  )
+}
 
 export function AppSidebar() {
   const pathname = usePathname()
@@ -42,16 +56,10 @@ export function AppSidebar() {
               <SidebarMenu>
                 {groupedModules.operation.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
-                    <SidebarMenuButton
-                      asChild
+                    <ModuleLink
+                      mod={mod}
                       isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
-                      tooltip={mod.label}
-                    >
-                      <Link href={mod.route}>
-                        <mod.icon />
-                        <span>{mod.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                    />
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -67,16 +75,10 @@ export function AppSidebar() {
               <SidebarMenu>
                 {groupedModules.projects.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
-                    <SidebarMenuButton
-                      asChild
+                    <ModuleLink
+                      mod={mod}
                       isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
-                      tooltip={mod.label}
-                    >
-                      <Link href={mod.route}>
-                        <mod.icon />
-                        <span>{mod.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                    />
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -92,16 +94,10 @@ export function AppSidebar() {
               <SidebarMenu>
                 {groupedModules.content.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
-                    <SidebarMenuButton
-                      asChild
+                    <ModuleLink
+                      mod={mod}
                       isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
-                      tooltip={mod.label}
-                    >
-                      <Link href={mod.route}>
-                        <mod.icon />
-                        <span>{mod.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                    />
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -117,16 +113,10 @@ export function AppSidebar() {
               <SidebarMenu>
                 {groupedModules.tools.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
-                    <SidebarMenuButton
-                      asChild
+                    <ModuleLink
+                      mod={mod}
                       isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
-                      tooltip={mod.label}
-                    >
-                      <Link href={mod.route}>
-                        <mod.icon />
-                        <span>{mod.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
+                    />
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>

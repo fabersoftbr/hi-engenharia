@@ -11,7 +11,7 @@ export default function ProjetosPage() {
       title={mod.label}
       section={group.label}
       description="Gestao de projetos de engenharia."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

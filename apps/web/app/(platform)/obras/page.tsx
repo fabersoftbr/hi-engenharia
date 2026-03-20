@@ -11,7 +11,7 @@ export default function ObrasPage() {
       title={mod.label}
       section={group.label}
       description="Controle e acompanhamento de obras."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

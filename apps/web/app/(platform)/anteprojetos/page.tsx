@@ -11,7 +11,7 @@ export default function AnteprojetosPage() {
       title={mod.label}
       section={group.label}
       description="Gestao de anteprojetos."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

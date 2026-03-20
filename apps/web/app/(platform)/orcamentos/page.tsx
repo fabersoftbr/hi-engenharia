@@ -11,7 +11,7 @@ export default function OrcamentosPage() {
       title={mod.label}
       section={group.label}
       description="Gerenciamento de orcamentos."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

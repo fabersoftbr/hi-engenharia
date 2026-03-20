@@ -11,7 +11,7 @@ export default function CrmPage() {
       title={mod.label}
       section={group.label}
       description="Gestao de relacionamento com clientes."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }

@@ -7,6 +7,7 @@
 import {
   getModulesForProfile,
   PROFILE_LABELS,
+  ICON_MAP,
   type ProfileKey,
   type ModuleConfig,
 } from "@/lib/platform-config"
@@ -95,6 +96,16 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   operations: [
     { label: "Novo anteprojeto", route: "/anteprojetos", icon: PlusIcon },
     { label: "Abrir projetos", route: "/projetos", icon: FolderKanbanIcon },
+    { label: "Acompanhar obras", route: "/obras", icon: HardHatIcon },
+    { label: "Abrir drive", route: "/drive", icon: FolderIcon },
+  ],
+  cliente: [
+    {
+      label: "Nova solicitacao de orcamento",
+      route: "/orcamentos",
+      icon: PlusIcon,
+    },
+    { label: "Ver meus projetos", route: "/projetos", icon: FolderKanbanIcon },
     { label: "Acompanhar obras", route: "/obras", icon: HardHatIcon },
     { label: "Abrir drive", route: "/drive", icon: FolderIcon },
   ],
@@ -196,7 +207,7 @@ export function getDashboardModulesForProfile(
         id: mod.id,
         label: mod.label,
         route: mod.route,
-        icon: mod.icon,
+          icon: ICON_MAP[mod.iconName],
         activeCount: stats.activeCount,
         pendingCount: stats.pendingCount,
       }

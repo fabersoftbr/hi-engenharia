@@ -11,7 +11,7 @@ export default function TabelaDePrecosPage() {
       title={mod.label}
       section={group.label}
       description="Tabela de precos e servicos."
-      icon={mod.icon}
+      iconName={mod.iconName}
     />
   )
 }
