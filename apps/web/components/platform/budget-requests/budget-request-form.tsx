@@ -20,6 +20,8 @@ import { PREVIEW_SUBMITTED_REQUEST_ID } from "@/lib/budget-requests-data"
 
 export function BudgetRequestForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submittedFormData, setSubmittedFormData] =
+    useState<BudgetRequestFormValues | null>(null)
 
   const {
     register,
@@ -36,7 +38,8 @@ export function BudgetRequestForm() {
     // Simulated submit - no real persistence
     console.log("Form submitted:", data)
     console.log("Preview request ID:", PREVIEW_SUBMITTED_REQUEST_ID)
-    // In a real app, this would send data to the server
+    // Store submitted data for the confirmation dialog
+    setSubmittedFormData(data)
     setIsSubmitted(true)
   }
 
@@ -182,6 +185,7 @@ export function BudgetRequestForm() {
         isOpen={isSubmitted}
         onClose={() => setIsSubmitted(false)}
         onNewRequest={handleNewRequest}
+        submittedData={submittedFormData ?? undefined}
       />
     </>
   )
