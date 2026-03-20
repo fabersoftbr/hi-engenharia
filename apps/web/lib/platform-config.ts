@@ -18,8 +18,24 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
+// Icon name to component mapping for Client Component resolution
+export const ICON_MAP = {
+  "layout-dashboard": LayoutDashboardIcon,
+  "file-text": FileTextIcon,
+  "users": UsersIcon,
+  "file-code": FileCodeIcon,
+  "folder-kanban": FolderKanbanIcon,
+  "hard-hat": HardHatIcon,
+  "folder": FolderIcon,
+  "message-square": MessageSquareIcon,
+  "file-chart-line": FileChartLineIcon,
+  "table": TableIcon,
+} as const
+
+export type IconName = keyof typeof ICON_MAP
+
 // Profile types
-export type ProfileKey = "admin" | "commercial" | "partner" | "operations"
+export type ProfileKey = "admin" | "commercial" | "partner" | "operations" | "cliente"
 
 // Module definition
 export interface ModuleConfig {
@@ -27,7 +43,7 @@ export interface ModuleConfig {
   route: string
   label: string
   breadcrumb: string
-  icon: LucideIcon
+  iconName: IconName
   group: ModuleGroup
   visibleTo: ProfileKey[]
 }
@@ -57,25 +73,25 @@ export const MODULES: ModuleConfig[] = [
     route: "/portal",
     label: "Portal",
     breadcrumb: "Inicio",
-    icon: LayoutDashboardIcon,
+    iconName: "layout-dashboard",
     group: "operation",
-    visibleTo: ["admin", "commercial", "partner", "operations"],
+    visibleTo: ["admin", "commercial", "partner", "operations", "cliente"],
   },
   {
     id: "orcamentos",
     route: "/orcamentos",
     label: "Orcamentos",
     breadcrumb: "Orcamentos",
-    icon: FileTextIcon,
+    iconName: "file-text",
     group: "operation",
-    visibleTo: ["admin", "commercial", "partner"],
+    visibleTo: ["admin", "commercial", "partner", "cliente"],
   },
   {
     id: "crm",
     route: "/crm",
     label: "CRM",
     breadcrumb: "CRM",
-    icon: UsersIcon,
+    iconName: "users",
     group: "operation",
     visibleTo: ["admin", "commercial"],
   },
@@ -85,7 +101,7 @@ export const MODULES: ModuleConfig[] = [
     route: "/anteprojetos",
     label: "Anteprojetos",
     breadcrumb: "Anteprojetos",
-    icon: FileCodeIcon,
+    iconName: "file-code",
     group: "projects",
     visibleTo: ["admin", "operations"],
   },
@@ -94,18 +110,18 @@ export const MODULES: ModuleConfig[] = [
     route: "/projetos",
     label: "Projetos",
     breadcrumb: "Projetos",
-    icon: FolderKanbanIcon,
+    iconName: "folder-kanban",
     group: "projects",
-    visibleTo: ["admin", "operations"],
+    visibleTo: ["admin", "operations", "cliente"],
   },
   {
     id: "obras",
     route: "/obras",
     label: "Obras",
     breadcrumb: "Obras",
-    icon: HardHatIcon,
+    iconName: "hard-hat",
     group: "projects",
-    visibleTo: ["admin", "operations"],
+    visibleTo: ["admin", "operations", "cliente"],
   },
   // CONTEUDO
   {
@@ -113,16 +129,16 @@ export const MODULES: ModuleConfig[] = [
     route: "/drive",
     label: "Drive",
     breadcrumb: "Drive",
-    icon: FolderIcon,
+    iconName: "folder",
     group: "content",
-    visibleTo: ["admin", "operations"],
+    visibleTo: ["admin", "operations", "cliente"],
   },
   {
     id: "comunicacao",
     route: "/comunicacao",
     label: "Comunicacao",
     breadcrumb: "Comunicacao",
-    icon: MessageSquareIcon,
+    iconName: "message-square",
     group: "content",
     visibleTo: ["admin"],
   },
@@ -132,7 +148,7 @@ export const MODULES: ModuleConfig[] = [
     route: "/propostas",
     label: "Gerador de Propostas",
     breadcrumb: "Propostas",
-    icon: FileChartLineIcon,
+    iconName: "file-chart-line",
     group: "tools",
     visibleTo: ["admin", "commercial"],
   },
@@ -141,7 +157,7 @@ export const MODULES: ModuleConfig[] = [
     route: "/tabela-de-precos",
     label: "Tabela de Precos",
     breadcrumb: "Tabela de Precos",
-    icon: TableIcon,
+    iconName: "table",
     group: "tools",
     visibleTo: ["admin", "commercial"],
   },
@@ -189,4 +205,5 @@ export const PROFILE_LABELS: Record<ProfileKey, string> = {
   commercial: "Comercial interno",
   partner: "Afiliado/Parceiro externo",
   operations: "Engenharia/Operacao",
+  cliente: "Cliente",
 }
