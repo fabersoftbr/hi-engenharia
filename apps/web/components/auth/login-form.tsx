@@ -1,6 +1,7 @@
 "use client"
 
-import { useActionState } from "react"
+import { useRef } from "react"
+import { useFormStatus } from "react-dom"
 import { Loader2 } from "lucide-react"
 
 import { Button } from "@workspace/ui/components/button"
@@ -9,8 +10,24 @@ import { Label } from "@workspace/ui/components/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { enterPortal } from "@/app/(public)/login/actions"
 
-const initialState = {
-  message: "",
+/**
+ * Submit button with pending state using useFormStatus.
+ */
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 size-4 animate-spin" />
+          Entrando...
+        </>
+      ) : (
+        "Entrar"
+      )}
+    </Button>
+  )
 }
 
 /**
@@ -18,7 +35,7 @@ const initialState = {
  * Accepts any email and password, shows pending state during submission.
  */
 export function LoginForm() {
-  const [state, formAction, isPending] = useActionState(enterPortal, initialState)
+  const formRef = useRef<HTMLFormElement>(null)
 
   return (
     <Card className="w-full max-w-md">
@@ -26,7 +43,7 @@ export function LoginForm() {
         <CardTitle className="text-2xl">Entrar</CardTitle>
       </CardHeader>
       <CardContent>
-        <form action={formAction} className="space-y-4">
+        <form ref={formRef} action={enterPortal} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">E-mail</Label>
             <Input
@@ -35,7 +52,6 @@ export function LoginForm() {
               type="email"
               placeholder="seu@email.com"
               required
-              disabled={isPending}
             />
           </div>
 
@@ -47,24 +63,10 @@ export function LoginForm() {
               type="password"
               placeholder="Sua senha"
               required
-              disabled={isPending}
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isPending}>
-            {isPending ? (
-              <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
-                Entrando...
-              </>
-            ) : (
-              "Entrar"
-            )}
-          </Button>
-
-          {state.message && (
-            <p className="text-center text-sm text-destructive">{state.message}</p>
-          )}
+          <SubmitButton />
 
           <div className="space-y-2 pt-4 text-center text-sm text-muted-foreground">
             <p className="rounded-md bg-muted/50 px-3 py-2">
