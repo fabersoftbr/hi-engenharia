@@ -12,9 +12,9 @@
 
 ### Portal
 
-- [ ] **PORT-01**: Usuario pode abrir um dashboard inicial com atalhos operacionais e resumos dos modulos principais
+- [x] **PORT-01**: Usuario pode abrir um dashboard inicial com atalhos operacionais e resumos dos modulos principais
 - [ ] **PORT-02**: Usuario pode navegar por um menu principal responsivo entre Portal, Orcamentos, CRM, Projetos, Drive, Propostas, Tabela de Precos e Comunicacao
-- [ ] **PORT-03**: Usuario pode visualizar cards de resumo com status, pendencias e destaques operacionais mockados
+- [x] **PORT-03**: Usuario pode visualizar cards de resumo com status, pendencias e destaques operacionais mockados
 - [ ] **PORT-04**: Usuario pode se orientar em qualquer modulo por meio de cabecalho contextual e breadcrumbs
 
 ### Solicitação de Orçamento
@@ -118,9 +118,9 @@
 |-------------|-------|--------|
 | AUTH-01 | Phase 1 | Complete |
 | AUTH-02 | Phase 1 | Complete |
-| PORT-01 | Phase 2 | Pending |
+| PORT-01 | Phase 2 | Complete |
 | PORT-02 | Phase 1 | Pending |
-| PORT-03 | Phase 2 | Pending |
+| PORT-03 | Phase 2 | Complete |
 | PORT-04 | Phase 1 | Pending |
 | ORC-01 | Phase 3 | Pending |
 | ORC-02 | Phase 3 | Pending |

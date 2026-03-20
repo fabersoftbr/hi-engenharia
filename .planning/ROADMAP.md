@@ -51,7 +51,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Definir a arquitetura de informacao do dashboard inicial
+- [x] 02-01: Definir a arquitetura de informacao do dashboard inicial
 - [ ] 02-02: Construir cards de resumo, indicadores e atalhos operacionais
 - [ ] 02-03: Integrar comunicados resumidos e destaques modulares na home
 
