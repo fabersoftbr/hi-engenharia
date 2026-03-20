@@ -7,8 +7,8 @@
 
 ### Access
 
-- [ ] **AUTH-01**: Usuario pode entrar por uma tela de login simulada com identidade visual da Hi Engenharia
-- [ ] **AUTH-02**: Usuario pode visualizar ou selecionar um perfil simulado ao acessar a plataforma
+- [x] **AUTH-01**: Usuario pode entrar por uma tela de login simulada com identidade visual da Hi Engenharia
+- [x] **AUTH-02**: Usuario pode visualizar ou selecionar um perfil simulado ao acessar a plataforma
 
 ### Portal
 
@@ -116,8 +116,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
 | PORT-01 | Phase 2 | Pending |
 | PORT-02 | Phase 1 | Pending |
 | PORT-03 | Phase 2 | Pending |
