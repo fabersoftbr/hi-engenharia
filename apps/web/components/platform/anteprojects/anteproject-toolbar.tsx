@@ -2,6 +2,7 @@
 
 import { SearchIcon, AlertCircleIcon } from "lucide-react"
 
+import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import {
   Select,
@@ -10,8 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
-import { Checkbox } from "@workspace/ui/components/checkbox"
-import { Label } from "@workspace/ui/components/label"
 import {
   getAnteprojectResponsibleOptions,
   getAnteprojectPriorityOptions,
@@ -88,22 +87,15 @@ export function AnteprojectToolbar({
         </Select>
 
         {/* Awaiting information toggle */}
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="show-awaiting"
-            checked={showAwaitingOnly}
-            onCheckedChange={(checked) =>
-              onShowAwaitingOnlyChange(checked === true)
-            }
-          />
-          <Label
-            htmlFor="show-awaiting"
-            className="flex items-center gap-1.5 text-sm font-normal"
-          >
-            <AlertCircleIcon className="size-4 text-muted-foreground" />
-            Aguardando informacoes
-          </Label>
-        </div>
+        <Button
+          variant={showAwaitingOnly ? "default" : "outline"}
+          size="sm"
+          onClick={() => onShowAwaitingOnlyChange(!showAwaitingOnly)}
+          className="w-full sm:w-auto"
+        >
+          <AlertCircleIcon data-icon="inline-start" />
+          Aguardando informacoes
+        </Button>
       </div>
     </div>
   )
