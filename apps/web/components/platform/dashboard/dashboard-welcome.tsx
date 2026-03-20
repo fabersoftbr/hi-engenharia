@@ -1,6 +1,6 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import { Card, CardContent } from "@workspace/ui/components/card"
 import { Badge } from "@workspace/ui/components/badge"
 
 export interface DashboardWelcomeProps {
@@ -14,25 +14,14 @@ export function DashboardWelcome({
 }: DashboardWelcomeProps) {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Visao geral</CardTitle>
-      </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <div className="flex flex-col gap-2">
           <p className="text-lg font-medium">
-            {getGreeting()}, {profileLabel}.
+            {getGreeting()}, <Badge variant="secondary">{profileLabel}</Badge>.
+            Voce tem {totalPendingCount} pendencias abertas.
           </p>
           <p className="text-muted-foreground">
-            {totalPendingCount > 0 ? (
-              <>
-                Voce tem{" "}
-                <Badge variant="secondary" className="ml-1">
-                  {totalPendingCount} pendentes
-                </Badge>
-              </>
-            ) : (
-              "Todos os itens estao em dia."
-            )}
+            Acompanhe os modulos mais importantes do dia.
           </p>
         </div>
       </CardContent>
