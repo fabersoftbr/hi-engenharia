@@ -20,9 +20,9 @@
 ### Solicitação de Orçamento
 
 - [ ] **ORC-01**: Usuario pode listar solicitacoes de orcamento com status, cliente e data simulados
-- [ ] **ORC-02**: Usuario pode preencher uma nova solicitacao com nome do cliente, telefone, cidade, consumo medio mensal, observacoes e anexos simulados
+- [x] **ORC-02**: Usuario pode preencher uma nova solicitacao com nome do cliente, telefone, cidade, consumo medio mensal, observacoes e anexos simulados
 - [ ] **ORC-03**: Usuario pode abrir a tela de detalhes de uma solicitacao com dados do cliente, observacoes e anexos simulados
-- [ ] **ORC-04**: Usuario pode visualizar uma confirmacao de envio apos concluir o fluxo visual de nova solicitacao
+- [x] **ORC-04**: Usuario pode visualizar uma confirmacao de envio apos concluir o fluxo visual de nova solicitacao
 
 ### CRM
 
@@ -123,9 +123,9 @@
 | PORT-03 | Phase 2 | Complete |
 | PORT-04 | Phase 1 | Pending |
 | ORC-01 | Phase 3 | Pending |
-| ORC-02 | Phase 3 | Pending |
+| ORC-02 | Phase 3 | Complete |
 | ORC-03 | Phase 3 | Pending |
-| ORC-04 | Phase 3 | Pending |
+| ORC-04 | Phase 3 | Complete |
 | CRM-01 | Phase 4 | Pending |
 | CRM-02 | Phase 4 | Pending |
 | CRM-03 | Phase 4 | Pending |
