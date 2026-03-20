@@ -11,9 +11,6 @@ import {
   type ModuleConfig,
 } from "@/lib/platform-config"
 import {
-  FileTextIcon,
-  UsersIcon,
-  FileCodeIcon,
   HardHatIcon,
   FolderKanbanIcon,
   FileChartLineIcon,
@@ -21,7 +18,6 @@ import {
   FolderIcon,
   PlusIcon,
   EyeIcon,
-  WrenchIcon,
   type LucideIcon,
 } from "lucide-react"
 
