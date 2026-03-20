@@ -18,15 +18,12 @@ import { BrandLogo } from "@/components/brand-logo"
 import {
   getGroupedModulesForProfile,
   MODULE_GROUPS,
-  type ProfileKey,
 } from "@/lib/platform-config"
+import { useActiveProfile } from "./platform-shell-provider"
 
-interface AppSidebarProps {
-  activeProfile: ProfileKey
-}
-
-export function AppSidebar({ activeProfile }: AppSidebarProps) {
+export function AppSidebar() {
   const pathname = usePathname()
+  const { activeProfile } = useActiveProfile()
   const groupedModules = getGroupedModulesForProfile(activeProfile)
 
   return (
