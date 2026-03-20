@@ -21,7 +21,7 @@ export function DashboardUrgentHighlights({
       <CardContent className="flex flex-col gap-3">
         {items.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            Nenhum destaque no momento.
+            Nenhuma pendencia urgente no momento.
           </p>
         ) : (
           items.map((item) => (
