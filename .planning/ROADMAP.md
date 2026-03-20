@@ -12,7 +12,7 @@ Este roadmap organiza a Fase 01 como uma evolucao frontend-only da base existent
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Shell de Acesso e Identidade** - Estrutura a entrada, o shell principal e a diferenciação visual por perfil
+- [x] **Phase 1: Shell de Acesso e Identidade** - Estrutura a entrada, o shell principal e a diferenciação visual por perfil (completed 2026-03-20)
 - [ ] **Phase 2: Dashboard e Home Operacional** - Entrega a visão inicial do portal com resumos, atalhos e destaques
 - [ ] **Phase 3: Solicitações de Orçamento** - Constrói o primeiro fluxo comercial de entrada
 - [ ] **Phase 4: CRM e Pipeline Comercial** - Organiza oportunidades, detalhes e funil comercial
@@ -159,7 +159,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Shell de Acesso e Identidade | 0/4 | Not started | - |
+| 1. Shell de Acesso e Identidade | 4/4 | Complete   | 2026-03-20 |
 | 2. Dashboard e Home Operacional | 0/3 | Not started | - |
 | 3. Solicitações de Orçamento | 0/3 | Not started | - |
 | 4. CRM e Pipeline Comercial | 0/3 | Not started | - |

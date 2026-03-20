@@ -75,8 +75,8 @@
 
 ### Perfis
 
-- [ ] **ROLE-01**: Usuario pode ver menu, atalhos e modulos variando conforme o perfil simulado selecionado
-- [ ] **ROLE-02**: Usuario pode encontrar areas com acesso restrito exibidas como estados visuais bloqueados, sem permissao real
+- [x] **ROLE-01**: Usuario pode ver menu, atalhos e modulos variando conforme o perfil simulado selecionado
+- [x] **ROLE-02**: Usuario pode encontrar areas com acesso restrito exibidas como estados visuais bloqueados, sem permissao real
 
 ### Estados Visuais
 
@@ -151,8 +151,8 @@
 | COMM-01 | Phase 7 | Pending |
 | COMM-02 | Phase 7 | Pending |
 | COMM-03 | Phase 7 | Pending |
-| ROLE-01 | Phase 1 | Pending |
-| ROLE-02 | Phase 1 | Pending |
+| ROLE-01 | Phase 1 | Complete |
+| ROLE-02 | Phase 1 | Complete |
 | STAT-01 | Phase 8 | Pending |
 | STAT-02 | Phase 8 | Pending |
 | STAT-03 | Phase 8 | Pending |
