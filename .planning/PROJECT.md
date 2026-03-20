@@ -15,11 +15,10 @@ Dar a Hi Engenharia uma camada visual unica, clara e padronizada para navegar se
 - ✓ A aplicacao web base renderiza um shell responsivo em Next.js com layout global compartilhado e tipografia configurada - existing
 - ✓ O repositorio ja possui um pacote de UI reutilizavel com componentes e tokens visuais compativeis com o ecossistema shadcn - existing
 - ✓ O shell atual suporta alternancia de tema no cliente, mostrando que a base visual compartilhada ja esta conectada - existing
+- ✓ Usuario pode entrar por uma tela de login totalmente simulada e acessar o portal sem autenticacao real - Validated in Phase 01
+- ✓ Usuario pode visualizar um dashboard inicial com atalhos operacionais, comunicados, resumo dos modulos e indicadores mockados - Validated in Phase 02
 
 ### Active
-
-- [ ] Usuario pode entrar por uma tela de login totalmente simulada e acessar o portal sem autenticacao real
-- [ ] Usuario pode visualizar um dashboard inicial com atalhos operacionais, comunicados, resumo dos modulos e indicadores mockados
 - [ ] Usuario pode navegar por uma estrutura unica entre Portal, Solicitacao de Orcamento, CRM, Projetos, Drive, Gerador de Propostas, Tabela de Precos e Portal de Comunicacao
 - [ ] Usuario pode visualizar os pipelines Comercial, Anteprojetos e Obras em layouts claros, legiveis e responsivos, com etapas e status simulados
 - [ ] Usuario pode percorrer fluxos simulados de solicitacao de orcamento, oportunidade comercial, anteprojeto, proposta e obra apenas por telas e navegacao frontend
@@ -61,4 +60,4 @@ Repositorio brownfield com base minima em Next.js 16, React 19, Tailwind CSS 4 e
 | Priorizar primeiro a camada de portal, navegacao e modulos antes de qualquer logica real | Esta fase serve para organizar a operacao visualmente e preparar a base para evolucao futura | - Pending |
 
 ---
-*Last updated: 2026-03-19 after initialization*
+*Last updated: 2026-03-20 after Phase 02 completion*
