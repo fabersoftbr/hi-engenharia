@@ -13,7 +13,7 @@ export function DashboardSummaryGrid({ modules }: DashboardSummaryGridProps) {
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-base font-medium">Resumo por modulo</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {modules.map((mod) => (
           <Link key={mod.id} href={mod.route} className="block">
             <Card className="transition-colors hover:bg-muted/50">
@@ -23,7 +23,7 @@ export function DashboardSummaryGrid({ modules }: DashboardSummaryGridProps) {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-semibold">{mod.activeCount}</span>
+                  <span className="text-lg">{mod.activeCount} itens ativos</span>
                   {mod.pendingCount > 0 ? (
                     <Badge variant="secondary" className="text-xs">
                       {mod.pendingCount} pendentes
