@@ -1,10 +1,9 @@
 "use client"
 
-import { type LucideIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { RestrictedModuleState } from "./restricted-module-state"
 import { useActiveProfile } from "./platform-shell-provider"
-import { MODULES, type ProfileKey } from "@/lib/platform-config"
+import { MODULES, type ProfileKey, ICON_MAP, type IconName } from "@/lib/platform-config"
 
 // Check if the active profile has access to a module
 function hasAccessToModule(moduleId: string, profile: ProfileKey): boolean {
@@ -17,7 +16,7 @@ interface ModulePlaceholderPageProps {
   title: string
   section: string
   description: string
-  icon: LucideIcon
+  iconName: IconName
 }
 
 export function ModulePlaceholderPage({
@@ -25,10 +24,13 @@ export function ModulePlaceholderPage({
   title,
   section,
   description,
-  icon: Icon,
+  iconName,
 }: ModulePlaceholderPageProps) {
   const { activeProfile } = useActiveProfile()
   const hasAccess = hasAccessToModule(moduleId, activeProfile)
+
+  // Resolve icon name to component
+  const Icon = ICON_MAP[iconName]
 
   // Show restricted state if profile doesn't have access
   if (!hasAccess) {
