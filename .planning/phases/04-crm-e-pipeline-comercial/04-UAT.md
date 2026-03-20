@@ -1,9 +1,9 @@
 ---
-status: complete
+status: diagnosed
 phase: 04-crm-e-pipeline-comercial
 source: [04-02-SUMMARY.md, 04-03-SUMMARY.md]
 started: 2026-03-20T20:30:00Z
-updated: 2026-03-20T20:42:00Z
+updated: 2026-03-20T20:45:00Z
 ---
 
 ## Current Test
@@ -75,17 +75,25 @@ skipped: 0
   reason: "User reported: esta precisando de scroll para ver as opcoes no lado direito da pagina, precisamos ajustar isso"
   severity: major
   test: 6
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Header section in crm-workspace-page.tsx uses sm:flex-row with multiple items on the right side (toggle buttons + Nova oportunidade button) without flex-wrap. Right-side container has flex items-center gap-2 with no wrapping capability, causing horizontal overflow on viewports 640px-900px."
+  artifacts:
+    - path: "apps/web/components/platform/crm/crm-workspace-page.tsx"
+      issue: "Lines 86-119 - header lacks responsive handling for multiple items on right side"
+  missing:
+    - "Change breakpoint from sm: to md: for horizontal layout"
+    - "Or add flex-wrap to right-side container"
+    - "Or move toggle buttons to left side next to title"
+  debug_session: .planning/debug/crm-toolbar-horizontal-scroll.md
 
 - truth: "Card shows responsible person full name"
   status: failed
   reason: "User reported: Nao aparece o nome do responsavel, aparece um icone com as iniciais"
   severity: minor
   test: 8
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "CrmPipelineCard component renders ONLY the Avatar with initials in AvatarFallback, but never renders the owner.name text alongside it. The owner data contains the name, but it's not displayed."
+  artifacts:
+    - path: "apps/web/components/platform/crm/crm-pipeline-card.tsx"
+      issue: "Lines 54-59 - missing text element to display owner name after Avatar"
+  missing:
+    - "Add text element after Avatar to display responsible person's name"
+  debug_session: .planning/debug/kanban-card-responsible-name.md
