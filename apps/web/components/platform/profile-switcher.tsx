@@ -19,6 +19,7 @@ const PROFILE_OPTIONS: { key: ProfileKey; label: string }[] = [
   { key: "commercial", label: "Comercial interno" },
   { key: "partner", label: "Afiliado/Parceiro externo" },
   { key: "operations", label: "Engenharia/Operacao" },
+  { key: "cliente", label: "Cliente" },
 ]
 
 export function ProfileSwitcher() {
