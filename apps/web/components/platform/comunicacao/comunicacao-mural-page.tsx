@@ -10,6 +10,7 @@ import {
 } from "@/lib/comunicacao-data"
 import { ComunicacaoCard } from "./comunicacao-card"
 import { ComunicacaoToolbar } from "./comunicacao-toolbar"
+import { ComunicacaoPublishDialog } from "./comunicacao-publish-dialog"
 
 export function ComunicacaoMuralPage() {
   const [categoryFilter, setCategoryFilter] = useState("all")
@@ -76,7 +77,10 @@ export function ComunicacaoMuralPage() {
           <ComunicacaoCard key={comunicado.id} comunicado={comunicado} />
         ))}
       </div>
-      {/* publishDialogOpen state reserved for Plan 04 */}
+      <ComunicacaoPublishDialog
+        open={publishDialogOpen}
+        onOpenChange={setPublishDialogOpen}
+      />
     </div>
   )
 }

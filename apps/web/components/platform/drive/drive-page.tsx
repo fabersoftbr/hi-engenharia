@@ -2,10 +2,26 @@
 
 import { useState } from "react"
 import { FolderIcon } from "lucide-react"
+import { toast } from "sonner"
 
-import type { DriveSection, DriveFolder } from "@/lib/drive-data"
-import { getDriveFolders, searchDrive } from "@/lib/drive-data"
+import type { DriveSection, DriveFolder, DriveFile } from "@/lib/drive-data"
+import {
+  getDriveFolders,
+  searchDrive,
+  getFilesInFolder,
+  getDriveFolderById,
+} from "@/lib/drive-data"
 import { useActiveProfile } from "@/components/platform/platform-shell-provider"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@workspace/ui/components/alert-dialog"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import {
   Tabs,
@@ -16,8 +32,15 @@ import {
 
 import { DriveBreadcrumb } from "./drive-breadcrumb"
 import { DriveEmptyState } from "./drive-empty-state"
+import { DriveFilePreview } from "./drive-file-preview"
+import { DriveFileTable } from "./drive-file-table"
 import { DriveFolderList } from "./drive-folder-list"
 import { DriveToolbar } from "./drive-toolbar"
+import {
+  useUploadHandler,
+  triggerDownload,
+  triggerBulkDownload,
+} from "./drive-upload-handler"
 
 // Helper to get default section based on profile
 function getDefaultSectionForProfile(profile: string): DriveSection {
@@ -39,6 +62,7 @@ export function DrivePage() {
   const { activeProfile } = useActiveProfile()
   const visibleTabs = getVisibleTabsForProfile(activeProfile)
   const defaultSection = getDefaultSectionForProfile(activeProfile)
+  const { triggerUpload } = useUploadHandler()
 
   const [currentSection, setCurrentSection] =
     useState<DriveSection>(defaultSection)
@@ -47,16 +71,27 @@ export function DrivePage() {
     null
   )
   const [searchQuery, setSearchQuery] = useState("")
+  const [previewFile, setPreviewFile] = useState<DriveFile | null>(null)
+  const [selectedFileIds, setSelectedFileIds] = useState<string[]>([])
+  const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = useState(false)
 
   // Get current folder data
   const currentFolder: DriveFolder | undefined = currentFolderId
-    ? getDriveFolders(currentSection).find((f) => f.id === currentFolderId)
+    ? getDriveFolderById(currentFolderId)
     : undefined
 
   // Get current subfolder name
   const currentSubfolder = currentFolder?.subfolders.find(
     (sf) => sf.id === currentSubfolderId
   )
+
+  // Get files in current folder/subfolder
+  const currentFiles =
+    currentFolderId && currentSubfolderId
+      ? getFilesInFolder(currentFolderId, currentSubfolderId)
+      : currentFolderId
+        ? getFilesInFolder(currentFolderId, currentSubfolderId)
+        : []
 
   // Search results
   const searchResults = searchQuery.trim()
@@ -95,18 +130,58 @@ export function DrivePage() {
   }
 
   const handleUpload = () => {
-    // Placeholder for upload functionality (Plan 07-02)
-    console.log("Upload clicked")
+    triggerUpload()
   }
 
   const handleNewFolder = () => {
-    // Placeholder for new folder functionality
-    console.log("New folder clicked")
+    toast("Funcionalidade simulada")
   }
 
   const handleFolderAction = (folderId: string, action: string) => {
     // Placeholder for folder actions
     console.log(`Folder ${folderId} action: ${action}`)
+  }
+
+  const handleFileClick = (file: DriveFile) => {
+    setPreviewFile(file)
+  }
+
+  const handlePreviewClose = (open: boolean) => {
+    if (!open) {
+      setPreviewFile(null)
+    }
+  }
+
+  const handleDownload = (file: DriveFile) => {
+    triggerDownload(file)
+  }
+
+  const handleDeleteFile = (file: DriveFile) => {
+    // Simulated delete - in real app this would call an API
+    toast.success("Arquivo excluido")
+  }
+
+  const handleRename = (file: DriveFile) => {
+    // Placeholder for rename functionality
+    toast("Funcionalidade simulada")
+  }
+
+  const handleSelectionChange = (selectedIds: string[]) => {
+    setSelectedFileIds(selectedIds)
+  }
+
+  const handleBulkDownload = () => {
+    triggerBulkDownload(selectedFileIds.length)
+  }
+
+  const handleBulkDelete = () => {
+    setBulkDeleteDialogOpen(true)
+  }
+
+  const handleBulkDeleteConfirm = () => {
+    setBulkDeleteDialogOpen(false)
+    toast.success(`${selectedFileIds.length} arquivos excluidos`)
+    setSelectedFileIds([])
   }
 
   // Render content based on state
@@ -153,16 +228,21 @@ export function DrivePage() {
       )
     }
 
-    // Inside a folder with subfolder selected
+    // Inside a folder with subfolder selected - show file table
     if (currentFolderId && currentSubfolderId) {
       return (
-        <div className="py-8 text-center text-muted-foreground">
-          Listagem de arquivos sera implementada no plano 07-02
-        </div>
+        <DriveFileTable
+          files={currentFiles}
+          onFileClick={handleFileClick}
+          onSelectionChange={handleSelectionChange}
+          onDeleteFile={handleDeleteFile}
+          onDownload={handleDownload}
+          onRename={handleRename}
+        />
       )
     }
 
-    // Inside a folder (show subfolders + placeholder for files)
+    // Inside a folder (show subfolders + files)
     if (currentFolderId && currentFolder) {
       const subfolders = currentFolder.subfolders
 
@@ -190,9 +270,14 @@ export function DrivePage() {
               ))}
             </div>
           )}
-          <div className="py-8 text-center text-muted-foreground">
-            Listagem de arquivos sera implementada no plano 07-02
-          </div>
+          <DriveFileTable
+            files={currentFiles}
+            onFileClick={handleFileClick}
+            onSelectionChange={handleSelectionChange}
+            onDeleteFile={handleDeleteFile}
+            onDownload={handleDownload}
+            onRename={handleRename}
+          />
         </div>
       )
     }
@@ -258,10 +343,43 @@ export function DrivePage() {
         onSearchQueryChange={setSearchQuery}
         onNewFolder={handleNewFolder}
         onUpload={handleUpload}
+        selectionCount={selectedFileIds.length}
+        onBulkDownload={handleBulkDownload}
+        onBulkDelete={handleBulkDelete}
       />
 
       {/* Content */}
       {renderContent()}
+
+      {/* File Preview Sheet */}
+      <DriveFilePreview
+        file={previewFile}
+        open={previewFile !== null}
+        onOpenChange={handlePreviewClose}
+        onDownload={handleDownload}
+      />
+
+      {/* Bulk Delete Confirmation */}
+      <AlertDialog
+        open={bulkDeleteDialogOpen}
+        onOpenChange={setBulkDeleteDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir arquivos</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir os {selectedFileIds.length}{" "}
+              arquivos selecionados?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleBulkDeleteConfirm}>
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
