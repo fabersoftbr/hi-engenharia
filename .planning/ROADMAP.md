@@ -149,9 +149,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 08-01: Aplicar cobertura transversal de loading, empty, success e error states
-- [ ] 08-02: Ajustar responsividade do shell, tabelas, pipelines e detalhes para mobile
-- [ ] 08-03: Polir a jornada completa entre orçamento, CRM, proposta, projeto, drive e obra
+- [ ] 08-01-PLAN.md -- Shared state primitives, tooltip/toast defaults, and App Router error surfaces
+- [ ] 08-02-PLAN.md -- Responsive shell, table, pipeline, dialog, and detail normalization for implemented modules
+- [ ] 08-03-PLAN.md -- Dependency-gated jornada, dashboard pendencies, and cross-module handoff polish
 
 ## Progress
 
