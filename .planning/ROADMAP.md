@@ -132,10 +132,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 07-01: Construir navegação de pastas e árvores de arquivos do Drive
-- [ ] 07-02: Entregar listagem de arquivos, metadados, permissões e preview visual
-- [ ] 07-03: Criar mural de comunicados com filtros e detalhes
-- [ ] 07-04: Simular publicação de comunicado e conexões com o dashboard
+- [ ] 07-01-PLAN.md -- Contrato de dados e navegacao de pastas do Drive com tabs e breadcrumb
+- [ ] 07-02-PLAN.md -- Listagem de arquivos com multi-select, preview lateral e upload/download simulado
+- [ ] 07-03-PLAN.md -- Mural de comunicados com filtros, cards e pagina de detalhe
+- [ ] 07-04-PLAN.md -- Wizard de publicacao de comunicado e pagina de edicao
 
 ### Phase 8: Estados, Responsividade e Jornada Completa
 **Goal**: Fechar a fase com cobertura de estados visuais, responsividade e fluidez entre os módulos principais
