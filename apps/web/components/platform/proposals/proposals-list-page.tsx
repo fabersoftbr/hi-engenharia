@@ -58,7 +58,11 @@ const columns: ColumnDef<ProposalRecord>[] = [
     header: "Valor",
     cell: ({ row }) => {
       const total = calculateProposalTotal(row.original.items)
-      return <span className="font-mono text-sm">{formatCurrency(total)}</span>
+      return (
+        <span className="hidden font-mono text-sm lg:table-cell">
+          {formatCurrency(total)}
+        </span>
+      )
     },
   },
   {
@@ -67,7 +71,7 @@ const columns: ColumnDef<ProposalRecord>[] = [
     cell: ({ row }) => {
       const date = new Date(row.original.createdAt)
       return (
-        <span className="text-sm text-muted-foreground">
+        <span className="hidden text-sm text-muted-foreground lg:table-cell">
           {date.toLocaleDateString("pt-BR")}
         </span>
       )

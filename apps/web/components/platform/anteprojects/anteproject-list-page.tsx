@@ -2,6 +2,7 @@
 
 import { Row } from "@tanstack/react-table"
 import { useRouter } from "next/navigation"
+import { SearchIcon } from "lucide-react"
 
 import { DataTable } from "@workspace/ui/components/data-table"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
@@ -9,6 +10,7 @@ import {
   AnteprojectRecord,
   getAnteprojectOwnerById,
 } from "@/lib/anteprojects-data"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 import { AnteprojectPriorityBadge } from "./anteproject-priority-badge"
 
@@ -106,12 +108,21 @@ export function AnteprojectListPage({
     router.push(`/anteprojetos/${row.original.id}`)
   }
 
+  const noResultsState = (
+    <EmptyState
+      icon={SearchIcon}
+      title="Nenhum resultado"
+      description="Nenhum anteprojeto encontrado para os filtros aplicados."
+    />
+  )
+
   return (
     <DataTable
       columns={columns}
       data={anteprojects}
       pageSize={10}
       onRowClick={handleRowClick}
+      emptyState={noResultsState}
     />
   )
 }

@@ -2,9 +2,11 @@
 
 import { ColumnDef, Row } from "@tanstack/react-table"
 import { useRouter } from "next/navigation"
+import { SearchIcon } from "lucide-react"
 
 import { DataTable } from "@workspace/ui/components/data-table"
 import { CrmOpportunityRecord, getCrmOwnerById } from "@/lib/crm-data"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { CrmStageBadge } from "./crm-stage-badge"
 import { CrmPriorityBadge } from "./crm-priority-badge"
 
@@ -89,12 +91,21 @@ export function CrmListPage({ opportunities }: CrmListPageProps) {
     router.push(`/crm/${row.original.id}`)
   }
 
+  const noResultsState = (
+    <EmptyState
+      icon={SearchIcon}
+      title="Nenhum resultado"
+      description="Nenhuma oportunidade encontrada para os filtros aplicados."
+    />
+  )
+
   return (
     <DataTable
       columns={columns}
       data={opportunities}
       pageSize={10}
       onRowClick={handleRowClick}
+      emptyState={noResultsState}
     />
   )
 }

@@ -1,5 +1,15 @@
 "use client"
 
+import { SearchIcon } from "lucide-react"
+
+import { Input } from "@workspace/ui/components/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@workspace/ui/components/select"
 import {
   getPriceRegionOptions,
   getPriceConsumptionBandOptions,
@@ -26,47 +36,50 @@ export function PriceTableToolbar({
   const bandOptions = getPriceConsumptionBandOptions()
 
   return (
-    <div className="flex flex-col gap-4 md:flex-row md:items-center">
+    <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
       {/* Region filter */}
-      <div className="flex items-center gap-2">
-        <label className="text-sm font-medium">Regiao</label>
-        <select
-          value={regionFilter}
-          onChange={(e) => onRegionFilterChange(e.target.value)}
-          className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
-        >
+      <Select value={regionFilter} onValueChange={onRegionFilterChange}>
+        <SelectTrigger className="w-full md:w-40">
+          <SelectValue placeholder="Regiao" />
+        </SelectTrigger>
+        <SelectContent>
           {regionOptions.map((option) => (
-            <option key={option.value} value={option.value}>
+            <SelectItem key={option.value} value={option.value}>
               {option.label}
-            </option>
+            </SelectItem>
           ))}
-        </select>
-      </div>
+        </SelectContent>
+      </Select>
 
       {/* Consumption band filter */}
-      <div className="flex items-center gap-2">
-        <label className="text-sm font-medium">Faixa de consumo</label>
-        <select
-          value={consumptionBandFilter}
-          onChange={(e) => onConsumptionBandFilterChange(e.target.value)}
-          className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm"
-        >
+      <Select
+        value={consumptionBandFilter}
+        onValueChange={onConsumptionBandFilterChange}
+      >
+        <SelectTrigger className="w-full md:w-48">
+          <SelectValue placeholder="Faixa de consumo" />
+        </SelectTrigger>
+        <SelectContent>
           {bandOptions.map((option) => (
-            <option key={option.value} value={option.value}>
+            <SelectItem key={option.value} value={option.value}>
               {option.label}
-            </option>
+            </SelectItem>
           ))}
-        </select>
-      </div>
+        </SelectContent>
+      </Select>
 
       {/* Search */}
-      <div className="flex-1">
-        <input
-          type="text"
+      <div className="relative flex-1">
+        <SearchIcon
+          data-icon="inline-start"
+          className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+        />
+        <Input
+          type="search"
           placeholder="Buscar por codigo ou item..."
           value={searchQuery}
           onChange={(e) => onSearchQueryChange(e.target.value)}
-          className="w-full rounded-md border border-input bg-transparent px-3 py-1.5 text-sm"
+          className="pl-9"
         />
       </div>
     </div>
