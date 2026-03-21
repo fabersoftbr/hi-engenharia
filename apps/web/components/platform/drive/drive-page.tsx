@@ -12,6 +12,8 @@ import {
   getDriveFolderById,
 } from "@/lib/drive-data"
 import { useActiveProfile } from "@/components/platform/platform-shell-provider"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { TableSkeleton } from "@/components/platform/states/skeletons"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -59,6 +61,7 @@ function getVisibleTabsForProfile(profile: string): DriveSection[] {
 }
 
 export function DrivePage() {
+  const isLoading = useSimulatedLoading()
   const { activeProfile } = useActiveProfile()
   const visibleTabs = getVisibleTabsForProfile(activeProfile)
   const defaultSection = getDefaultSectionForProfile(activeProfile)
@@ -186,6 +189,11 @@ export function DrivePage() {
 
   // Render content based on state
   const renderContent = () => {
+    // Loading state
+    if (isLoading) {
+      return <TableSkeleton rows={8} />
+    }
+
     // Search mode
     if (searchResults) {
       if (

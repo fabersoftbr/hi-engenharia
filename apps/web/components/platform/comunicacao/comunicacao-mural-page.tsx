@@ -8,11 +8,14 @@ import {
   getComunicados,
   type ComunicadoPeriod,
 } from "@/lib/comunicacao-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { CardGridSkeleton } from "@/components/platform/states/skeletons"
 import { ComunicacaoCard } from "./comunicacao-card"
 import { ComunicacaoToolbar } from "./comunicacao-toolbar"
 import { ComunicacaoPublishDialog } from "./comunicacao-publish-dialog"
 
 export function ComunicacaoMuralPage() {
+  const isLoading = useSimulatedLoading()
   const [categoryFilter, setCategoryFilter] = useState("all")
   const [periodFilter, setPeriodFilter] = useState<ComunicadoPeriod>("all")
   const [searchQuery, setSearchQuery] = useState("")
@@ -27,6 +30,16 @@ export function ComunicacaoMuralPage() {
   const handleNewComunicado = () => {
     setPublishDialogOpen(true)
   }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <CardGridSkeleton cards={3} />
+      </div>
+    )
+  }
+
   // Empty state for no comunicados at all
   if (comunicados.length === 0) {
     return (

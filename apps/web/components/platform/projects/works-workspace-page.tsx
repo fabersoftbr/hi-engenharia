@@ -28,10 +28,16 @@ import {
   type ProjectRecord,
   type WorkStageId,
 } from "@/lib/projects-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import {
+  TableSkeleton,
+  PipelineSkeleton,
+} from "@/components/platform/states/skeletons"
 import { WorksPipelineBoard } from "./works-pipeline-board"
 import { WorksListPage } from "./works-list-page"
 
 export function WorksWorkspacePage() {
+  const isLoading = useSimulatedLoading()
   const [projects, setProjects] = React.useState<ProjectRecord[]>(() =>
     getProjects()
   )
@@ -151,7 +157,13 @@ export function WorksWorkspacePage() {
       </div>
 
       {/* View content */}
-      {viewMode === "kanban" ? (
+      {isLoading ? (
+        viewMode === "lista" ? (
+          <TableSkeleton rows={8} />
+        ) : (
+          <PipelineSkeleton stages={11} />
+        )
+      ) : viewMode === "kanban" ? (
         <WorksPipelineBoard
           projects={filteredProjects}
           onDragEnd={handleDragEnd}
