@@ -81,7 +81,7 @@ export const COMUNICADO_AUTHORS: ComunicadoAuthor[] = [
 
 // Helper to get author by index (type-safe)
 function getAuthor(index: number): ComunicadoAuthor {
-  const author = COMUNICADO_AUTHORS[index]
+  const author = COMUNICADO_AUTHORS.at(index)
   if (!author) {
     throw new Error(`Author at index ${index} not found`)
   }
@@ -144,7 +144,7 @@ Parabens a todos pelo excelente trabalho.
 
 Diretoria Comercial`,
     category: "comercial",
-    author: COMUNICADO_AUTHORS[1],
+    author: getAuthor(1),
     publishedAt: "2026-03-18T14:30:00Z",
     isDestaque: true,
     isDraft: false,
@@ -170,7 +170,7 @@ Pedimos desculpas pelo inconveniente e agradecemos a compreensao.
 
 Equipe de TI`,
     category: "ti",
-    author: COMUNICADO_AUTHORS[2],
+    author: getAuthor(2),
     publishedAt: "2026-03-17T09:00:00Z",
     isDestaque: false,
     isDraft: false,
@@ -199,7 +199,7 @@ Qualquer duvida, entrem em contato com o RH.
 
 Departamento de Recursos Humanos`,
     category: "rh",
-    author: COMUNICADO_AUTHORS[0],
+    author: getAuthor(0),
     publishedAt: "2026-03-15T11:00:00Z",
     isDestaque: false,
     isDraft: false,
@@ -219,7 +219,7 @@ Apos a conclusao, o certificado estara disponivel para download. A nao conclusao
 
 Equipe de RH`,
     category: "rh",
-    author: COMUNICADO_AUTHORS[0],
+    author: getAuthor(0),
     publishedAt: "2026-03-12T09:00:00Z",
     isDestaque: false,
     isDraft: false,
@@ -244,7 +244,7 @@ Essa parceria nos permite oferecer solucoes ainda mais completas para nossos cli
 
 Diretoria Comercial`,
     category: "comercial",
-    author: COMUNICADO_AUTHORS[1],
+    author: getAuthor(1),
     publishedAt: "2026-03-10T16:00:00Z",
     isDestaque: false,
     isDraft: false,
@@ -273,7 +273,7 @@ Os colaboradores responsaveis pelos veiculos devem confirma a disponibilidade pa
 
 Coordenacao Operacional`,
     category: "operacional",
-    author: COMUNICADO_AUTHORS[2],
+    author: getAuthor(2),
     publishedAt: "2026-03-08T08:00:00Z",
     isDestaque: false,
     isDraft: false,
@@ -302,7 +302,7 @@ Pedimos a todos que recepcionem nossos novos colegas com calor. Estamos felizes 
 
 Diretoria`,
     category: "geral",
-    author: COMUNICADO_AUTHORS[0],
+    author: getAuthor(0),
     publishedAt: "2026-03-05T14:00:00Z",
     isDestaque: false,
     isDraft: false,

@@ -56,7 +56,7 @@ export function AppBreadcrumbs() {
   }
 
   // Handle dynamic project routes: /projetos/{projectId}
-  if (segments[0] === "projetos" && segments.length >= 2) {
+  if (segments[0] === "projetos" && segments.length >= 2 && segments[1]) {
     const project = getProjectById(segments[1])
     pageLabel = project?.title ?? "Detalhe"
   }
