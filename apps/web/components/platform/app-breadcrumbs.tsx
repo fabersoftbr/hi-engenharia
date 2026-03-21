@@ -73,7 +73,9 @@ export function AppBreadcrumbs() {
 
   // Handle dynamic comunicacao routes
   if (segments[0] === "comunicacao") {
-    if (segments.length >= 2) {
+    if (segments[2] === "editar") {
+      pageLabel = "Editar"
+    } else if (segments.length >= 2) {
       pageLabel = "Detalhe"
     }
   }
