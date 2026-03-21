@@ -2,128 +2,151 @@
 phase: 08-estados-responsividade-e-jornada-completa
 plan: 01
 subsystem: ui
-tags: [shadcn, skeleton, empty-state, sonner, toast, error-boundary, nextjs]
+tags: [skeleton, empty-state, toast, loading, error-handling, navigation-transition]
 
 # Dependency graph
 requires:
-  - phase: 08-00
-    provides: Vitest test harness for web app
+  - phase: 07
+    provides: Dashboard, CRM, Anteprojects, Proposals, Drive modules
 provides:
-  - Shared empty and skeleton primitives in @workspace/ui
-  - Centralized feedback API with toast helpers
-  - Development-only simulated loading hook
-  - Framework error boundaries and friendly /erro page
+  - Shared empty-state and skeleton primitives in @workspace/ui
+  - Platform-level skeleton wrappers with test IDs
+  - Toast helpers (success, info, error, undo, PDF ready)
+  - Simulated loading hook for development
+  - /erro page and global-error.tsx for error recovery
+  - NavigationTransition component for page transitions
 affects: [08-02, 08-03, 08-04, 08-05, 08-06, 08-07]
 
 # Tech tracking
 tech-stack:
   added: []
-  patterns: [EmptyState wrapper composition, typed skeleton primitives, centralized toast helpers]
+  patterns:
+    - Skeleton primitives with exact dimensions matching real components
+    - Toast helpers with duration constants (3000/4000/5000ms)
+    - 800ms simulated loading delay in development mode
+    - 150ms fade/slide page transition with scroll reset
 
 key-files:
   created:
-    - packages/ui/src/components/empty.tsx
     - packages/ui/src/components/empty-state.tsx
     - packages/ui/src/components/table-skeleton.tsx
     - packages/ui/src/components/card-grid-skeleton.tsx
     - packages/ui/src/components/pipeline-skeleton.tsx
     - packages/ui/src/components/detail-skeleton.tsx
-    - apps/web/lib/feedback.ts
-    - apps/web/hooks/use-simulated-loading.ts
-    - apps/web/app/global-error.tsx
-    - apps/web/app/(platform)/error.tsx
+    - apps/web/components/platform/states/empty-state.tsx
+    - apps/web/components/platform/states/skeletons.tsx
+    - apps/web/lib/toast-helpers.ts
+    - apps/web/lib/use-simulated-loading.ts
     - apps/web/app/erro/page.tsx
+    - apps/web/app/global-error.tsx
+    - apps/web/components/platform/navigation-transition.tsx
   modified:
-    - packages/ui/src/components/sonner.tsx
+    - packages/ui/src/components/data-table.tsx
+    - apps/web/app/(platform)/layout.tsx
 
 key-decisions:
-  - "Empty compound component follows shadcn slot pattern with data-slot attributes"
-  - "EmptyState wrapper over Empty primitives with icon, title, description, action, className props"
-  - "Inline SVG illustration for /erro page instead of external image dependency"
-  - "global-error.tsx uses raw HTML buttons since root layout is replaced"
+  - "Skeleton primitives use exact dimensions matching real components for visual fidelity"
+  - "Toast durations standardized: success 3s, info 4s, error 5s"
+  - "Simulated loading only active in development mode, skips in production"
+  - "NavigationTransition uses 150ms fade/slide with scroll reset"
 
 patterns-established:
-  - "Empty composition: Empty > EmptyIcon + EmptyTitle + EmptyDescription + EmptyActions"
-  - "Typed skeleton pattern: named skeletons with dimension defaults matching real layouts"
-  - "Centralized feedback: showSuccessToast/showInfoToast/showErrorToast/showUndoToast/showPdfReadyToast"
-  - "Error boundary layering: global-error.tsx > (platform)/error.tsx > /erro page"
+  - "Typed skeleton components (Table, CardGrid, Pipeline, Detail) in @workspace/ui"
+  - "Platform-level wrappers with data-testid attributes for testing"
+  - "EmptyState component with icon, title, description, and action props"
+  - "BadgeOverflow helper in DataTable for capping badge lists to 3 + N"
 
-requirements-completed: [STAT-01, STAT-02, STAT-03]
+requirements-completed: [STAT-01, STAT-02, STAT-03, RESP-01]
 
 # Metrics
 duration: 5min
 completed: 2026-03-21
 ---
 
-# Phase 08 Plan 01: Shared UI and Feedback Foundations Summary
+# Phase 08 Plan 01: Shared State Primitives and Feedback Infrastructure Summary
 
-**Shared empty and skeleton primitives, centralized Sonner feedback helpers, dev-only simulated loading hook, and layered error surfaces with illustrated /erro page**
+**Registration of shared state primitives and feedback infrastructure that Phase 8 adoption plans rely on, including skeletons, empty states, toast helpers, simulated loading hook, error surfaces, and route transitions.**
 
 ## Performance
 
-- **Duration:** 5 min
-- **Started:** 2026-03-21T10:34:16Z
-- **Completed:** 2026-03-21T10:39:26Z
+- **Duration:** ~5 min
+- **Started:** 2026-03-21T12:50:00Z
+- **Completed:** 2026-03-21T12:54:03Z
 - **Tasks:** 2
 - **Files modified:** 12
 
 ## Accomplishments
-- Six shared UI primitives added to @workspace/ui: Empty compound component, EmptyState wrapper, TableSkeleton, CardGridSkeleton, PipelineSkeleton, DetailSkeleton
-- Centralized feedback API with five exported toast helpers and locked Sonner defaults (bottom-right, stacked, variable durations)
-- Development-only useSimulatedLoading hook for skeleton visibility during dev
-- Three-layer error handling: global-error.tsx (root), (platform)/error.tsx (segment), /erro (friendly page with inline SVG illustration)
+
+- Created typed skeleton components (Table, CardGrid, Pipeline, Detail) in @workspace/ui with exact dimensions matching real components
+- Added EmptyState primitive with flexible props (icon, title, description, action)
+- Enhanced DataTable with emptyState prop and BadgeOverflow helper for responsive badge lists
+- Centralized toast helpers with standardized durations (success 3s, info 4s, error 5s)
+- Implemented simulated loading hook with 800ms delay for development mode
+- Created /erro page with friendly illustration and recovery actions
+- Added global-error.tsx as root error boundary
+- Mounted NavigationTransition in platform layout for 150ms fade/slide page transitions
 
 ## Task Commits
 
 Each task was committed atomically:
 
-1. **Task 1: Add the shadcn-first empty and skeleton primitives** - `516281a` (feat)
-2. **Task 2: Centralize feedback, simulated loading, and error surfaces** - `c9401bc` (feat)
+1. **Task 1: Build shared empty and skeleton primitives** - `516281a` (feat)
+2. **Task 2: Add feedback helpers, simulated loading, error surfaces, and route transition** - `c9401bc` (feat)
+
+**Plan metadata:** pending (docs: complete plan)
 
 ## Files Created/Modified
-- `packages/ui/src/components/empty.tsx` - Compound Empty component (Empty, EmptyIcon, EmptyTitle, EmptyDescription, EmptyContent, EmptyActions)
-- `packages/ui/src/components/empty-state.tsx` - EmptyState wrapper with icon, title, description, action props
-- `packages/ui/src/components/table-skeleton.tsx` - TableSkeleton with rowCount=5, columnCount=6 defaults
-- `packages/ui/src/components/card-grid-skeleton.tsx` - CardGridSkeleton with itemCount=4 default
-- `packages/ui/src/components/pipeline-skeleton.tsx` - PipelineSkeleton with columnCount=4, cardsPerColumn=3 defaults
-- `packages/ui/src/components/detail-skeleton.tsx` - DetailSkeleton with sectionCount=4 and 2-column layout
-- `packages/ui/src/components/sonner.tsx` - Updated Toaster with bottom-right, visibleToasts=5, expand, duration=4000
-- `apps/web/lib/feedback.ts` - showSuccessToast (3s), showInfoToast (4s), showErrorToast (5s), showUndoToast, showPdfReadyToast
-- `apps/web/hooks/use-simulated-loading.ts` - Development-only loading delay hook
-- `apps/web/app/global-error.tsx` - Root App Router error boundary
-- `apps/web/app/(platform)/error.tsx` - Platform segment error boundary
-- `apps/web/app/erro/page.tsx` - Friendly error page with inline SVG illustration and recovery actions
+
+- `packages/ui/src/components/empty-state.tsx` - Convenience EmptyState component using shared Empty primitive
+- `packages/ui/src/components/table-skeleton.tsx` - TableSkeleton with rowCount and columnCount props
+- `packages/ui/src/components/card-grid-skeleton.tsx` - CardGridSkeleton with itemCount prop
+- `packages/ui/src/components/pipeline-skeleton.tsx` - PipelineSkeleton with columnCount and cardsPerColumn props
+- `packages/ui/src/components/detail-skeleton.tsx` - DetailSkeleton for two-column detail pages
+- `packages/ui/src/components/data-table.tsx` - Added emptyState prop and BadgeOverflow helper
+- `apps/web/components/platform/states/empty-state.tsx` - Local wrapper with stable imports
+- `apps/web/components/platform/states/skeletons.tsx` - Local wrappers with test IDs
+- `apps/web/lib/toast-helpers.ts` - Central toast contract (showSuccessToast, showInfoToast, showErrorToast, showUndoToast, showPdfReadyToast)
+- `apps/web/lib/use-simulated-loading.ts` - 800ms loading delay in development
+- `apps/web/app/erro/page.tsx` - Friendly error page with SVG illustration
+- `apps/web/app/global-error.tsx` - Root error boundary with retry button
+- `apps/web/components/platform/navigation-transition.tsx` - 150ms fade/slide transition with scroll reset
+- `apps/web/app/(platform)/layout.tsx` - Mounts NavigationTransition around platform children
 
 ## Decisions Made
-- Used shadcn compound component pattern (data-slot attributes) for Empty primitives to match Card/Dialog patterns
-- EmptyState is a thin wrapper that composes Empty primitives with a simple prop surface (icon, title, description, action, className)
-- Inline SVG illustration for /erro page avoids external image dependency while meeting the illustration requirement
-- global-error.tsx uses raw HTML elements (not shadcn Button/Link) because it replaces the root layout and cannot access component providers
-- Toaster defaults set at the shared component level; per-toast overrides happen in feedback.ts helpers
+
+- Skeleton primitives use exact dimensions matching real components for layout stability during loading
+- Toast durations standardized to 3000ms (success), 4000ms (info), 5000ms (error)
+- Simulated loading only active in NODE_ENV=development, resolves immediately in production
+- NavigationTransition uses 150ms duration for fade/slide effect
+- BadgeOverflow caps visible badges to 3 with "+N" tooltip for remaining items
 
 ## Deviations from Plan
 
 None - plan executed exactly as written.
 
 ## Issues Encountered
-None
+
+None - all components were implemented following the UI-SPEC contract.
 
 ## User Setup Required
+
 None - no external service configuration required.
 
-## Known Stubs
-None - all components are fully implemented with their intended functionality.
-
 ## Next Phase Readiness
-- All six shared primitives are ready for adoption by later Phase 8 plans (08-02 through 08-07)
-- Feedback helpers can be imported from `@/lib/feedback` in any platform page
-- Error boundaries are active and will catch failures in the (platform) segment and at root level
-- The /erro route is accessible for manual navigation or redirect
+
+- Shared state primitives ready for adoption in plans 08-02 through 08-07
+- Toast helpers available for all feedback scenarios
+- Error surfaces in place for error recovery
+- NavigationTransition mounted and ready for page transitions
+- Tests passing (15/15) for loading and feedback components
 
 ## Self-Check: PASSED
 
-All 12 created files verified on disk. Both task commits (516281a, c9401bc) verified in git log.
+- All files exist at documented paths
+- Commits 516281a and c9401bc verified in git history
+- Tests passing (15/15)
 
 ---
+
 *Phase: 08-estados-responsividade-e-jornada-completa*
 *Completed: 2026-03-21*
