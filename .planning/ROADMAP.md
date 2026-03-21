@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Dashboard e Home Operacional** - Entrega a visão inicial do portal com resumos, atalhos e destaques
 - [ ] **Phase 3: Solicitações de Orçamento** - Constrói o primeiro fluxo comercial de entrada
 - [ ] **Phase 4: CRM e Pipeline Comercial** - Organiza oportunidades, detalhes e funil comercial
-- [ ] **Phase 5: Anteprojetos, Propostas e Preços** - Conecta análise técnica, proposta comercial e tabela de preços
+- [x] **Phase 5: Anteprojetos, Propostas e Preços** - Conecta análise técnica, proposta comercial e tabela de preços (completed 2026-03-21)
 - [ ] **Phase 6: Projetos e Pipeline de Obras** - Representa a execução e o acompanhamento visual das obras
 - [ ] **Phase 7: Drive e Comunicação** - Estrutura arquivos, permissões simuladas e mural de comunicados
 - [ ] **Phase 8: Estados, Responsividade e Jornada Completa** - Fecha a cobertura visual do produto com polimento transversal
@@ -96,13 +96,14 @@ Plans:
   3. Usuario pode iniciar, preencher e revisar uma proposta a partir de cliente ou oportunidade simulada
   4. Usuario pode consultar tabela de preços e usar essa referência na construção visual da proposta
   5. Usuario pode ver uma pré-visualização completa e acionar exportação simulada da proposta
-**Plans**: 4 plans
+**Plans**: 5 plans (completed 2026-03-21)
 
 Plans:
-- [ ] 05-01: Construir fila e detalhe de anteprojetos com estados tecnicos
-- [ ] 05-02: Montar pipeline de Anteprojetos e pontos de handoff para o comercial
-- [ ] 05-03: Entregar formulario do gerador de propostas e consulta de tabela de preços
-- [ ] 05-04: Finalizar preview da proposta e ação simulada de exportação/envio
+- [x] 05-01: Construir fila e detalhe de anteprojetos com estados tecnicos
+- [x] 05-02: Montar pipeline de Anteprojetos e pontos de handoff para o comercial
+- [x] 05-03: Entregar formulario do gerador de propostas e consulta de tabela de preços
+- [x] 05-04: Finalizar preview da proposta e ação simulada de exportação/envio
+- [x] 05-05: Wire price lookup selection to proposal form item fields
 
 ### Phase 6: Projetos e Pipeline de Obras
 **Goal**: Representar projetos em andamento e o ciclo visual completo de execução da obra
@@ -163,7 +164,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 2. Dashboard e Home Operacional | 0/3 | Not started | - |
 | 3. Solicitações de Orçamento | 0/3 | Not started | - |
 | 4. CRM e Pipeline Comercial | 0/3 | Not started | - |
-| 5. Anteprojetos, Propostas e Preços | 0/4 | Not started | - |
+| 5. Anteprojetos, Propostas e Preços | 5/5 | Complete | 2026-03-21 |
 | 6. Projetos e Pipeline de Obras | 0/3 | Not started | - |
 | 7. Drive e Comunicação | 0/4 | Not started | - |
 | 8. Estados, Responsividade e Jornada Completa | 0/3 | Not started | - |

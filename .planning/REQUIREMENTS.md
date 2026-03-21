@@ -45,7 +45,7 @@
 ### Propostas
 
 - [ ] **PROP-01**: Usuario pode iniciar uma proposta a partir de um cliente ou oportunidade simulada
-- [ ] **PROP-02**: Usuario pode preencher um formulario de proposta com dados do projeto e parametros comerciais simulados
+- [x] **PROP-02**: Usuario pode preencher um formulario de proposta com dados do projeto e parametros comerciais simulados
 - [ ] **PROP-03**: Usuario pode visualizar a montagem e a pre-visualizacao da proposta antes da exportacao
 - [ ] **PROP-04**: Usuario pode acionar uma exportacao simulada de PDF ou envio visual da proposta
 
@@ -136,7 +136,7 @@
 | ANT-01 | Phase 5 | Pending |
 | ANT-02 | Phase 5 | Pending |
 | PROP-01 | Phase 5 | Pending |
-| PROP-02 | Phase 5 | Pending |
+| PROP-02 | Phase 5 | Complete |
 | PROP-03 | Phase 5 | Pending |
 | PROP-04 | Phase 5 | Pending |
 | PREC-01 | Phase 5 | Pending |
