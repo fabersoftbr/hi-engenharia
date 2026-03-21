@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 08-01-PLAN.md
-last_updated: "2026-03-21T14:20:31.186Z"
+stopped_at: Completed 08-03-PLAN.md
+last_updated: "2026-03-21T14:39:50.359Z"
 progress:
   total_phases: 9
   completed_phases: 7
   total_plans: 40
-  completed_plans: 31
+  completed_plans: 32
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 08 (estados-responsividade-e-jornada-completa) — EXECUTING
-Plan: 4 of 8
+Plan: 5 of 8
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Plan: 4 of 8
 | Phase 08 P00 | 9min | 3 tasks | 10 files |
 | Phase 08 P01 | 5min | 2 tasks | 12 files |
 | Phase 08 P00 | 17min | 2 tasks | 2 files |
+| Phase 08 P03 | 5min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 08]: Toast durations standardized: success 3s, info 4s, error 5s
 - [Phase 08]: Simulated loading only active in development mode, skips in production
 - [Phase 08]: NavigationTransition uses 150ms fade/slide with scroll reset
+- [Phase 08]: Breadcrumbs extended with stable labels for /comunicacao/[id]/editar and /projetos/[id]/obra
+- [Phase 08]: Price Table toolbar normalized to use shadcn Select/Input instead of raw HTML controls
+- [Phase 08]: Proposals list page now hides value/date columns below lg breakpoint
 
 ### Roadmap Evolution
 
@@ -114,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T12:55:39.188Z
-Stopped at: Completed 08-01-PLAN.md
+Last session: 2026-03-21T14:39:50.356Z
+Stopped at: Completed 08-03-PLAN.md
 Resume file: None

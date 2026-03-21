@@ -153,7 +153,7 @@ Plans:
 - [x] 08-00-PLAN.md -- Add Wave 0 Vitest harness and the targeted Phase 8 specs from 08-VALIDATION
 - [x] 08-01-PLAN.md -- Create shared state primitives, feedback helpers, simulated loading, and `/erro` error surfaces
 - [x] 08-02-PLAN.md -- Adopt loading, empty, and no-results states on dashboard, list, and pipeline screens
-- [ ] 08-03-PLAN.md -- Normalize shell, header, theme, navigation, and responsive table behavior
+- [x] 08-03-PLAN.md -- Normalize shell, header, theme, navigation, and responsive table behavior
 - [ ] 08-04-PLAN.md -- Add mobile pipeline tabs, bottom-sheet overlays, and destructive confirmations
 - [ ] 08-05-PLAN.md -- Polish detail and form responsiveness, feedback adoption, and accessibility
 - [ ] 08-06-PLAN.md -- Build `/jornada`, the sidebar entry, and dashboard pendencies across the full chain
