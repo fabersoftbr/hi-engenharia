@@ -147,12 +147,17 @@ Plans:
   1. Usuario consegue percorrer visualmente a jornada de orçamento até obra entre telas conectadas
   2. Usuario encontra estados de carregamento, vazio, sem resultados, sucesso e erro nas telas principais
   3. Usuario consegue usar shell, listas, detalhes e pipelines em desktop e mobile com leitura clara
-**Plans**: 3 plans
+**Plans**: 8 plans
 
 Plans:
-- [ ] 08-01-PLAN.md -- Shared state primitives, tooltip/toast defaults, and App Router error surfaces
-- [ ] 08-02-PLAN.md -- Responsive shell, table, pipeline, dialog, and detail normalization for implemented modules
-- [ ] 08-03-PLAN.md -- Dependency-gated jornada, dashboard pendencies, and cross-module handoff polish
+- [ ] 08-00-PLAN.md -- Add Wave 0 Vitest harness and the targeted Phase 8 specs from 08-VALIDATION
+- [ ] 08-01-PLAN.md -- Create shared state primitives, feedback helpers, simulated loading, and `/erro` error surfaces
+- [ ] 08-02-PLAN.md -- Adopt loading, empty, and no-results states on dashboard, list, and pipeline screens
+- [ ] 08-03-PLAN.md -- Normalize shell, header, theme, navigation, and responsive table behavior
+- [ ] 08-04-PLAN.md -- Add mobile pipeline tabs, bottom-sheet overlays, and destructive confirmations
+- [ ] 08-05-PLAN.md -- Polish detail and form responsiveness, feedback adoption, and accessibility
+- [ ] 08-06-PLAN.md -- Build `/jornada`, the sidebar entry, and dashboard pendencies across the full chain
+- [ ] 08-07-PLAN.md -- Wire lineage, back navigation, and next-step handoffs through Drive and Obra
 
 ### Phase 9: Clean Code Audit
 **Goal**: Apply clean code principles (Robert C. Martin) to audit all code files on this branch and apply best practices
@@ -185,5 +190,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Anteprojetos, Propostas e Preços | 5/5 | Complete | 2026-03-21 |
 | 6. Projetos e Pipeline de Obras | 0/3 | Not started | - |
 | 7. Drive e Comunicação | 0/4 | Not started | - |
-| 8. Estados, Responsividade e Jornada Completa | 0/3 | Not started | - |
+| 8. Estados, Responsividade e Jornada Completa | 0/8 | Not started | - |
 | 9. Clean Code Audit | 0/4 | Not started | - |
