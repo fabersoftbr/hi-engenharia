@@ -86,7 +86,7 @@
 
 ### Responsividade
 
-- [ ] **RESP-01**: Usuario pode utilizar as principais telas do portal, dos modulos, das listagens e dos detalhes em desktop e mobile com navegacao clara
+- [x] **RESP-01**: Usuario pode utilizar as principais telas do portal, dos modulos, das listagens e dos detalhes em desktop e mobile com navegacao clara
 
 ## v2 Requirements
 
@@ -156,7 +156,7 @@
 | STAT-01 | Phase 8 | Complete |
 | STAT-02 | Phase 8 | Complete |
 | STAT-03 | Phase 8 | Complete |
-| RESP-01 | Phase 8 | Pending |
+| RESP-01 | Phase 8 | Complete |
 
 **Coverage:**
 - v1 requirements: 41 total

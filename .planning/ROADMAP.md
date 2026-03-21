@@ -150,7 +150,7 @@ Plans:
 **Plans**: 8 plans
 
 Plans:
-- [ ] 08-00-PLAN.md -- Add Wave 0 Vitest harness and the targeted Phase 8 specs from 08-VALIDATION
+- [x] 08-00-PLAN.md -- Add Wave 0 Vitest harness and the targeted Phase 8 specs from 08-VALIDATION
 - [x] 08-01-PLAN.md -- Create shared state primitives, feedback helpers, simulated loading, and `/erro` error surfaces
 - [ ] 08-02-PLAN.md -- Adopt loading, empty, and no-results states on dashboard, list, and pipeline screens
 - [ ] 08-03-PLAN.md -- Normalize shell, header, theme, navigation, and responsive table behavior
