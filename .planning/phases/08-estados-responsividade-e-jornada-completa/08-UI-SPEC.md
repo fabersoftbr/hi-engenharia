@@ -1,10 +1,11 @@
 ---
 phase: 8
 slug: estados-responsividade-e-jornada-completa
-status: draft
+status: approved
 shadcn_initialized: true
 preset: radix-maia
 created: 2026-03-21
+reviewed_at: 2026-03-21
 ---
 
 # Phase 08 -- UI Design Contract
