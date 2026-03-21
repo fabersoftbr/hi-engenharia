@@ -79,6 +79,15 @@ export const COMUNICADO_AUTHORS: ComunicadoAuthor[] = [
   { id: "author-3", name: "Bruno Lima", initials: "BL" },
 ]
 
+// Helper to get author by index (type-safe)
+function getAuthor(index: number): ComunicadoAuthor {
+  const author = COMUNICADO_AUTHORS[index]
+  if (!author) {
+    throw new Error(`Author at index ${index} not found`)
+  }
+  return author
+}
+
 /**
  * Seeded comunicado records for the mock module.
  * At least 2 must have isDestaque: true.
@@ -105,7 +114,7 @@ Contamos com a colaboracao de todos para manter um ambiente de trabalho seguro e
 Atenciosamente,
 Equipe de Seguranca`,
     category: "operacional",
-    author: COMUNICADO_AUTHORS[0],
+    author: getAuthor(0),
     publishedAt: "2026-03-20T10:00:00Z",
     isDestaque: true,
     isDraft: false,

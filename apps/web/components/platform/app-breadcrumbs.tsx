@@ -10,6 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb"
 import { getModuleByRoute } from "@/lib/platform-config"
+import { getProjectById } from "@/lib/projects-data"
 
 export function AppBreadcrumbs() {
   const pathname = usePathname()
@@ -50,6 +51,19 @@ export function AppBreadcrumbs() {
     if (segments[1] === "upload") {
       pageLabel = "Upload"
     } else if (segments.length >= 2) {
+      pageLabel = "Detalhe"
+    }
+  }
+
+  // Handle dynamic project routes: /projetos/{projectId}
+  if (segments[0] === "projetos" && segments.length >= 2) {
+    const project = getProjectById(segments[1])
+    pageLabel = project?.title ?? "Detalhe"
+  }
+
+  // Handle dynamic comunicacao routes
+  if (segments[0] === "comunicacao") {
+    if (segments.length >= 2) {
       pageLabel = "Detalhe"
     }
   }
