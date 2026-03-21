@@ -14,6 +14,8 @@ import { BudgetRequestStatusDialog } from "./budget-request-status-dialog"
 import { BUDGET_REQUEST_STATUS_META } from "@/lib/budget-requests-data"
 import Link from "next/link"
 import { FileText } from "lucide-react"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
 interface BudgetRequestDetailPageProps {
   request: BudgetRequestRecord
@@ -38,7 +40,12 @@ function formatDate(dateString: string): string {
 export function BudgetRequestDetailPage({
   request,
 }: BudgetRequestDetailPageProps) {
+  const isLoading = useSimulatedLoading()
   const statusMeta = BUDGET_REQUEST_STATUS_META[request.status]
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   return (
     <div className="flex flex-col gap-6">

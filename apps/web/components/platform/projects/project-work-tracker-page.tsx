@@ -45,6 +45,8 @@ import {
 import { ProjectMilestoneTimeline } from "./project-milestone-timeline"
 import { ProjectGanttSchedule } from "./project-gantt-schedule"
 import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
 interface ProjectWorkTrackerPageProps {
   project: ProjectRecord
@@ -71,8 +73,13 @@ export function ProjectWorkTrackerPage({
   project: initialProject,
 }: ProjectWorkTrackerPageProps) {
   const isMobile = useIsMobile()
+  const isLoading = useSimulatedLoading()
   const [project, setProject] = React.useState<ProjectRecord>(initialProject)
   const owner = getProjectOwnerById(project.ownerId)
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
   const [editingMilestone, setEditingMilestone] =

@@ -15,12 +15,16 @@ import {
 } from "@/lib/proposals-data"
 import { ProposalStatusBadge } from "./proposal-status-badge"
 import { ProposalPreview } from "./proposal-preview"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
+import { showPdfReadyToast, showSuccessToast } from "@/lib/toast-helpers"
 
 interface ProposalDetailPageProps {
   proposal: ProposalRecord
 }
 
 export function ProposalDetailPage({ proposal }: ProposalDetailPageProps) {
+  const isLoading = useSimulatedLoading()
   const [localStatus, setLocalStatus] = useState<ProposalStatus>(
     proposal.status
   )
@@ -28,15 +32,22 @@ export function ProposalDetailPage({ proposal }: ProposalDetailPageProps) {
   const canSendOrExport = localStatus === "pronta"
 
   const handleExportPdf = () => {
-    toast.success("PDF gerado com sucesso")
+    showPdfReadyToast(() => {
+      // Simulated download action
+      console.log("Download triggered")
+    })
   }
 
   const handleSendProposal = () => {
     setLocalStatus("enviada")
-    toast.success("Proposta enviada com sucesso")
+    showSuccessToast("Proposta enviada com sucesso")
   }
 
   const total = calculateProposalTotal(proposal.items)
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   return (
     <div className="flex flex-col gap-6">

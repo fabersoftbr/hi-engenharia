@@ -28,6 +28,8 @@ import { Progress } from "@workspace/ui/components/progress"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { ProjectStageHistory } from "./project-stage-history"
 import { ProjectStageChangeSelect } from "./project-stage-change-select"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
 interface ProjectDetailPageProps {
   project: ProjectRecord
@@ -52,6 +54,7 @@ function formatDate(isoString: string): string {
 export function ProjectDetailPage({
   project: initialProject,
 }: ProjectDetailPageProps) {
+  const isLoading = useSimulatedLoading()
   const [project, setProject] = React.useState<ProjectRecord>(initialProject)
 
   const owner = getProjectOwnerById(project.ownerId)
@@ -63,6 +66,10 @@ export function ProjectDetailPage({
       ? WORK_STAGE_ORDER[nextStageIndex]
       : null
   const nextStageLabel = nextStage ? WORK_STAGE_META[nextStage].label : null
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   const handleStageChange = (newStage: WorkStageId) => {
     setProject((prev) => ({

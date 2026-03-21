@@ -15,6 +15,8 @@ import { CrmStageBadge } from "./crm-stage-badge"
 import { CrmPriorityBadge } from "./crm-priority-badge"
 import { CrmStageHistory } from "./crm-stage-history"
 import { CrmStageChangeSelect } from "./crm-stage-change-select"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
 interface CrmOpportunityDetailPageProps {
   opportunity: CrmOpportunityRecord
@@ -30,10 +32,15 @@ function formatCurrency(value: number): string {
 export function CrmOpportunityDetailPage({
   opportunity: initialOpportunity,
 }: CrmOpportunityDetailPageProps) {
+  const isLoading = useSimulatedLoading()
   const [opportunity, setOpportunity] =
     React.useState<CrmOpportunityRecord>(initialOpportunity)
 
   const owner = getCrmOwnerById(opportunity.ownerId)
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   const handleStageChange = (newStage: typeof opportunity.stage) => {
     setOpportunity((prev) => ({

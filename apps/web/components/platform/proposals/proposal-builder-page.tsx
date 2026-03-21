@@ -20,6 +20,12 @@ import {
 } from "@workspace/ui/components/select"
 import { Separator } from "@workspace/ui/components/separator"
 import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldDescription,
+} from "@workspace/ui/components/field"
+import {
   proposalFormSchema,
   proposalFormDefaultValues,
   type ProposalFormValues,
@@ -159,41 +165,44 @@ export function ProposalBuilderPage() {
           <Card>
             <CardContent className="p-6">
               <h2 className="mb-4 text-lg font-semibold">Dados do cliente</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="title">
-                    Titulo <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="title"
-                    placeholder="Titulo da proposta"
-                    aria-invalid={!!errors.title}
-                    {...register("title")}
-                  />
-                  {errors.title && (
-                    <p className="text-sm text-destructive">
-                      {errors.title.message}
-                    </p>
-                  )}
-                </div>
+              <FieldGroup>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Field data-invalid={!!errors.title}>
+                    <FieldLabel htmlFor="title">
+                      Titulo <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      id="title"
+                      placeholder="Titulo da proposta"
+                      aria-invalid={!!errors.title}
+                      {...register("title")}
+                    />
+                    {errors.title && (
+                      <FieldDescription className="text-destructive">
+                        {errors.title.message}
+                      </FieldDescription>
+                    )}
+                  </Field>
 
-                <div className="space-y-2">
-                  <Label htmlFor="clientName">
-                    Nome do cliente <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="clientName"
-                    placeholder="Nome completo"
-                    aria-invalid={!!errors.clientName}
-                    {...register("clientName")}
-                  />
-                  {errors.clientName && (
-                    <p className="text-sm text-destructive">
-                      {errors.clientName.message}
-                    </p>
-                  )}
+                  <Field data-invalid={!!errors.clientName}>
+                    <FieldLabel htmlFor="clientName">
+                      Nome do cliente{" "}
+                      <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      id="clientName"
+                      placeholder="Nome completo"
+                      aria-invalid={!!errors.clientName}
+                      {...register("clientName")}
+                    />
+                    {errors.clientName && (
+                      <FieldDescription className="text-destructive">
+                        {errors.clientName.message}
+                      </FieldDescription>
+                    )}
+                  </Field>
                 </div>
-              </div>
+              </FieldGroup>
             </CardContent>
           </Card>
 
@@ -203,23 +212,25 @@ export function ProposalBuilderPage() {
               <h2 className="mb-4 text-lg font-semibold">
                 Descricao do projeto
               </h2>
-              <div className="space-y-2">
-                <Label htmlFor="projectDescription">
-                  Descricao <span className="text-destructive">*</span>
-                </Label>
-                <Textarea
-                  id="projectDescription"
-                  placeholder="Descreva o projeto e escopo da proposta..."
-                  className="min-h-32"
-                  aria-invalid={!!errors.projectDescription}
-                  {...register("projectDescription")}
-                />
-                {errors.projectDescription && (
-                  <p className="text-sm text-destructive">
-                    {errors.projectDescription.message}
-                  </p>
-                )}
-              </div>
+              <FieldGroup>
+                <Field data-invalid={!!errors.projectDescription}>
+                  <FieldLabel htmlFor="projectDescription">
+                    Descricao <span className="text-destructive">*</span>
+                  </FieldLabel>
+                  <Textarea
+                    id="projectDescription"
+                    placeholder="Descreva o projeto e escopo da proposta..."
+                    className="min-h-32"
+                    aria-invalid={!!errors.projectDescription}
+                    {...register("projectDescription")}
+                  />
+                  {errors.projectDescription && (
+                    <FieldDescription className="text-destructive">
+                      {errors.projectDescription.message}
+                    </FieldDescription>
+                  )}
+                </Field>
+              </FieldGroup>
             </CardContent>
           </Card>
 

@@ -18,6 +18,8 @@ import { Button } from "@workspace/ui/components/button"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 import { AnteprojectPriorityBadge } from "./anteproject-priority-badge"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
 interface AnteprojectDetailPageProps {
   anteproject: AnteprojectRecord
@@ -88,7 +90,12 @@ function AnteprojectTimeline({
 export function AnteprojectDetailPage({
   anteproject,
 }: AnteprojectDetailPageProps) {
+  const isLoading = useSimulatedLoading()
   const owner = getAnteprojectOwnerById(anteproject.ownerId)
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   return (
     <div className="flex flex-col gap-6">
