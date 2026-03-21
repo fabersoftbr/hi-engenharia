@@ -127,4 +127,18 @@ describe("empty-states", () => {
       expect(screen.getByText("Fazer upload")).toBeInTheDocument()
     })
   })
+
+  describe("Clear filters action", () => {
+    it("renders clear filters action button with Limpar filtros label", () => {
+      render(
+        <EmptyState
+          title="Nenhum resultado"
+          description="Tente ajustar os filtros para encontrar o que procura."
+          action={<button type="button">Limpar filtros</button>}
+        />
+      )
+      expect(screen.getByText("Nenhum resultado")).toBeInTheDocument()
+      expect(screen.getByText("Limpar filtros")).toBeInTheDocument()
+    })
+  })
 })

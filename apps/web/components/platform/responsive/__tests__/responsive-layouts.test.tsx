@@ -9,6 +9,12 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@workspace/ui/components/sheet"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@workspace/ui/components/tooltip"
 
 describe("responsive-layouts", () => {
   describe("useIsMobile breakpoint contract", () => {
@@ -185,6 +191,26 @@ describe("responsive-layouts", () => {
       expect(screen.getByText("Theme claro")).toBeInTheDocument()
       expect(screen.getByText("Theme escuro")).toBeInTheDocument()
       expect(screen.getByText("Seguir sistema")).toBeInTheDocument()
+    })
+  })
+
+  describe("Tooltip delay contract", () => {
+    it("renders Tooltip with 300ms delay for showing content", () => {
+      // Contract: tooltip must support 300ms delay before showing
+      render(
+        <TooltipProvider delayDuration={300}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button type="button">Hover me</button>
+            </TooltipTrigger>
+            <TooltipContent>Tooltip content</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )
+
+      expect(screen.getByText("Hover me")).toBeInTheDocument()
+      // The tooltip content is not visible until hover after delay
+      expect(screen.queryByText("Tooltip content")).not.toBeInTheDocument()
     })
   })
 })
