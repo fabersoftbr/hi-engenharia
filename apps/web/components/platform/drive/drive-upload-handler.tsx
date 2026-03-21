@@ -4,6 +4,7 @@ import { useCallback } from "react"
 import { toast } from "sonner"
 
 import type { DriveFile } from "@/lib/drive-data"
+import { showSuccessToast } from "@/lib/toast-helpers"
 
 const UPLOAD_TOAST_ID = "drive-upload"
 const DOWNLOAD_TOAST_ID = "drive-download"
@@ -16,7 +17,8 @@ export function useUploadHandler() {
     if (fileCount === 1) {
       toast.loading("Enviando arquivo...", { id: UPLOAD_TOAST_ID })
       setTimeout(() => {
-        toast.success("Upload concluido", { id: UPLOAD_TOAST_ID })
+        toast.dismiss(UPLOAD_TOAST_ID)
+        showSuccessToast("Upload concluido")
       }, 1500)
     } else {
       let current = 1
@@ -34,7 +36,8 @@ export function useUploadHandler() {
         if (current >= fileCount) {
           clearInterval(interval)
           setTimeout(() => {
-            toast.success("Upload concluido", { id: UPLOAD_TOAST_ID })
+            toast.dismiss(UPLOAD_TOAST_ID)
+            showSuccessToast("Upload concluido")
           }, 800)
         }
       }, 800)
@@ -63,7 +66,8 @@ export function useUploadHandler() {
 export function triggerDownload(file: DriveFile) {
   toast.loading("Preparando download...", { id: DOWNLOAD_TOAST_ID })
   setTimeout(() => {
-    toast.success("Download concluido", { id: DOWNLOAD_TOAST_ID })
+    toast.dismiss(DOWNLOAD_TOAST_ID)
+    showSuccessToast("Download concluido")
   }, 1500)
 }
 
@@ -72,6 +76,7 @@ export function triggerBulkDownload(count: number) {
 
   toast.loading("Preparando download (ZIP)...", { id: BULK_DOWNLOAD_TOAST_ID })
   setTimeout(() => {
-    toast.success("Download concluido", { id: BULK_DOWNLOAD_TOAST_ID })
+    toast.dismiss(BULK_DOWNLOAD_TOAST_ID)
+    showSuccessToast("Download concluido")
   }, 2000)
 }

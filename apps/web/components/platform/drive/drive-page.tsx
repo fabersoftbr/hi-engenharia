@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { FolderIcon } from "lucide-react"
-import { toast } from "sonner"
 
 import type { DriveSection, DriveFolder, DriveFile } from "@/lib/drive-data"
 import {
@@ -15,6 +14,7 @@ import { useActiveProfile } from "@/components/platform/platform-shell-provider"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { TableSkeleton } from "@/components/platform/states/skeletons"
 import { EmptyState } from "@/components/platform/states/empty-state"
+import { showSuccessToast, showInfoToast } from "@/lib/toast-helpers"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -138,7 +138,7 @@ export function DrivePage() {
   }
 
   const handleNewFolder = () => {
-    toast("Funcionalidade simulada")
+    showInfoToast("Funcionalidade simulada")
   }
 
   const handleFolderAction = (folderId: string, action: string) => {
@@ -162,12 +162,12 @@ export function DrivePage() {
 
   const handleDeleteFile = (file: DriveFile) => {
     // Simulated delete - in real app this would call an API
-    toast.success("Arquivo excluido")
+    showSuccessToast("Arquivo excluido")
   }
 
   const handleRename = (file: DriveFile) => {
     // Placeholder for rename functionality
-    toast("Funcionalidade simulada")
+    showInfoToast("Funcionalidade simulada")
   }
 
   const handleSelectionChange = (selectedIds: string[]) => {
@@ -184,7 +184,7 @@ export function DrivePage() {
 
   const handleBulkDeleteConfirm = () => {
     setBulkDeleteDialogOpen(false)
-    toast.success(`${selectedFileIds.length} arquivos excluidos`)
+    showSuccessToast(`${selectedFileIds.length} arquivos excluidos`)
     setSelectedFileIds([])
   }
 

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { showSuccessToast, showInfoToast } from "@/lib/toast-helpers"
 import { EyeIcon } from "lucide-react"
 
 import { Button } from "@workspace/ui/components/button"
@@ -126,7 +126,7 @@ export function ComunicacaoPublishDialog({
       isDestaque,
     }
     localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draft))
-    toast("Rascunho salvo")
+    showInfoToast("Rascunho salvo")
   }
 
   const handlePublish = () => {
@@ -156,7 +156,7 @@ export function ComunicacaoPublishDialog({
 
     // Close dialog and navigate
     onOpenChange(false)
-    toast.success("Comunicado publicado com sucesso")
+    showSuccessToast("Comunicado publicado com sucesso")
     router.push(`/comunicacao/${newId}`)
   }
 

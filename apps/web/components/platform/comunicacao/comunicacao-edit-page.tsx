@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { toast } from "sonner"
+import { showSuccessToast } from "@/lib/toast-helpers"
 import { ArrowLeftIcon } from "lucide-react"
 
 import { Button } from "@workspace/ui/components/button"
@@ -72,7 +72,7 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
       : undefined
 
     // Mock update - in real app this would be an API call
-    toast.success("Comunicado atualizado com sucesso")
+    showSuccessToast("Comunicado atualizado com sucesso")
     router.push(`/comunicacao/${comunicado.id}`)
   }
 

@@ -4,7 +4,6 @@ import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ArrowLeftIcon, PencilIcon, Trash2Icon } from "lucide-react"
-import { toast } from "sonner"
 
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { Badge } from "@workspace/ui/components/badge"
@@ -22,6 +21,7 @@ import {
 } from "@workspace/ui/components/alert-dialog"
 import type { Comunicado } from "@/lib/comunicacao-data"
 import { ComunicacaoCategoryBadge } from "./comunicacao-category-badge"
+import { showSuccessToast } from "@/lib/toast-helpers"
 
 interface ComunicacaoDetailPageProps {
   comunicado: Comunicado
@@ -39,7 +39,7 @@ export function ComunicacaoDetailPage({
 
   const handleDelete = () => {
     setIsDeleteDialogOpen(false)
-    toast.success("Comunicado excluido")
+    showSuccessToast("Comunicado excluido")
     router.push("/comunicacao")
   }
 
