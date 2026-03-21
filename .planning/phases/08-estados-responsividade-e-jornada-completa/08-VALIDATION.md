@@ -4,10 +4,10 @@ slug: estados-responsividade-e-jornada-completa
 status: draft
 nyquist_compliant: false
 wave_0_complete: false
-created: 2026-03-20
+created: 2026-03-21
 ---
 
-# Phase 8 - Validation Strategy
+# Phase 8 — Validation Strategy
 
 > Per-phase validation contract for feedback sampling during execution.
 
@@ -17,20 +17,20 @@ created: 2026-03-20
 
 | Property | Value |
 |----------|-------|
-| **Framework** | `vitest` + `@testing-library/react` + `jsdom` recommended in Wave 0; current fallback is static quality gates plus manual UI verification |
-| **Config file** | `apps/web/vitest.config.ts` and `apps/web/test/setup.ts` must be added in Wave 0 |
-| **Quick run command** | `pnpm --filter web lint && pnpm --filter web typecheck` before Wave 0, then `pnpm --dir apps/web vitest run <target-spec>` |
-| **Full suite command** | `pnpm lint && pnpm typecheck && pnpm build` before Wave 0, then `pnpm lint && pnpm typecheck && pnpm build && pnpm --dir apps/web vitest run` |
-| **Estimated runtime** | ~90 seconds before Wave 0, ~150 seconds after targeted UI tests are added |
+| **Framework** | Vitest 3.x + @testing-library/react |
+| **Config file** | `apps/web/vitest.config.ts` |
+| **Quick run command** | `cd apps/web && pnpm vitest run --reporter=verbose` |
+| **Full suite command** | `cd apps/web && pnpm vitest run` |
+| **Estimated runtime** | ~15 seconds |
 
 ---
 
 ## Sampling Rate
 
-- **After every task commit:** Run `pnpm --filter web lint && pnpm --filter web typecheck`
-- **After every plan wave:** Run `pnpm lint && pnpm typecheck && pnpm build`
-- **Before `$gsd-verify-work`:** Full suite must be green and all Phase 8 manual audits completed
-- **Max feedback latency:** 150 seconds
+- **After every task commit:** Run `cd apps/web && pnpm vitest run --reporter=verbose`
+- **After every plan wave:** Run `cd apps/web && pnpm vitest run`
+- **Before `/gsd:verify-work`:** Full suite must be green
+- **Max feedback latency:** 15 seconds
 
 ---
 
@@ -38,26 +38,31 @@ created: 2026-03-20
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 8-08-00 | 00 | 0 | STAT-01, STAT-02, STAT-03, RESP-01 | setup + static | `pnpm --filter web lint && pnpm --filter web typecheck` | ❌ Wave 0 | ⬜ pending |
-| 8-08-01 | 01 | 1 | STAT-01, STAT-02, STAT-03 | component + manual | `pnpm --dir apps/web vitest run components/platform/states/__tests__/loading-and-feedback.test.tsx` | ❌ Wave 0 | ⬜ pending |
-| 8-08-02 | 02 | 2 | RESP-01 | component + manual | `pnpm --dir apps/web vitest run components/platform/responsive/__tests__/responsive-layouts.test.tsx` | ❌ Wave 0 | ⬜ pending |
-| 8-08-06 | 06 | 4 | PIPE-04 | static + manual smoke | `pnpm --filter web lint && pnpm --filter web typecheck` | n/a | ⬜ pending |
-| 8-08-07 | 07 | 5 | PIPE-04, RESP-01 | build + manual smoke | `pnpm --filter web lint && pnpm --filter web typecheck && pnpm --filter web build` | n/a | ⬜ pending |
+| 08-02-01 | 02 | 1 | STAT-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-02-02 | 02 | 1 | STAT-02 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-02-03 | 02 | 1 | STAT-01, STAT-02 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-03-01 | 03 | 2 | RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-03-02 | 03 | 2 | RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-04-01 | 04 | 2 | RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-04-02 | 04 | 2 | RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-04-03 | 04 | 2 | RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-05-01 | 05 | 3 | STAT-03, RESP-01 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-05-02 | 05 | 3 | STAT-03 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-06-01 | 06 | 3 | PIPE-04 | unit | `cd apps/web && pnpm vitest run components/platform/jornada/__tests__/journey-page.test.tsx --reporter=verbose` | ❌ W0 | ⬜ pending |
+| 08-06-02 | 06 | 3 | PIPE-04 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ❌ W0 | ⬜ pending |
+| 08-07-01 | 07 | 4 | PIPE-04 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
+| 08-07-02 | 07 | 4 | PIPE-04 | unit | `cd apps/web && pnpm vitest run --reporter=verbose` | ✅ | ⬜ pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠ flaky*
+*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
 ---
 
 ## Wave 0 Requirements
 
-- [ ] `apps/web/vitest.config.ts` - configure `vitest` for the `web` app with `jsdom`
-- [ ] `apps/web/test/setup.ts` - register `@testing-library/jest-dom` and shared DOM/polyfill setup
-- [ ] `apps/web/components/platform/states/__tests__/loading-and-feedback.test.tsx` - cover typed skeletons, submit pending UI, and Sonner success/error flows
-- [ ] `apps/web/components/platform/states/__tests__/empty-states.test.tsx` - cover empty and no-results variants plus hidden-empty-section rules
-- [ ] `apps/web/components/platform/responsive/__tests__/responsive-layouts.test.tsx` - cover shell/header, responsive tables, detail stacking, and mobile pipeline tabs
-- [ ] Optional e2e: `apps/web/e2e/journey.spec.ts` - route smoke for `/jornada` and cross-module back-links if an e2e runner is installed
-- [ ] `apps/web/package.json` adds a `test` script that runs `vitest run`
-- [ ] Dev dependencies installed in `apps/web`: `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`
+- [ ] `components/platform/jornada/__tests__/journey-page.test.tsx` — stubs for PIPE-04 (journey page renders timeline with module cards)
+- [ ] Verify existing test specs still pass: `empty-states.test.tsx`, `loading-and-feedback.test.tsx`, `responsive-layouts.test.tsx`
+
+*Wave 0 note: Plans 00 and 01 already executed and established the Vitest harness. The only gap is a new test file for the /jornada page (PIPE-04). All other requirements have existing test files.*
 
 ---
 
@@ -65,21 +70,22 @@ created: 2026-03-20
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
-| Shared loading, empty, no-results, success, and error states appear consistently across the main modules | STAT-01, STAT-02, STAT-03 | Visual fidelity, copy, and placement consistency must be seen across multiple routes and themes | Open the main routes for dashboard, orçamentos, CRM, anteprojetos, propostas, tabela de preços, projetos, drive, comunicação, and jornada in desktop and mobile widths. Confirm each route has loading or submit-pending feedback, empty/no-results coverage where applicable, and Sonner-based success/error feedback instead of `window.alert()`. |
-| Responsive shell, tables, detail pages, and pipelines remain readable at the locked `md` breakpoint | RESP-01 | Layout density, overflow behavior, and mobile branch switching depend on actual rendering width | Resize from desktop to `<768px`, then verify the shell header remains `h-16`, toolbars scroll or wrap correctly, tables hide lower-priority columns without header drift, detail pages stack vertically, and mobile pipelines switch to tabbed/active-stage rendering with drag-and-drop disabled. |
-| Dark-mode and focus treatment stay consistent after cross-cutting state work | STAT-03, RESP-01 | Theme regressions and focus visibility are easier to miss in static checks | Toggle theme with `D` and via the avatar dropdown, then tab through dialogs, sheets, tooltips, and buttons. Confirm visible focus indicators, correct toast colors, and WCAG-friendly contrast across light and dark themes. |
-| `/jornada` communicates the locked six-stage flow `Orçamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra` without inserting Drive as a timeline stage | PIPE-04 | The journey depends on navigation, stage ordering, and real module links across Phase 6 and 7 outputs | Open `/jornada`, confirm the exact six-stage order, then follow the available module cards and related-record links. Verify the user can move forward and back through the chain with contextual breadcrumbs and a visible back action, and that Drive only appears as a supporting handoff outside the timeline. If the required Phase 6/7 module outputs are missing, stop execution and record a dependency blocker instead of accepting a scoped or degraded journey. |
-| Detail pages preserve lineage and next-step handoffs from orçamento through obra, with Drive only as a supporting deep-link | PIPE-04 | The end-to-end journey relies on record-level navigation, not only the dedicated route | Open linked detail pages for orçamento, CRM, anteprojeto, proposta, projeto, and obra. Confirm each page exposes `Registro`, `Voltar`, and the expected next-step CTA, and confirm project/obra surfaces can open the targeted Drive context without presenting Drive as its own jornada stage. |
+| Dark mode contrast across all screens | RESP-01 | Visual inspection required for WCAG AA | Navigate all screens in dark mode, check text contrast on colored backgrounds |
+| Mobile pipeline drag-and-drop disabled | RESP-01 | Requires touch device or DevTools mobile emulation | Open CRM/Anteprojects pipeline on mobile viewport (375px), verify no drag handles visible |
+| Sheet pull-to-close gesture | RESP-01 | Requires touch interaction | Open any bottom sheet on mobile, swipe down to dismiss |
+| Toast stacking behavior | STAT-03 | Requires multiple rapid actions | Trigger 3+ actions in quick succession, verify toasts stack correctly |
+| Navigation transition smoothness | PIPE-04 | Visual timing inspection | Navigate between connected modules, verify 150ms fade |
+| Journey page arrow connectors rendering | PIPE-04 | CSS pseudo-element visual check | Open /jornada page, verify arrows connect cards correctly in both themes |
 
 ---
 
 ## Validation Sign-Off
 
-- [ ] All tasks have automated verify or explicit Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive execution tasks without at least static quality gates
-- [ ] Wave 0 covers missing automated verification for STAT-01, STAT-02, STAT-03, and RESP-01
+- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
+- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
+- [ ] Wave 0 covers all MISSING references (journey-page.test.tsx)
 - [ ] No watch-mode flags
-- [ ] Feedback latency < 150s
-- [ ] `nyquist_compliant: true` can only be set after Wave 0 is implemented
+- [ ] Feedback latency < 15s
+- [ ] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
