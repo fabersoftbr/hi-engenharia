@@ -134,9 +134,9 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 07-01-PLAN.md -- Contrato de dados e navegacao de pastas do Drive com tabs e breadcrumb
-- [ ] 07-02-PLAN.md -- Listagem de arquivos com multi-select, preview lateral e upload/download simulado
-- [ ] 07-03-PLAN.md -- Mural de comunicados com filtros, cards e pagina de detalhe
+- [x] 07-01-PLAN.md -- Contrato de dados e navegacao de pastas do Drive com tabs e breadcrumb
+- [x] 07-02-PLAN.md -- Listagem de arquivos com multi-select, preview lateral e upload/download simulado
+- [x] 07-03-PLAN.md -- Mural de comunicados com filtros, cards e pagina de detalhe
 - [ ] 07-04-PLAN.md -- Wizard de publicacao de comunicado e pagina de edicao
 
 ### Phase 8: Estados, Responsividade e Jornada Completa
@@ -189,6 +189,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. CRM e Pipeline Comercial | 0/3 | Not started | - |
 | 5. Anteprojetos, Propostas e Preços | 5/5 | Complete | 2026-03-21 |
 | 6. Projetos e Pipeline de Obras | 0/3 | Not started | - |
-| 7. Drive e Comunicação | 0/4 | Not started | - |
+| 7. Drive e Comunicação | 3/4 | In Progress|  |
 | 8. Estados, Responsividade e Jornada Completa | 0/8 | Not started | - |
 | 9. Clean Code Audit | 0/4 | Not started | - |

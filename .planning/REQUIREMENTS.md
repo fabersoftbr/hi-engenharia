@@ -64,8 +64,8 @@
 ### Drive
 
 - [ ] **DRIV-01**: Usuario pode navegar por estruturas de pastas separadas para Oportunidades e Obras
-- [ ] **DRIV-02**: Usuario pode visualizar listagens de arquivos com metadados, tipo de arquivo e permissoes simuladas
-- [ ] **DRIV-03**: Usuario pode acionar upload, download e visualizacao de arquivo apenas como interacoes simuladas
+- [x] **DRIV-02**: Usuario pode visualizar listagens de arquivos com metadados, tipo de arquivo e permissoes simuladas
+- [x] **DRIV-03**: Usuario pode acionar upload, download e visualizacao de arquivo apenas como interacoes simuladas
 
 ### Comunicação
 
@@ -146,8 +146,8 @@
 | PROJ-02 | Phase 6 | Pending |
 | PROJ-03 | Phase 6 | Pending |
 | DRIV-01 | Phase 7 | Pending |
-| DRIV-02 | Phase 7 | Pending |
-| DRIV-03 | Phase 7 | Pending |
+| DRIV-02 | Phase 7 | Complete |
+| DRIV-03 | Phase 7 | Complete |
 | COMM-01 | Phase 7 | Pending |
 | COMM-02 | Phase 7 | Pending |
 | COMM-03 | Phase 7 | Pending |
