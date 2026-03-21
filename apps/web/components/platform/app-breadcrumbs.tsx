@@ -58,7 +58,17 @@ export function AppBreadcrumbs() {
   // Handle dynamic project routes: /projetos/{projectId}
   if (segments[0] === "projetos" && segments.length >= 2 && segments[1]) {
     const project = getProjectById(segments[1])
-    pageLabel = project?.title ?? "Detalhe"
+    // Handle obra sub-route: /projetos/{projectId}/obra
+    if (segments[2] === "obra") {
+      pageLabel = "Obra"
+    } else {
+      pageLabel = project?.title ?? "Detalhe"
+    }
+  }
+
+  // Handle obras pipeline route
+  if (segments[0] === "obras") {
+    pageLabel = "Pipeline"
   }
 
   // Handle dynamic comunicacao routes
