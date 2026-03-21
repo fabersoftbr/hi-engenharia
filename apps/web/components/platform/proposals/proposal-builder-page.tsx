@@ -114,6 +114,22 @@ export function ProposalBuilderPage() {
     [setValue]
   )
 
+  const handlePriceSelect = useCallback(
+    (
+      itemIndex: number,
+      itemCode: string,
+      description: string,
+      unitPrice: number
+    ) => {
+      setValue(`items.${itemIndex}.itemCode`, itemCode)
+      setValue(`items.${itemIndex}.description`, description)
+      setValue(`items.${itemIndex}.unitPrice`, unitPrice)
+      const quantity = watch(`items.${itemIndex}.quantity`) || 1
+      setValue(`items.${itemIndex}.totalPrice`, unitPrice * quantity)
+    },
+    [setValue, watch]
+  )
+
   const onSubmit = async (data: ProposalFormValues) => {
     // Simulated submit - no real persistence
     console.log("Proposal saved:", data)
@@ -218,6 +234,7 @@ export function ProposalBuilderPage() {
                 onAddItem={addItem}
                 onRemoveItem={removeItem}
                 onUpdateItemTotal={updateItemTotal}
+                onPriceSelect={handlePriceSelect}
               />
             </CardContent>
           </Card>
