@@ -56,17 +56,17 @@ Source: CONTEXT.md (sidebar 256px / 64px collapsed, header 64px), platform layou
 |------|------|--------|-------------|
 | Body | 14px (`text-sm`) | 400 (regular) | 1.5 (20px) |
 | Label | 14px (`text-sm`) | 600 (semibold) | 1.5 (20px) |
-| Heading | 20px (`text-xl`) | 700 (bold) | 1.2 (24px) |
-| Display | 30px (`text-3xl`) | 700 (bold) | 1.2 (36px) |
+| Heading | 20px (`text-xl`) | 600 (semibold) | 1.2 (24px) |
+| Display | 30px (`text-3xl`) | 600 (semibold) | 1.2 (36px) |
 
 Mobile adjustments (below 768px breakpoint `md`):
 - Display: 24px (`text-2xl`)
 - Heading: 18px (`text-lg`)
 - Body/Label: unchanged at 14px
 
-Weights used: 400 (regular) and 600 (semibold) for all body content. 700 (bold) reserved for page headings and display text only.
+Weights used: 400 (regular) and 600 (semibold) for all roles including headings and display text.
 
-Source: Existing codebase patterns (`text-sm`, `text-lg font-semibold`, `text-3xl font-bold tracking-tight` on error page), CONTEXT.md (reduce font sizes on mobile)
+Source: Existing codebase patterns (`text-sm`, `text-lg font-semibold`, `text-3xl font-semibold tracking-tight`), CONTEXT.md (reduce font sizes on mobile)
 
 ---
 
@@ -106,6 +106,15 @@ Semantic classes to use (never raw):
 Dark mode audit requirement: WCAG AA contrast (4.5:1 minimum for body text). All screens must be navigated in both themes during implementation.
 
 Source: `packages/ui/src/styles/globals.css`, CONTEXT.md (dark mode audit, WCAG AA)
+
+---
+
+## Visual Focal Points
+
+| Screen | Focal Point | Rationale |
+|--------|-------------|-----------|
+| Dashboard (`/`) | The consolidated pendencies panel | Primary decision surface; drives user action toward overdue and upcoming items across the journey |
+| Journey page (`/jornada`) | The horizontal timeline of module cards | Visual summary of the full operational chain |
 
 ---
 
