@@ -35,7 +35,7 @@
 - [ ] **PIPE-01**: Usuario pode visualizar o pipeline Comercial com as dez etapas definidas para lead, qualificacao, proposta, negociacao e fechamento
 - [ ] **PIPE-02**: Usuario pode visualizar o pipeline de Anteprojetos com as dez etapas definidas para solicitacao, analise tecnica, retorno ao comercial e decisao do cliente
 - [ ] **PIPE-03**: Usuario pode visualizar o pipeline de Obras com as onze etapas definidas da assinatura do contrato ate a conclusao
-- [ ] **PIPE-04**: Usuario pode perceber visualmente o fluxo principal da operacao de orcamento ate execucao da obra por meio da navegacao entre telas relacionadas
+- [x] **PIPE-04**: Usuario pode perceber visualmente o fluxo principal da operacao de orcamento ate execucao da obra por meio da navegacao entre telas relacionadas
 
 ### Anteprojetos
 
@@ -132,7 +132,7 @@
 | PIPE-01 | Phase 4 | Pending |
 | PIPE-02 | Phase 5 | Pending |
 | PIPE-03 | Phase 6 | Pending |
-| PIPE-04 | Phase 8 | Pending |
+| PIPE-04 | Phase 8 | Complete |
 | ANT-01 | Phase 5 | Pending |
 | ANT-02 | Phase 5 | Pending |
 | PROP-01 | Phase 5 | Pending |
