@@ -2,7 +2,10 @@
 
 import { Draggable } from "@hello-pangea/dnd"
 import Link from "next/link"
-import { AnteprojectRecord, getAnteprojectOwnerById } from "@/lib/anteprojects-data"
+import {
+  AnteprojectRecord,
+  getAnteprojectOwnerById,
+} from "@/lib/anteprojects-data"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { Badge } from "@workspace/ui/components/badge"
 import { AnteprojectStageBadge } from "./anteproject-stage-badge"
@@ -18,7 +21,9 @@ export function AnteprojectPipelineCard({
 }: AnteprojectPipelineCardProps) {
   const owner = getAnteprojectOwnerById(anteproject.ownerId)
 
-  const formattedDate = new Date(anteproject.updatedAt).toLocaleDateString("pt-BR")
+  const formattedDate = new Date(anteproject.updatedAt).toLocaleDateString(
+    "pt-BR"
+  )
 
   return (
     <Draggable draggableId={anteproject.id} index={index}>
@@ -34,8 +39,10 @@ export function AnteprojectPipelineCard({
         >
           <div className="flex flex-col gap-2">
             <div className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="truncate text-sm font-medium">{anteproject.title}</p>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">
+                  {anteproject.title}
+                </p>
                 <p className="truncate text-xs text-muted-foreground">
                   {anteproject.clientName}
                 </p>
@@ -61,7 +68,9 @@ export function AnteprojectPipelineCard({
                 <Avatar size="sm">
                   <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
                 </Avatar>
-                <span className="truncate">{owner?.name ?? "Nao atribuido"}</span>
+                <span className="truncate">
+                  {owner?.name ?? "Nao atribuido"}
+                </span>
               </div>
               <span>{formattedDate}</span>
             </div>

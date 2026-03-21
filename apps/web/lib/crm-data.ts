@@ -100,7 +100,10 @@ export const CRM_STAGE_META: Record<
  */
 export const CRM_PRIORITY_META: Record<
   CrmPriority,
-  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+  {
+    label: string
+    variant: "default" | "secondary" | "destructive" | "outline"
+  }
 > = {
   alta: { label: "Alta", variant: "destructive" },
   media: { label: "Media", variant: "outline" },
@@ -133,7 +136,11 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-18T14:30:00Z",
     originBudgetRequestId: "orc-2026-1001",
     history: [
-      { stage: "lead", changedAt: "2026-03-10T09:00:00Z", changedBy: "owner-1" },
+      {
+        stage: "lead",
+        changedAt: "2026-03-10T09:00:00Z",
+        changedBy: "owner-1",
+      },
     ],
   },
   {
@@ -148,8 +155,16 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-19T10:15:00Z",
     originBudgetRequestId: "orc-2026-1002",
     history: [
-      { stage: "lead", changedAt: "2026-03-08T11:00:00Z", changedBy: "owner-2" },
-      { stage: "em-contato", changedAt: "2026-03-09T14:00:00Z", changedBy: "owner-2" },
+      {
+        stage: "lead",
+        changedAt: "2026-03-08T11:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-03-09T14:00:00Z",
+        changedBy: "owner-2",
+      },
     ],
   },
   {
@@ -164,9 +179,21 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-17T16:45:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-03-05T08:00:00Z", changedBy: "owner-1" },
-      { stage: "em-contato", changedAt: "2026-03-06T10:00:00Z", changedBy: "owner-1" },
-      { stage: "qualificado", changedAt: "2026-03-10T09:00:00Z", changedBy: "owner-1" },
+      {
+        stage: "lead",
+        changedAt: "2026-03-05T08:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-03-06T10:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-03-10T09:00:00Z",
+        changedBy: "owner-1",
+      },
     ],
   },
   {
@@ -181,10 +208,26 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-16T11:30:00Z",
     originBudgetRequestId: "orc-2026-1003",
     history: [
-      { stage: "lead", changedAt: "2026-03-01T10:00:00Z", changedBy: "owner-3" },
-      { stage: "em-contato", changedAt: "2026-03-02T14:00:00Z", changedBy: "owner-3" },
-      { stage: "qualificado", changedAt: "2026-03-05T09:00:00Z", changedBy: "owner-3" },
-      { stage: "visita-tecnica", changedAt: "2026-03-08T11:00:00Z", changedBy: "owner-3" },
+      {
+        stage: "lead",
+        changedAt: "2026-03-01T10:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-03-02T14:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-03-05T09:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-03-08T11:00:00Z",
+        changedBy: "owner-3",
+      },
     ],
   },
   {
@@ -199,11 +242,31 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-15T09:00:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-02-25T09:00:00Z", changedBy: "owner-2" },
-      { stage: "em-contato", changedAt: "2026-02-26T11:00:00Z", changedBy: "owner-2" },
-      { stage: "qualificado", changedAt: "2026-02-28T10:00:00Z", changedBy: "owner-2" },
-      { stage: "visita-tecnica", changedAt: "2026-03-02T14:00:00Z", changedBy: "owner-2" },
-      { stage: "proposta-enviada", changedAt: "2026-03-10T16:00:00Z", changedBy: "owner-2" },
+      {
+        stage: "lead",
+        changedAt: "2026-02-25T09:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-02-26T11:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-02-28T10:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-03-02T14:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-03-10T16:00:00Z",
+        changedBy: "owner-2",
+      },
     ],
   },
   {
@@ -218,12 +281,36 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-18T15:00:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-02-20T10:00:00Z", changedBy: "owner-1" },
-      { stage: "em-contato", changedAt: "2026-02-22T09:00:00Z", changedBy: "owner-1" },
-      { stage: "qualificado", changedAt: "2026-02-25T11:00:00Z", changedBy: "owner-1" },
-      { stage: "visita-tecnica", changedAt: "2026-02-28T14:00:00Z", changedBy: "owner-1" },
-      { stage: "proposta-enviada", changedAt: "2026-03-05T10:00:00Z", changedBy: "owner-1" },
-      { stage: "negociacao", changedAt: "2026-03-12T16:00:00Z", changedBy: "owner-1" },
+      {
+        stage: "lead",
+        changedAt: "2026-02-20T10:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-02-22T09:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-02-25T11:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-02-28T14:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-03-05T10:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "negociacao",
+        changedAt: "2026-03-12T16:00:00Z",
+        changedBy: "owner-1",
+      },
     ],
   },
   {
@@ -238,13 +325,41 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-19T11:00:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-02-15T08:00:00Z", changedBy: "owner-3" },
-      { stage: "em-contato", changedAt: "2026-02-17T10:00:00Z", changedBy: "owner-3" },
-      { stage: "qualificado", changedAt: "2026-02-20T09:00:00Z", changedBy: "owner-3" },
-      { stage: "visita-tecnica", changedAt: "2026-02-24T14:00:00Z", changedBy: "owner-3" },
-      { stage: "proposta-enviada", changedAt: "2026-03-01T16:00:00Z", changedBy: "owner-3" },
-      { stage: "negociacao", changedAt: "2026-03-08T11:00:00Z", changedBy: "owner-3" },
-      { stage: "revisao", changedAt: "2026-03-15T14:00:00Z", changedBy: "owner-3" },
+      {
+        stage: "lead",
+        changedAt: "2026-02-15T08:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-02-17T10:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-02-20T09:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-02-24T14:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-03-01T16:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "negociacao",
+        changedAt: "2026-03-08T11:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "revisao",
+        changedAt: "2026-03-15T14:00:00Z",
+        changedBy: "owner-3",
+      },
     ],
   },
   {
@@ -259,14 +374,46 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-14T10:30:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-02-10T09:00:00Z", changedBy: "owner-2" },
-      { stage: "em-contato", changedAt: "2026-02-12T11:00:00Z", changedBy: "owner-2" },
-      { stage: "qualificado", changedAt: "2026-02-15T10:00:00Z", changedBy: "owner-2" },
-      { stage: "visita-tecnica", changedAt: "2026-02-18T14:00:00Z", changedBy: "owner-2" },
-      { stage: "proposta-enviada", changedAt: "2026-02-25T16:00:00Z", changedBy: "owner-2" },
-      { stage: "negociacao", changedAt: "2026-03-03T09:00:00Z", changedBy: "owner-2" },
-      { stage: "revisao", changedAt: "2026-03-08T11:00:00Z", changedBy: "owner-2" },
-      { stage: "aguardando-aprovacao", changedAt: "2026-03-12T15:00:00Z", changedBy: "owner-2" },
+      {
+        stage: "lead",
+        changedAt: "2026-02-10T09:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-02-12T11:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-02-15T10:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-02-18T14:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-02-25T16:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "negociacao",
+        changedAt: "2026-03-03T09:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "revisao",
+        changedAt: "2026-03-08T11:00:00Z",
+        changedBy: "owner-2",
+      },
+      {
+        stage: "aguardando-aprovacao",
+        changedAt: "2026-03-12T15:00:00Z",
+        changedBy: "owner-2",
+      },
     ],
   },
   {
@@ -281,15 +428,51 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-17T09:00:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-01-20T08:00:00Z", changedBy: "owner-1" },
-      { stage: "em-contato", changedAt: "2026-01-22T10:00:00Z", changedBy: "owner-1" },
-      { stage: "qualificado", changedAt: "2026-01-25T09:00:00Z", changedBy: "owner-1" },
-      { stage: "visita-tecnica", changedAt: "2026-01-28T14:00:00Z", changedBy: "owner-1" },
-      { stage: "proposta-enviada", changedAt: "2026-02-05T16:00:00Z", changedBy: "owner-1" },
-      { stage: "negociacao", changedAt: "2026-02-15T11:00:00Z", changedBy: "owner-1" },
-      { stage: "revisao", changedAt: "2026-02-22T14:00:00Z", changedBy: "owner-1" },
-      { stage: "aguardando-aprovacao", changedAt: "2026-02-28T10:00:00Z", changedBy: "owner-1" },
-      { stage: "contrato-assinado", changedAt: "2026-03-10T09:00:00Z", changedBy: "owner-1" },
+      {
+        stage: "lead",
+        changedAt: "2026-01-20T08:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-01-22T10:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-01-25T09:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-01-28T14:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-02-05T16:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "negociacao",
+        changedAt: "2026-02-15T11:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "revisao",
+        changedAt: "2026-02-22T14:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "aguardando-aprovacao",
+        changedAt: "2026-02-28T10:00:00Z",
+        changedBy: "owner-1",
+      },
+      {
+        stage: "contrato-assinado",
+        changedAt: "2026-03-10T09:00:00Z",
+        changedBy: "owner-1",
+      },
     ],
   },
   {
@@ -304,16 +487,56 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
     lastContactAt: "2026-03-05T16:00:00Z",
     originBudgetRequestId: null,
     history: [
-      { stage: "lead", changedAt: "2026-01-10T09:00:00Z", changedBy: "owner-3" },
-      { stage: "em-contato", changedAt: "2026-01-12T11:00:00Z", changedBy: "owner-3" },
-      { stage: "qualificado", changedAt: "2026-01-15T10:00:00Z", changedBy: "owner-3" },
-      { stage: "visita-tecnica", changedAt: "2026-01-18T14:00:00Z", changedBy: "owner-3" },
-      { stage: "proposta-enviada", changedAt: "2026-01-25T16:00:00Z", changedBy: "owner-3" },
-      { stage: "negociacao", changedAt: "2026-02-01T09:00:00Z", changedBy: "owner-3" },
-      { stage: "revisao", changedAt: "2026-02-05T11:00:00Z", changedBy: "owner-3" },
-      { stage: "aguardando-aprovacao", changedAt: "2026-02-10T15:00:00Z", changedBy: "owner-3" },
-      { stage: "contrato-assinado", changedAt: "2026-02-15T10:00:00Z", changedBy: "owner-3" },
-      { stage: "fechado", changedAt: "2026-03-01T14:00:00Z", changedBy: "owner-3" },
+      {
+        stage: "lead",
+        changedAt: "2026-01-10T09:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "em-contato",
+        changedAt: "2026-01-12T11:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "qualificado",
+        changedAt: "2026-01-15T10:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "visita-tecnica",
+        changedAt: "2026-01-18T14:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "proposta-enviada",
+        changedAt: "2026-01-25T16:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "negociacao",
+        changedAt: "2026-02-01T09:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "revisao",
+        changedAt: "2026-02-05T11:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "aguardando-aprovacao",
+        changedAt: "2026-02-10T15:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "contrato-assinado",
+        changedAt: "2026-02-15T10:00:00Z",
+        changedBy: "owner-3",
+      },
+      {
+        stage: "fechado",
+        changedAt: "2026-03-01T14:00:00Z",
+        changedBy: "owner-3",
+      },
     ],
   },
 ]
@@ -328,14 +551,19 @@ export function getCrmOpportunities(): CrmOpportunityRecord[] {
 /**
  * Get a single CRM opportunity by ID.
  */
-export function getCrmOpportunityById(opportunityId: string): CrmOpportunityRecord | undefined {
+export function getCrmOpportunityById(
+  opportunityId: string
+): CrmOpportunityRecord | undefined {
   return CRM_OPPORTUNITIES.find((opp) => opp.id === opportunityId)
 }
 
 /**
  * Get stage options for select/filter components.
  */
-export function getCrmStageOptions(): Array<{ value: CrmStageId; label: string }> {
+export function getCrmStageOptions(): Array<{
+  value: CrmStageId
+  label: string
+}> {
   return CRM_STAGE_ORDER.map((stageId) => ({
     value: stageId,
     label: CRM_STAGE_META[stageId].label,
@@ -345,7 +573,10 @@ export function getCrmStageOptions(): Array<{ value: CrmStageId; label: string }
 /**
  * Get responsible options for select/filter components.
  */
-export function getCrmResponsibleOptions(): Array<{ value: string; label: string }> {
+export function getCrmResponsibleOptions(): Array<{
+  value: string
+  label: string
+}> {
   return [
     { value: "all", label: "Todos os responsaveis" },
     ...CRM_OWNERS.map((owner) => ({
@@ -358,7 +589,10 @@ export function getCrmResponsibleOptions(): Array<{ value: string; label: string
 /**
  * Get priority options for select/filter components.
  */
-export function getCrmPriorityOptions(): Array<{ value: CrmPriority | "all"; label: string }> {
+export function getCrmPriorityOptions(): Array<{
+  value: CrmPriority | "all"
+  label: string
+}> {
   return [
     { value: "all", label: "Todas as prioridades" },
     { value: "alta", label: "Alta" },
@@ -380,16 +614,24 @@ export interface CrmFilterInput {
 /**
  * Filter CRM opportunities based on the provided filters.
  */
-export function filterCrmOpportunities(input: CrmFilterInput): CrmOpportunityRecord[] {
+export function filterCrmOpportunities(
+  input: CrmFilterInput
+): CrmOpportunityRecord[] {
   const source = input.opportunities ?? CRM_OPPORTUNITIES
   return source.filter((opp) => {
     // Responsible filter
-    if (input.responsibleFilter !== "all" && opp.ownerId !== input.responsibleFilter) {
+    if (
+      input.responsibleFilter !== "all" &&
+      opp.ownerId !== input.responsibleFilter
+    ) {
       return false
     }
 
     // Priority filter
-    if (input.priorityFilter !== "all" && opp.priority !== input.priorityFilter) {
+    if (
+      input.priorityFilter !== "all" &&
+      opp.priority !== input.priorityFilter
+    ) {
       return false
     }
 

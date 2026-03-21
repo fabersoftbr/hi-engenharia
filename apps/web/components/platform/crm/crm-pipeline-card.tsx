@@ -38,13 +38,18 @@ export function CrmPipelineCard({ opportunity, index }: CrmPipelineCardProps) {
         >
           <div className="flex flex-col gap-2">
             <div className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="truncate text-sm font-medium">{opportunity.title}</p>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">
+                  {opportunity.title}
+                </p>
                 <p className="truncate text-xs text-muted-foreground">
                   {opportunity.company}
                 </p>
               </div>
-              <CrmPriorityBadge priority={opportunity.priority} className="shrink-0" />
+              <CrmPriorityBadge
+                priority={opportunity.priority}
+                className="shrink-0"
+              />
             </div>
 
             <div className="flex items-center justify-between gap-2 text-xs">
@@ -56,7 +61,9 @@ export function CrmPipelineCard({ opportunity, index }: CrmPipelineCardProps) {
                 <Avatar size="sm">
                   <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
                 </Avatar>
-                <span className="truncate">{owner?.name ?? "Nao atribuido"}</span>
+                <span className="truncate">
+                  {owner?.name ?? "Nao atribuido"}
+                </span>
               </div>
               <span>Ultimo contato: {formattedLastContact}</span>
             </div>

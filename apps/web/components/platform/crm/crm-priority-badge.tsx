@@ -8,7 +8,10 @@ interface CrmPriorityBadgeProps {
   className?: string
 }
 
-export function CrmPriorityBadge({ priority, className }: CrmPriorityBadgeProps) {
+export function CrmPriorityBadge({
+  priority,
+  className,
+}: CrmPriorityBadgeProps) {
   const meta = CRM_PRIORITY_META[priority]
 
   return (

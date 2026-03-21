@@ -36,8 +36,8 @@ export function BudgetRequestSubmissionDialog({
         <DialogHeader>
           <DialogTitle>Solicitacao enviada</DialogTitle>
           <DialogDescription>
-            A solicitacao foi registrada neste fluxo visual e ja pode seguir para
-            acompanhamento.
+            A solicitacao foi registrada neste fluxo visual e ja pode seguir
+            para acompanhamento.
           </DialogDescription>
         </DialogHeader>
 
@@ -61,7 +61,9 @@ export function BudgetRequestSubmissionDialog({
               </div>
               <div>
                 <dt className="text-muted-foreground">Consumo mensal</dt>
-                <dd className="font-medium">{submittedData.monthlyConsumption} kWh</dd>
+                <dd className="font-medium">
+                  {submittedData.monthlyConsumption} kWh
+                </dd>
               </div>
             </dl>
           </div>
@@ -69,9 +71,7 @@ export function BudgetRequestSubmissionDialog({
 
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:justify-end">
           <Button variant="outline" asChild>
-            <Link href="/orcamentos">
-              Ver listagem
-            </Link>
+            <Link href="/orcamentos">Ver listagem</Link>
           </Button>
           <Button variant="outline" onClick={handleNewRequest}>
             Nova solicitacao

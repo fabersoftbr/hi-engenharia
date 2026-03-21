@@ -22,20 +22,25 @@ import {
 export const ICON_MAP = {
   "layout-dashboard": LayoutDashboardIcon,
   "file-text": FileTextIcon,
-  "users": UsersIcon,
+  users: UsersIcon,
   "file-code": FileCodeIcon,
   "folder-kanban": FolderKanbanIcon,
   "hard-hat": HardHatIcon,
-  "folder": FolderIcon,
+  folder: FolderIcon,
   "message-square": MessageSquareIcon,
   "file-chart-line": FileChartLineIcon,
-  "table": TableIcon,
+  table: TableIcon,
 } as const
 
 export type IconName = keyof typeof ICON_MAP
 
 // Profile types
-export type ProfileKey = "admin" | "commercial" | "partner" | "operations" | "cliente"
+export type ProfileKey =
+  | "admin"
+  | "commercial"
+  | "partner"
+  | "operations"
+  | "cliente"
 
 // Module definition
 export interface ModuleConfig {

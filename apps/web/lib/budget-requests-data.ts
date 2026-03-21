@@ -7,14 +7,21 @@
 /**
  * Status values for budget requests.
  */
-export type BudgetRequestStatus = "novo" | "em-analise" | "aprovado" | "recusado"
+export type BudgetRequestStatus =
+  | "novo"
+  | "em-analise"
+  | "aprovado"
+  | "recusado"
 
 /**
  * Metadata for each status, including label and badge variant.
  */
 export const BUDGET_REQUEST_STATUS_META: Record<
   BudgetRequestStatus,
-  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+  {
+    label: string
+    variant: "default" | "secondary" | "destructive" | "outline"
+  }
 > = {
   novo: { label: "Novo", variant: "default" },
   "em-analise": { label: "Em analise", variant: "secondary" },
@@ -77,7 +84,8 @@ export const BUDGET_REQUESTS: BudgetRequestRecord[] = [
     requestedAt: "2026-03-14T14:15:00Z",
     status: "em-analise",
     monthlyConsumption: 780,
-    notes: "Propriedade comercial com telhado grande. Aguardando visita tecnica.",
+    notes:
+      "Propriedade comercial com telhado grande. Aguardando visita tecnica.",
     attachments: [
       {
         id: "att-002",
@@ -174,7 +182,9 @@ export function getBudgetRequests(): BudgetRequestRecord[] {
 /**
  * Get a single budget request by ID.
  */
-export function getBudgetRequestById(requestId: string): BudgetRequestRecord | undefined {
+export function getBudgetRequestById(
+  requestId: string
+): BudgetRequestRecord | undefined {
   return BUDGET_REQUESTS.find((req) => req.id === requestId)
 }
 

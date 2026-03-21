@@ -1,9 +1,6 @@
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
-import {
-  SESSION_COOKIE_NAME,
-  parseSession,
-} from "@/lib/mock-session"
+import { SESSION_COOKIE_NAME, parseSession } from "@/lib/mock-session"
 
 export default async function Page() {
   const cookieStore = await cookies()

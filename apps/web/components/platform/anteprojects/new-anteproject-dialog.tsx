@@ -139,7 +139,10 @@ export function NewAnteprojectDialog({
             <label htmlFor="installationType" className="text-sm font-medium">
               Tipo de instalacao
             </label>
-            <Select value={installationType} onValueChange={setInstallationType}>
+            <Select
+              value={installationType}
+              onValueChange={setInstallationType}
+            >
               <SelectTrigger id="installationType">
                 <SelectValue placeholder="Selecione o tipo" />
               </SelectTrigger>

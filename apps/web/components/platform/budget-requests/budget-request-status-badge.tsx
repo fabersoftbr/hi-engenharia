@@ -8,7 +8,9 @@ interface BudgetRequestStatusBadgeProps {
   status: BudgetRequestStatus
 }
 
-export function BudgetRequestStatusBadge({ status }: BudgetRequestStatusBadgeProps) {
+export function BudgetRequestStatusBadge({
+  status,
+}: BudgetRequestStatusBadgeProps) {
   const meta = BUDGET_REQUEST_STATUS_META[status]
 
   return <Badge variant={meta.variant}>{meta.label}</Badge>

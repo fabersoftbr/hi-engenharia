@@ -1,7 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import { Badge } from "@workspace/ui/components/badge"
 import { AlertTriangleIcon } from "lucide-react"
 import type { DashboardHighlight } from "@/lib/dashboard-data"

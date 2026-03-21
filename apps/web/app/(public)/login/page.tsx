@@ -20,7 +20,10 @@ export default function LoginPage() {
       {/* Right panel - Brand (hidden on mobile) */}
       <div className="hidden lg:flex lg:flex-1 lg:flex-col lg:items-center lg:justify-center lg:bg-primary lg:p-12">
         <div className="max-w-md text-center">
-          <BrandLogo variant="full" className="mb-6 text-4xl text-primary-foreground" />
+          <BrandLogo
+            variant="full"
+            className="mb-6 text-4xl text-primary-foreground"
+          />
           <h1 className="mb-4 text-3xl font-bold text-primary-foreground">
             Hi Engenharia
           </h1>

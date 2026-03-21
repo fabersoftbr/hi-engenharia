@@ -71,14 +71,19 @@ export function generateProposalItemId(): string {
 /**
  * Calculate total price for an item.
  */
-export function calculateItemTotal(quantity: number, unitPrice: number): number {
+export function calculateItemTotal(
+  quantity: number,
+  unitPrice: number
+): number {
   return quantity * unitPrice
 }
 
 /**
  * Calculate the grand total for all items.
  */
-export function calculateItemsGrandTotal(items: ProposalFormValues["items"]): number {
+export function calculateItemsGrandTotal(
+  items: ProposalFormValues["items"]
+): number {
   return items.reduce((sum, item) => sum + item.totalPrice, 0)
 }
 

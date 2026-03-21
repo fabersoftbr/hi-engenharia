@@ -23,7 +23,18 @@ import {
 import { useActiveProfile } from "./platform-shell-provider"
 
 // Helper component to render module link with icon
-function ModuleLink({ mod, isActive }: { mod: { id: string; route: string; label: string; iconName: keyof typeof ICON_MAP }; isActive: boolean }) {
+function ModuleLink({
+  mod,
+  isActive,
+}: {
+  mod: {
+    id: string
+    route: string
+    label: string
+    iconName: keyof typeof ICON_MAP
+  }
+  isActive: boolean
+}) {
   const Icon = ICON_MAP[mod.iconName]
   return (
     <SidebarMenuButton asChild isActive={isActive} tooltip={mod.label}>
@@ -51,14 +62,19 @@ export function AppSidebar() {
         {/* OPERACAO Section */}
         {groupedModules.operation && groupedModules.operation.length > 0 && (
           <SidebarGroup>
-            <SidebarGroupLabel>{MODULE_GROUPS.operation.label}</SidebarGroupLabel>
+            <SidebarGroupLabel>
+              {MODULE_GROUPS.operation.label}
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {groupedModules.operation.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
                     <ModuleLink
                       mod={mod}
-                      isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
+                      isActive={
+                        pathname === mod.route ||
+                        pathname.startsWith(`${mod.route}/`)
+                      }
                     />
                   </SidebarMenuItem>
                 ))}
@@ -70,14 +86,19 @@ export function AppSidebar() {
         {/* PROJETOS Section */}
         {groupedModules.projects && groupedModules.projects.length > 0 && (
           <SidebarGroup>
-            <SidebarGroupLabel>{MODULE_GROUPS.projects.label}</SidebarGroupLabel>
+            <SidebarGroupLabel>
+              {MODULE_GROUPS.projects.label}
+            </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {groupedModules.projects.map((mod) => (
                   <SidebarMenuItem key={mod.id}>
                     <ModuleLink
                       mod={mod}
-                      isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
+                      isActive={
+                        pathname === mod.route ||
+                        pathname.startsWith(`${mod.route}/`)
+                      }
                     />
                   </SidebarMenuItem>
                 ))}
@@ -96,7 +117,10 @@ export function AppSidebar() {
                   <SidebarMenuItem key={mod.id}>
                     <ModuleLink
                       mod={mod}
-                      isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
+                      isActive={
+                        pathname === mod.route ||
+                        pathname.startsWith(`${mod.route}/`)
+                      }
                     />
                   </SidebarMenuItem>
                 ))}
@@ -115,7 +139,10 @@ export function AppSidebar() {
                   <SidebarMenuItem key={mod.id}>
                     <ModuleLink
                       mod={mod}
-                      isActive={pathname === mod.route || pathname.startsWith(`${mod.route}/`)}
+                      isActive={
+                        pathname === mod.route ||
+                        pathname.startsWith(`${mod.route}/`)
+                      }
                     />
                   </SidebarMenuItem>
                 ))}

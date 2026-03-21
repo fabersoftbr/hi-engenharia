@@ -103,7 +103,10 @@ export const ANTEPROJECT_STAGE_META: Record<
  */
 export const ANTEPROJECT_PRIORITY_META: Record<
   AnteprojectPriority,
-  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+  {
+    label: string
+    variant: "default" | "secondary" | "destructive" | "outline"
+  }
 > = {
   alta: { label: "Alta", variant: "destructive" },
   media: { label: "Media", variant: "outline" },
@@ -421,7 +424,9 @@ export function getAnteprojects(): AnteprojectRecord[] {
 /**
  * Get a single anteproject by ID.
  */
-export function getAnteprojectById(anteprojectId: string): AnteprojectRecord | undefined {
+export function getAnteprojectById(
+  anteprojectId: string
+): AnteprojectRecord | undefined {
   return ANTEPROJECTS.find((ant) => ant.id === anteprojectId)
 }
 
@@ -483,16 +488,24 @@ export interface AnteprojectFilterInput {
 /**
  * Filter anteprojects based on the provided filters.
  */
-export function filterAnteprojects(input: AnteprojectFilterInput): AnteprojectRecord[] {
+export function filterAnteprojects(
+  input: AnteprojectFilterInput
+): AnteprojectRecord[] {
   const source = input.anteprojects ?? ANTEPROJECTS
   return source.filter((ant) => {
     // Responsible filter
-    if (input.responsibleFilter !== "all" && ant.ownerId !== input.responsibleFilter) {
+    if (
+      input.responsibleFilter !== "all" &&
+      ant.ownerId !== input.responsibleFilter
+    ) {
       return false
     }
 
     // Priority filter
-    if (input.priorityFilter !== "all" && ant.priority !== input.priorityFilter) {
+    if (
+      input.priorityFilter !== "all" &&
+      ant.priority !== input.priorityFilter
+    ) {
       return false
     }
 
@@ -539,6 +552,8 @@ export function groupAnteprojectsByStage(
 /**
  * Get an owner by ID.
  */
-export function getAnteprojectOwnerById(ownerId: string): AnteprojectOwner | undefined {
+export function getAnteprojectOwnerById(
+  ownerId: string
+): AnteprojectOwner | undefined {
   return ANTEPROJECT_OWNERS.find((owner) => owner.id === ownerId)
 }

@@ -202,12 +202,15 @@ export function getDashboardModulesForProfile(
   return visibleModules
     .filter((mod) => mod.id !== "portal")
     .map((mod) => {
-      const stats = MOCK_MODULE_STATS[mod.id] || { activeCount: 0, pendingCount: 0 }
+      const stats = MOCK_MODULE_STATS[mod.id] || {
+        activeCount: 0,
+        pendingCount: 0,
+      }
       return {
         id: mod.id,
         label: mod.label,
         route: mod.route,
-          icon: ICON_MAP[mod.iconName],
+        icon: ICON_MAP[mod.iconName],
         activeCount: stats.activeCount,
         pendingCount: stats.pendingCount,
       }

@@ -10,7 +10,12 @@ interface BudgetRequestStatusTimelineProps {
   currentStatus: BudgetRequestStatus
 }
 
-const STATUS_ORDER: BudgetRequestStatus[] = ["novo", "em-analise", "aprovado", "recusado"]
+const STATUS_ORDER: BudgetRequestStatus[] = [
+  "novo",
+  "em-analise",
+  "aprovado",
+  "recusado",
+]
 
 export function BudgetRequestStatusTimeline({
   currentStatus,
@@ -62,7 +67,9 @@ export function BudgetRequestStatusTimeline({
             {/* Status label */}
             <div className="mt-2">
               <Badge
-                variant={isActive ? "default" : isPast ? "secondary" : "outline"}
+                variant={
+                  isActive ? "default" : isPast ? "secondary" : "outline"
+                }
               >
                 {meta.label}
               </Badge>

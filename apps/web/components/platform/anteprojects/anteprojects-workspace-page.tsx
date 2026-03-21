@@ -3,16 +3,19 @@
 import { useState, useMemo, useCallback, useEffect } from "react"
 import { PlusIcon } from "lucide-react"
 import { useSearchParams, useRouter } from "next/navigation"
+import { DropResult } from "@hello-pangea/dnd"
 
 import { Button } from "@workspace/ui/components/button"
 import {
   AnteprojectRecord,
+  AnteprojectStageId,
   filterAnteprojects,
   getAnteprojects,
 } from "@/lib/anteprojects-data"
 import { getCrmOpportunityById } from "@/lib/crm-data"
 import { AnteprojectToolbar } from "./anteproject-toolbar"
 import { AnteprojectListPage } from "./anteproject-list-page"
+import { AnteprojectPipelineBoard } from "./anteproject-pipeline-board"
 import { NewAnteprojectDialog } from "./new-anteproject-dialog"
 
 type ViewMode = "kanban" | "lista"
@@ -60,7 +63,53 @@ export function AnteprojectsWorkspacePage() {
       searchQuery,
       showAwaitingOnly,
     })
-  }, [anteprojects, responsibleFilter, priorityFilter, searchQuery, showAwaitingOnly])
+  }, [
+    anteprojects,
+    responsibleFilter,
+    priorityFilter,
+    searchQuery,
+    showAwaitingOnly,
+  ])
+
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      const { destination, source, draggableId } = result
+
+      if (!destination) return
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return
+      }
+
+      const anteproject = anteprojects.find((ant) => ant.id === draggableId)
+      if (!anteproject) return
+
+      const newStage = destination.droppableId as AnteprojectStageId
+      const now = new Date().toISOString()
+
+      setAnteprojects((prev) =>
+        prev.map((ant) => {
+          if (ant.id !== draggableId) return ant
+          return {
+            ...ant,
+            stage: newStage,
+            updatedAt: now,
+            timeline: [
+              {
+                stage: newStage,
+                changedAt: now,
+                changedBy: ant.ownerId,
+              },
+              ...ant.timeline,
+            ],
+          }
+        })
+      )
+    },
+    [anteprojects]
+  )
 
   const handleNewAnteproject = useCallback(
     (newAnteproject: AnteprojectRecord) => {
@@ -136,9 +185,10 @@ export function AnteprojectsWorkspacePage() {
       {viewMode === "lista" ? (
         <AnteprojectListPage anteprojects={filteredAnteprojects} />
       ) : (
-        <div className="flex items-center justify-center py-16 text-muted-foreground">
-          <p>Kanban view will be implemented in Task 2</p>
-        </div>
+        <AnteprojectPipelineBoard
+          anteprojects={filteredAnteprojects}
+          onDragEnd={onDragEnd}
+        />
       )}
 
       <NewAnteprojectDialog

@@ -58,7 +58,7 @@ export function AnteprojectListPage({
           return <span className="hidden lg:table-cell">-</span>
         }
         return (
-          <span className="hidden lg:table-cell text-sm text-destructive">
+          <span className="hidden text-sm text-destructive lg:table-cell">
             Sim
           </span>
         )

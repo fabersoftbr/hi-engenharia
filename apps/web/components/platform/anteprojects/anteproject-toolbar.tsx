@@ -44,7 +44,7 @@ export function AnteprojectToolbar({
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
       {/* Search field */}
       <div className="relative flex-1">
-        <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <SearchIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Buscar por cliente ou anteprojeto"
           value={searchQuery}

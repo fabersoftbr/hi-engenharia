@@ -36,50 +36,50 @@ export function CrmWorkspacePage() {
     })
   }, [opportunities, responsibleFilter, priorityFilter, searchQuery])
 
-  const onDragEnd = useCallback((result: DropResult) => {
-    const { destination, source, draggableId } = result
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      const { destination, source, draggableId } = result
 
-    if (!destination) return
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return
-    }
+      if (!destination) return
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return
+      }
 
-    const opportunity = opportunities.find((opp) => opp.id === draggableId)
-    if (!opportunity) return
+      const opportunity = opportunities.find((opp) => opp.id === draggableId)
+      if (!opportunity) return
 
-    const newStage = destination.droppableId as CrmStageId
-    const now = new Date().toISOString()
+      const newStage = destination.droppableId as CrmStageId
+      const now = new Date().toISOString()
 
-    setOpportunities((prev) =>
-      prev.map((opp) => {
-        if (opp.id !== draggableId) return opp
-        return {
-          ...opp,
-          stage: newStage,
-          lastContactAt: now,
-          history: [
-            {
-              stage: newStage,
-              changedAt: now,
-              changedBy: opp.ownerId,
-            },
-            ...opp.history,
-          ],
-        }
-      })
-    )
-  }, [opportunities])
-
-  const handleNewOpportunity = useCallback(
-    (newOpp: CrmOpportunityRecord) => {
-      setOpportunities((prev) => [newOpp, ...prev])
-      setIsNewOpportunityOpen(false)
+      setOpportunities((prev) =>
+        prev.map((opp) => {
+          if (opp.id !== draggableId) return opp
+          return {
+            ...opp,
+            stage: newStage,
+            lastContactAt: now,
+            history: [
+              {
+                stage: newStage,
+                changedAt: now,
+                changedBy: opp.ownerId,
+              },
+              ...opp.history,
+            ],
+          }
+        })
+      )
     },
-    []
+    [opportunities]
   )
+
+  const handleNewOpportunity = useCallback((newOpp: CrmOpportunityRecord) => {
+    setOpportunities((prev) => [newOpp, ...prev])
+    setIsNewOpportunityOpen(false)
+  }, [])
 
   return (
     <div className="space-y-6">

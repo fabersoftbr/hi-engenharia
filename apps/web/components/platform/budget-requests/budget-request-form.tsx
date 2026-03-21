@@ -56,7 +56,10 @@ export function BudgetRequestForm() {
     <>
       <Card className="mx-auto max-w-2xl">
         <CardContent className="p-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-8"
+          >
             {/* Section: Dados do cliente */}
             <section>
               <h2 className="mb-4 text-lg font-semibold">Dados do cliente</h2>

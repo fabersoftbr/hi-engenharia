@@ -22,10 +22,11 @@ export const budgetRequestFormSchema = z.object({
 
 export type BudgetRequestFormValues = z.infer<typeof budgetRequestFormSchema>
 
-export const budgetRequestFormDefaultValues: Partial<BudgetRequestFormValues> = {
-  clientName: "",
-  phone: "",
-  city: "",
-  monthlyConsumption: undefined,
-  notes: "",
-}
+export const budgetRequestFormDefaultValues: Partial<BudgetRequestFormValues> =
+  {
+    clientName: "",
+    phone: "",
+    city: "",
+    monthlyConsumption: undefined,
+    notes: "",
+  }

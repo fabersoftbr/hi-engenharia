@@ -1,7 +1,11 @@
 "use client"
 
 import { useMemo } from "react"
-import { CrmStageId, CrmOpportunityRecord, CRM_STAGE_META } from "@/lib/crm-data"
+import {
+  CrmStageId,
+  CrmOpportunityRecord,
+  CRM_STAGE_META,
+} from "@/lib/crm-data"
 import { CrmPipelineCard } from "./crm-pipeline-card"
 
 interface CrmPipelineColumnProps {
@@ -32,7 +36,9 @@ export function CrmPipelineColumn({
   return (
     <div
       className={`flex flex-col gap-2 rounded-2xl p-3 transition-colors ${
-        isDraggingOver ? "bg-primary/5 ring-2 ring-primary/20" : "bg-secondary/50"
+        isDraggingOver
+          ? "bg-primary/5 ring-2 ring-primary/20"
+          : "bg-secondary/50"
       }`}
     >
       <div className="flex items-center justify-between pb-2">

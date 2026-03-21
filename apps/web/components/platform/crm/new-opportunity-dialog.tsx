@@ -54,7 +54,8 @@ export function NewOpportunityDialog({
       stage: "lead",
       priority,
       ownerId,
-      estimatedValue: Number.parseInt(estimatedValue.replace(/\D/g, ""), 10) || 0,
+      estimatedValue:
+        Number.parseInt(estimatedValue.replace(/\D/g, ""), 10) || 0,
       createdAt: now,
       lastContactAt: now,
       originBudgetRequestId: "orc-2026-9001",
@@ -135,7 +136,10 @@ export function NewOpportunityDialog({
             <label htmlFor="priority" className="text-sm font-medium">
               Prioridade
             </label>
-            <Select value={priority} onValueChange={(v) => setPriority(v as CrmPriority)}>
+            <Select
+              value={priority}
+              onValueChange={(v) => setPriority(v as CrmPriority)}
+            >
               <SelectTrigger id="priority">
                 <SelectValue placeholder="Selecione a prioridade" />
               </SelectTrigger>

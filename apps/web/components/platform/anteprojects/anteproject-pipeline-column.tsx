@@ -3,7 +3,7 @@
 import {
   AnteprojectStageId,
   AnteprojectRecord,
-  ANTEPROJECT_STAGE_META
+  ANTEPROJECT_STAGE_META,
 } from "@/lib/anteprojects-data"
 import { AnteprojectPipelineCard } from "./anteproject-pipeline-card"
 
@@ -24,7 +24,9 @@ export function AnteprojectPipelineColumn({
   return (
     <div
       className={`flex flex-col gap-2 rounded-2xl p-3 transition-colors ${
-        isDraggingOver ? "bg-primary/5 ring-2 ring-primary/20" : "bg-secondary/50"
+        isDraggingOver
+          ? "bg-primary/5 ring-2 ring-primary/20"
+          : "bg-secondary/50"
       }`}
     >
       <div className="flex items-center justify-between pb-2">

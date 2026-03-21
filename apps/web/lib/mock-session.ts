@@ -18,7 +18,9 @@ export interface MockSession {
 }
 
 // Parse session from cookie value
-export function parseSession(cookieValue: string | undefined): MockSession | null {
+export function parseSession(
+  cookieValue: string | undefined
+): MockSession | null {
   if (!cookieValue) {
     return null
   }
@@ -79,6 +81,11 @@ export async function getCurrentProfile(): Promise<MockProfile | null> {
 
 // Validate profile key
 export function isValidProfile(profile: string): profile is MockProfile {
-  const validProfiles: MockProfile[] = ["admin", "commercial", "partner", "operations"]
+  const validProfiles: MockProfile[] = [
+    "admin",
+    "commercial",
+    "partner",
+    "operations",
+  ]
   return validProfiles.includes(profile as MockProfile)
 }

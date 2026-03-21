@@ -2,7 +2,13 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Separator } from "@workspace/ui/components/separator"
 import { ChevronRightIcon } from "lucide-react"
@@ -29,9 +35,11 @@ export function DashboardAnnouncements({ items }: DashboardAnnouncementsProps) {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{item.title}</span>
-                  <span className="text-xs text-muted-foreground">{item.date}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {item.date}
+                  </span>
                 </div>
-                <p className="text-sm text-muted-foreground line-clamp-1">
+                <p className="line-clamp-1 text-sm text-muted-foreground">
                   {item.preview}
                 </p>
               </div>

@@ -14,7 +14,13 @@ import { type ProfileKey, PROFILE_LABELS } from "@/lib/platform-config"
 const ACTIVE_PROFILE_STORAGE_KEY = "hi-active-profile"
 
 // Valid profile keys for validation
-const VALID_PROFILES: ProfileKey[] = ["admin", "commercial", "partner", "operations", "cliente"]
+const VALID_PROFILES: ProfileKey[] = [
+  "admin",
+  "commercial",
+  "partner",
+  "operations",
+  "cliente",
+]
 
 // Context type definition
 interface PlatformShellContextType {
@@ -28,9 +34,9 @@ interface PlatformShellContextType {
 }
 
 // Create context with undefined default for proper error handling
-const PlatformShellContext = createContext<PlatformShellContextType | undefined>(
-  undefined
-)
+const PlatformShellContext = createContext<
+  PlatformShellContextType | undefined
+>(undefined)
 
 // Provider props
 interface PlatformShellProviderProps {
@@ -118,7 +124,9 @@ export function PlatformShellProvider({
 export function usePlatformShell(): PlatformShellContextType {
   const context = useContext(PlatformShellContext)
   if (context === undefined) {
-    throw new Error("usePlatformShell must be used within a PlatformShellProvider")
+    throw new Error(
+      "usePlatformShell must be used within a PlatformShellProvider"
+    )
   }
   return context
 }

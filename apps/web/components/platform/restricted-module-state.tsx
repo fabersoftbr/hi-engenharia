@@ -2,7 +2,12 @@
 
 import Link from "next/link"
 import { Button } from "@workspace/ui/components/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import { LockIcon } from "lucide-react"
 import { PROFILE_LABELS, type ProfileKey } from "@/lib/platform-config"
 

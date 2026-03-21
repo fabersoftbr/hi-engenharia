@@ -42,7 +42,7 @@ export function BudgetRequestStatusDialog({
     if (selectedStatus !== currentStatus) {
       onStatusChange?.(selectedStatus)
       console.log(
-        `Status changed for request ${requestId}: ${currentStatus} -> ${selectedStatus}`,
+        `Status changed for request ${requestId}: ${currentStatus} -> ${selectedStatus}`
       )
     }
     setIsOpen(false)
@@ -77,7 +77,7 @@ export function BudgetRequestStatusDialog({
                     "flex items-center justify-center rounded-lg border p-3 transition-colors",
                     isSelected
                       ? "border-primary bg-primary/10"
-                      : "border-border hover:bg-muted",
+                      : "border-border hover:bg-muted"
                   )}
                 >
                   <Badge

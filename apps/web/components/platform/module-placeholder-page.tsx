@@ -1,9 +1,19 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import { RestrictedModuleState } from "./restricted-module-state"
 import { useActiveProfile } from "./platform-shell-provider"
-import { MODULES, type ProfileKey, ICON_MAP, type IconName } from "@/lib/platform-config"
+import {
+  MODULES,
+  type ProfileKey,
+  ICON_MAP,
+  type IconName,
+} from "@/lib/platform-config"
 
 // Check if the active profile has access to a module
 function hasAccessToModule(moduleId: string, profile: ProfileKey): boolean {
@@ -52,7 +62,8 @@ export function ModulePlaceholderPage({
         <CardContent className="text-center">
           <p className="text-muted-foreground">{description}</p>
           <p className="mt-4 text-sm text-muted-foreground">
-            O conteudo deste modulo sera implementado nas proximas fases do projeto.
+            O conteudo deste modulo sera implementado nas proximas fases do
+            projeto.
           </p>
           <div className="mt-4 flex justify-center gap-2">
             <span className="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">

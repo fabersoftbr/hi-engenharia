@@ -87,7 +87,9 @@ export function BudgetRequestsListPage() {
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => <BudgetRequestStatusBadge status={row.original.status} />,
+      cell: ({ row }) => (
+        <BudgetRequestStatusBadge status={row.original.status} />
+      ),
     },
     {
       accessorKey: "requestedAt",
@@ -119,9 +121,12 @@ export function BudgetRequestsListPage() {
       <div className="flex flex-col items-center justify-center gap-4 py-16">
         <FileSearchIcon className="size-12 text-muted-foreground/50" />
         <div className="text-center">
-          <h3 className="text-lg font-semibold">Nenhuma solicitacao encontrada</h3>
+          <h3 className="text-lg font-semibold">
+            Nenhuma solicitacao encontrada
+          </h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Ajuste os filtros ou crie uma nova solicitacao para iniciar o fluxo comercial.
+            Ajuste os filtros ou crie uma nova solicitacao para iniciar o fluxo
+            comercial.
           </p>
         </div>
         <Button asChild>
@@ -139,7 +144,9 @@ export function BudgetRequestsListPage() {
     <div className="flex flex-col items-center justify-center gap-4 py-16">
       <FilterXIcon className="size-12 text-muted-foreground/50" />
       <div className="text-center">
-        <h3 className="text-lg font-semibold">Nenhum resultado para sua busca</h3>
+        <h3 className="text-lg font-semibold">
+          Nenhum resultado para sua busca
+        </h3>
         <p className="mt-1 text-sm text-muted-foreground">
           Tente ajustar os filtros para encontrar o que procura.
         </p>

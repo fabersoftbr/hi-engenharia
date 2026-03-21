@@ -3,7 +3,12 @@
 import type { BudgetRequestRecord } from "@/lib/budget-requests-data"
 import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import { BudgetRequestStatusTimeline } from "./budget-request-status-timeline"
 import { BudgetRequestStatusDialog } from "./budget-request-status-dialog"
 import { BUDGET_REQUEST_STATUS_META } from "@/lib/budget-requests-data"
@@ -30,7 +35,9 @@ function formatDate(dateString: string): string {
   })
 }
 
-export function BudgetRequestDetailPage({ request }: BudgetRequestDetailPageProps) {
+export function BudgetRequestDetailPage({
+  request,
+}: BudgetRequestDetailPageProps) {
   const statusMeta = BUDGET_REQUEST_STATUS_META[request.status]
 
   return (
@@ -38,9 +45,7 @@ export function BudgetRequestDetailPage({ request }: BudgetRequestDetailPageProp
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-semibold">
-            Solicitacao {request.id}
-          </h1>
+          <h1 className="text-2xl font-semibold">Solicitacao {request.id}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
               {request.clientName}
@@ -74,8 +79,12 @@ export function BudgetRequestDetailPage({ request }: BudgetRequestDetailPageProp
                   <p className="font-medium">{request.city}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Data da solicitacao</p>
-                  <p className="font-medium">{formatDate(request.requestedAt)}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Data da solicitacao
+                  </p>
+                  <p className="font-medium">
+                    {formatDate(request.requestedAt)}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -88,7 +97,9 @@ export function BudgetRequestDetailPage({ request }: BudgetRequestDetailPageProp
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div>
-                <p className="text-sm text-muted-foreground">Consumo medio mensal</p>
+                <p className="text-sm text-muted-foreground">
+                  Consumo medio mensal
+                </p>
                 <p className="font-medium">
                   {request.monthlyConsumption
                     ? `${request.monthlyConsumption} kWh`
@@ -133,9 +144,7 @@ export function BudgetRequestDetailPage({ request }: BudgetRequestDetailPageProp
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/propostas">
-                  Criar proposta
-                </Link>
+                <Link href="/propostas">Criar proposta</Link>
               </Button>
             </CardContent>
           </Card>

@@ -4,7 +4,12 @@ import * as React from "react"
 import Link from "next/link"
 import type { CrmOpportunityRecord } from "@/lib/crm-data"
 import { getCrmOwnerById } from "@/lib/crm-data"
-import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { CrmStageBadge } from "./crm-stage-badge"
 import { CrmPriorityBadge } from "./crm-priority-badge"
@@ -90,9 +95,7 @@ export function CrmOpportunityDetailPage({
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">
-                    Responsaveis
-                  </p>
+                  <p className="text-sm text-muted-foreground">Responsaveis</p>
                   <p className="font-medium">{owner?.name ?? "Nao definido"}</p>
                 </div>
               </div>
@@ -107,7 +110,9 @@ export function CrmOpportunityDetailPage({
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild>
-                  <Link href={`/orcamentos/${opportunity.originBudgetRequestId}`}>
+                  <Link
+                    href={`/orcamentos/${opportunity.originBudgetRequestId}`}
+                  >
                     Ver solicitacao {opportunity.originBudgetRequestId}
                   </Link>
                 </Button>
@@ -145,7 +150,9 @@ export function CrmOpportunityDetailPage({
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
               <Button asChild>
-                <Link href={`/anteprojetos?sourceOpportunityId=${opportunity.id}`}>
+                <Link
+                  href={`/anteprojetos?sourceOpportunityId=${opportunity.id}`}
+                >
                   Criar anteprojeto
                 </Link>
               </Button>
@@ -164,7 +171,9 @@ export function CrmOpportunityDetailPage({
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild>
-                  <Link href={`/orcamentos/${opportunity.originBudgetRequestId}`}>
+                  <Link
+                    href={`/orcamentos/${opportunity.originBudgetRequestId}`}
+                  >
                     Ver solicitacao {opportunity.originBudgetRequestId}
                   </Link>
                 </Button>

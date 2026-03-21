@@ -4,10 +4,7 @@ import { ColumnDef, Row } from "@tanstack/react-table"
 import { useRouter } from "next/navigation"
 
 import { DataTable } from "@workspace/ui/components/data-table"
-import {
-  CrmOpportunityRecord,
-  getCrmOwnerById,
-} from "@/lib/crm-data"
+import { CrmOpportunityRecord, getCrmOwnerById } from "@/lib/crm-data"
 import { CrmStageBadge } from "./crm-stage-badge"
 import { CrmPriorityBadge } from "./crm-priority-badge"
 
@@ -51,9 +48,7 @@ export function CrmListPage({ opportunities }: CrmListPageProps) {
       cell: ({ row }) => {
         const owner = getCrmOwnerById(row.original.ownerId)
         return (
-          <span className="hidden lg:table-cell">
-            {owner?.name ?? "-"}
-          </span>
+          <span className="hidden lg:table-cell">{owner?.name ?? "-"}</span>
         )
       },
     },
@@ -73,9 +68,7 @@ export function CrmListPage({ opportunities }: CrmListPageProps) {
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         })
-        return (
-          <span className="hidden sm:table-cell">{formatted}</span>
-        )
+        return <span className="hidden sm:table-cell">{formatted}</span>
       },
     },
     {
