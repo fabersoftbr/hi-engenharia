@@ -19,6 +19,8 @@ Dar a Hi Engenharia uma camada visual unica, clara e padronizada para navegar se
 - ✓ Usuario pode visualizar um dashboard inicial com atalhos operacionais, comunicados, resumo dos modulos e indicadores mockados - Validated in Phase 02
 - ✓ Usuario pode navegar por anteprojetos com lista, detalhe tecnico e funil visual conectado ao handoff do CRM - Validated in Phase 05
 - ✓ Usuario pode criar propostas com builder, consulta de tabela de precos, preview em documento e exportacao simulada - Validated in Phase 05
+- ✓ Usuario pode navegar pastas do Drive com tabs por Oportunidades/Obras, breadcrumb interno, lista de arquivos com metadados e preview em painel lateral - Validated in Phase 07
+- ✓ Usuario pode visualizar mural de comunicados com filtros, destaques, detalhe e publicar via wizard de 2 etapas - Validated in Phase 07
 
 ### Active
 - [ ] Usuario pode navegar por uma estrutura unica entre Portal, Solicitacao de Orcamento, CRM, Projetos, Drive, Gerador de Propostas, Tabela de Precos e Portal de Comunicacao
@@ -62,4 +64,4 @@ Repositorio brownfield com base minima em Next.js 16, React 19, Tailwind CSS 4 e
 | Priorizar primeiro a camada de portal, navegacao e modulos antes de qualquer logica real | Esta fase serve para organizar a operacao visualmente e preparar a base para evolucao futura | - Pending |
 
 ---
-*Last updated: 2026-03-21 after Phase 05 completion*
+*Last updated: 2026-03-21 after Phase 07 completion*
