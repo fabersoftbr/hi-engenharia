@@ -79,16 +79,16 @@ export function AppBreadcrumbs() {
   }
 
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbPage>{moduleName}</BreadcrumbPage>
+    <Breadcrumb className="min-w-0">
+      <BreadcrumbList className="flex-wrap">
+        <BreadcrumbItem className="truncate">
+          <BreadcrumbPage className="truncate">{moduleName}</BreadcrumbPage>
         </BreadcrumbItem>
         {segments.length > 0 && (
           <>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{pageLabel}</BreadcrumbPage>
+            <BreadcrumbItem className="truncate">
+              <BreadcrumbPage className="truncate">{pageLabel}</BreadcrumbPage>
             </BreadcrumbItem>
           </>
         )}
