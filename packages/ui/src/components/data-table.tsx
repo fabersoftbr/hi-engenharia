@@ -4,6 +4,7 @@ import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -23,6 +24,11 @@ import {
   TableHeader,
   TableRow,
 } from "@workspace/ui/components/table"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@workspace/ui/components/tooltip"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -30,6 +36,38 @@ interface DataTableProps<TData, TValue> {
   pageSize?: number
   emptyState?: React.ReactNode
   onRowClick?: (row: Row<TData>) => void
+  columnVisibility?: VisibilityState
+  onColumnVisibilityChange?: (visibility: VisibilityState) => void
+}
+
+// Badge overflow helper: shows up to `max` items then "+N" with tooltip
+export function BadgeOverflow({
+  items,
+  max = 3,
+  renderBadge,
+}: {
+  items: string[]
+  max?: number
+  renderBadge: (item: string, index: number) => React.ReactNode
+}) {
+  const visible = items.slice(0, max)
+  const overflow = items.slice(max)
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      {visible.map((item, i) => renderBadge(item, i))}
+      {overflow.length > 0 && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="cursor-default text-xs text-muted-foreground">
+              +{overflow.length}
+            </span>
+          </TooltipTrigger>
+          <TooltipContent>{overflow.join(", ")}</TooltipContent>
+        </Tooltip>
+      )}
+    </div>
+  )
 }
 
 export function DataTable<TData, TValue>({
@@ -38,10 +76,35 @@ export function DataTable<TData, TValue>({
   pageSize = 10,
   emptyState,
   onRowClick,
+  columnVisibility: controlledVisibility,
+  onColumnVisibilityChange,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
+  )
+  const [internalVisibility, setInternalVisibility] =
+    React.useState<VisibilityState>({})
+
+  // Support both controlled and uncontrolled column visibility
+  const columnVisibility = controlledVisibility ?? internalVisibility
+  const handleVisibilityChange = React.useCallback(
+    (
+      updaterOrValue:
+        | VisibilityState
+        | ((prev: VisibilityState) => VisibilityState)
+    ) => {
+      const newValue =
+        typeof updaterOrValue === "function"
+          ? updaterOrValue(columnVisibility)
+          : updaterOrValue
+      if (onColumnVisibilityChange) {
+        onColumnVisibilityChange(newValue)
+      } else {
+        setInternalVisibility(newValue)
+      }
+    },
+    [columnVisibility, onColumnVisibilityChange]
   )
 
   const table = useReactTable({
@@ -53,9 +116,11 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: handleVisibilityChange,
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
     initialState: {
       pagination: {

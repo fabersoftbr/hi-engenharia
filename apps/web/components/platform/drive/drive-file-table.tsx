@@ -4,6 +4,7 @@ import * as React from "react"
 import {
   ColumnDef,
   RowSelectionState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -45,6 +46,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 
 import { DriveEmptyState } from "./drive-empty-state"
 import { DriveFileRowActions } from "./drive-file-row-actions"
@@ -84,10 +86,20 @@ export function DriveFileTable({
   onRename,
   onBulkDelete,
 }: DriveFileTableProps) {
+  const isMobile = useIsMobile()
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({})
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
   const [fileToDelete, setFileToDelete] = React.useState<DriveFile | null>(null)
   const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = React.useState(false)
+
+  // Drive responsive column visibility via shared contract
+  const columnVisibility: VisibilityState = React.useMemo(
+    () => ({
+      size: !isMobile,
+      author: !isMobile,
+    }),
+    [isMobile]
+  )
 
   // Notify parent when selection changes
   React.useEffect(() => {
@@ -185,7 +197,7 @@ export function DriveFileTable({
         )
       },
     },
-    // Tamanho column
+    // Tamanho column - hidden on mobile via columnVisibility
     {
       accessorKey: "size",
       header: "Tamanho",
@@ -203,7 +215,7 @@ export function DriveFileTable({
         return new Date(uploadedAt).toLocaleDateString("pt-BR")
       },
     },
-    // Autor column
+    // Autor column - hidden on mobile via columnVisibility
     {
       accessorKey: "author",
       header: "Autor",
@@ -249,6 +261,7 @@ export function DriveFileTable({
     enableRowSelection: true,
     state: {
       rowSelection,
+      columnVisibility,
     },
   })
 
@@ -286,23 +299,14 @@ export function DriveFileTable({
                   onClick={() => onFileClick(row.original)}
                   className="cursor-pointer hover:bg-muted/50"
                 >
-                  {row.getVisibleCells().map((cell) => {
-                    // Add responsive hiding for certain columns
-                    const columnId = cell.column.id
-                    const hideOnMobile =
-                      columnId === "size" || columnId === "author"
-                    return (
-                      <TableCell
-                        key={cell.id}
-                        className={hideOnMobile ? "hidden md:table-cell" : ""}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    )
-                  })}
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))
             ) : (
