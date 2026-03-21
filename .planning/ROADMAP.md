@@ -20,6 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 6: Projetos e Pipeline de Obras** - Representa a execução e o acompanhamento visual das obras
 - [ ] **Phase 7: Drive e Comunicação** - Estrutura arquivos, permissões simuladas e mural de comunicados
 - [ ] **Phase 8: Estados, Responsividade e Jornada Completa** - Fecha a cobertura visual do produto com polimento transversal
+- [ ] **Phase 9: Clean Code Audit** - Aplicar principios de Clean Code em todos os arquivos de codigo
 
 ## Phase Details
 
@@ -68,7 +69,7 @@ Plans:
 
 Plans:
 - [ ] 03-01: Criar listagem de solicitações com filtros e estados base
-- [ ] 03-02: Montar formulario de nova solicitação com anexos simulados
+- [ ] 03-02: Montar formulario de nova solicitacao com anexos simulados
 - [ ] 03-03: Entregar tela de detalhes e confirmação visual de envio
 
 ### Phase 4: CRM e Pipeline Comercial
@@ -153,10 +154,27 @@ Plans:
 - [ ] 08-02-PLAN.md -- Responsive shell, table, pipeline, dialog, and detail normalization for implemented modules
 - [ ] 08-03-PLAN.md -- Dependency-gated jornada, dashboard pendencies, and cross-module handoff polish
 
+### Phase 9: Clean Code Audit
+**Goal**: Apply clean code principles (Robert C. Martin) to audit all code files on this branch and apply best practices
+**Depends on**: Phase 8
+**Requirements**: CLEAN-01, CLEAN-02, CLEAN-03, CLEAN-04
+**Success Criteria** (what must be TRUE):
+  1. All code follows consistent naming conventions (PascalCase types, camelCase functions, SCREAMING_SNAKE_CASE constants)
+  2. No console.log debug statements remain in production code
+  3. Functions are well-structured with reasonable length (under 40 lines)
+  4. Components have documented Props interfaces and use shadcn/ui patterns consistently
+**Plans**: 4 plans
+
+Plans:
+- [ ] 09-01-PLAN.md -- Audit naming conventions and add JSDoc comments in lib data files
+- [ ] 09-02-PLAN.md -- Remove console.log debug statements and handle TODO comments
+- [ ] 09-03-PLAN.md -- Refactor oversized functions by extracting helpers
+- [ ] 09-04-PLAN.md -- Audit shell components for structure and pattern compliance
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -168,3 +186,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 6. Projetos e Pipeline de Obras | 0/3 | Not started | - |
 | 7. Drive e Comunicação | 0/4 | Not started | - |
 | 8. Estados, Responsividade e Jornada Completa | 0/3 | Not started | - |
+| 9. Clean Code Audit | 0/4 | Not started | - |
