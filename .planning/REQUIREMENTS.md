@@ -80,9 +80,9 @@
 
 ### Estados Visuais
 
-- [ ] **STAT-01**: Usuario pode ver estados de carregamento simulados nas principais telas por meio de skeletons e placeholders
-- [ ] **STAT-02**: Usuario pode ver estados de vazio e sem resultados nas listagens, pipelines e paineis principais
-- [ ] **STAT-03**: Usuario pode ver estados simulados de sucesso e erro para acoes como envio, exportacao, publicacao e upload visual
+- [x] **STAT-01**: Usuario pode ver estados de carregamento simulados nas principais telas por meio de skeletons e placeholders
+- [x] **STAT-02**: Usuario pode ver estados de vazio e sem resultados nas listagens, pipelines e paineis principais
+- [x] **STAT-03**: Usuario pode ver estados simulados de sucesso e erro para acoes como envio, exportacao, publicacao e upload visual
 
 ### Responsividade
 
@@ -153,9 +153,9 @@
 | COMM-03 | Phase 7 | Pending |
 | ROLE-01 | Phase 1 | Complete |
 | ROLE-02 | Phase 1 | Complete |
-| STAT-01 | Phase 8 | Pending |
-| STAT-02 | Phase 8 | Pending |
-| STAT-03 | Phase 8 | Pending |
+| STAT-01 | Phase 8 | Complete |
+| STAT-02 | Phase 8 | Complete |
+| STAT-03 | Phase 8 | Complete |
 | RESP-01 | Phase 8 | Pending |
 
 **Coverage:**
