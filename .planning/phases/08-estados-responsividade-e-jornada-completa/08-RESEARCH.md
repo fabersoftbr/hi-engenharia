@@ -1,569 +1,554 @@
-# Phase 08: Estados, Responsividade e Jornada Completa - Research
+# Phase 8: Estados, Responsividade e Jornada Completa - Research
 
-**Researched:** 2026-03-20
-**Domain:** Next.js 16 App Router frontend polish across loading/empty/error/success states, responsive tables and pipelines, and cross-module journey UX
-**Confidence:** MEDIUM
+**Researched:** 2026-03-21
+**Domain:** UI states, responsive layout, journey navigation (frontend-only Next.js + shadcn/ui)
+**Confidence:** HIGH
+
+## Summary
+
+Phase 8 is a polishing/transversal phase that covers visual states (loading, empty, no-results, success, error), responsive layouts across all screens, and the complete journey navigation from budget request through construction. Plans 00 and 01 have already been executed, establishing the foundational primitives: typed skeletons (Table, CardGrid, Pipeline, Detail), EmptyState compound component, toast helpers (sonner wrappers with standard durations), `useSimulatedLoading` hook, the `/erro` custom error page, `global-error.tsx`, `NavigationTransition`, badge overflow, DataTable column visibility, and a Vitest test harness with specs.
+
+The remaining plans (02 through 07) must now adopt these primitives into actual screens and build the missing features: mobile pipeline tabs, bottom-sheet overlays, destructive confirmations, the `/jornada` page, lineage links, and back/next-step navigation. The codebase is well-structured with clear patterns from prior phases -- every screen follows a consistent architecture (workspace page with toolbar, list/pipeline toggle, skeleton loading, empty states).
+
+**Primary recommendation:** Focus each remaining plan on a clear responsibility boundary (state adoption, shell/responsive, mobile patterns, detail polish, journey page, lineage wiring), using the primitives already created in Plan 01 without creating new shared components unless absolutely necessary.
 
 <user_constraints>
 ## User Constraints (from CONTEXT.md)
 
 ### Locked Decisions
-
-### Estados Visuais — Loading (STAT-01)
-
-- **Skeletons tipados:** Criar 4 skeletons no @workspace/ui:
-  - `TableSkeleton` — para DataTables
-  - `CardGridSkeleton` — para dashboard e grids de cards
-  - `PipelineSkeleton` — para Kanban boards
-  - `DetailSkeleton` — para páginas de detalhe 2-colunas
-- **Dimensões:** Skeletons com dimensões exatas dos componentes reais (fidelidade visual)
-- **Animação:** Pulse animation (padrão shadcn)
-- **Simulação em dev:** Adicionar delay artificial em desenvolvimento para visualizar skeletons
-- **Formulários:** Usar `isSubmitting` do react-hook-form para desabilitar botão e mostrar spinner durante submit
-
-### Estados Visuais — Empty (STAT-02)
-
-- **Componente `EmptyState`:** Props flexíveis — `icon`, `title`, `description`, `action` (button)
-- **Ícones:** lucide-react (sem ilustrações customizadas)
-- **Seções vazias:** Esconder seção inteira quando vazia (ex: seção "Anexos" sem anexos some, não mostrar "Nenhum anexo")
-- **Pipeline em mobile:** Abas mostram contador 0, mas etapa permanece visível
-
-### Estados Visuais — Success/Error (STAT-03)
-
-- **Toasts com sonner:** Posição bottom-right
-- **Duração variável:** Sucesso 3s, Info 4s, Erro 5s
-- **Múltiplos toasts:** Empilhar verticalmente (não substituir)
-- **Undo:** Botão "Desfazer" no toast após ações reversíveis (ex: mudança de etapa)
-- **Página de erro customizada `/erro`:** Ilustração + mensagem amigável + botão "Tentar novamente" + link "Voltar ao início"
-- **Error boundary:** Global no root layout
-- **Exportação de PDF:** Toast "PDF gerado com sucesso" + botão "Baixar" simulado
-
-### Responsividade — Tabelas (RESP-01)
-
-- **DataTables em mobile:** Scroll horizontal, esconder colunas menos importantes
-- **Colunas:** Fixas — sem seletor de colunas visíveis
-- **Breakpoint:** `md` (768px) para mudança de layout mobile/desktop
-- **Badge overflow:** Limite 3 badges + "+N" com tooltip
-
-### Responsividade — Pipelines
-
-- **Kanban em mobile:** Abas horizontais por etapa — usuário navega entre abas, vê cards da etapa ativa
-- **Drag-and-drop:** Desativado em mobile — mudar etapa via select no detalhe
-- **Stack vertical em mobile:** Colunas empilham verticalmente como alternativa
-
-### Responsividade — Detalhes e Modals
-
-- **Layout 2-colunas em mobile:** Stack vertical — ações/timeline primeiro, dados principais abaixo
-- **Modals em mobile:** Sheet (abre de baixo para cima, full-width, puxar para fechar)
-- **Modal sizes:** `md` (448px) forms simples, `lg` (512px) forms complexos, `xl` para previews
-
-### Responsividade — Sidebar e Header
-
-- **Sidebar mobile:** Drawer via hamburger (já implementado)
-- **Sidebar larguras:** 256px expandida / 64px colapsada
-- **Header altura:** 64px (h-16)
-- **Fonts em mobile:** Reduzir tamanhos para caber mais conteúdo
-- **Spacing em mobile:** Reduzir padding/margin
-
-### Jornada Completa (PIPE-04)
-
-- **Página `/jornada`:** Timeline horizontal com cards conectados por setas
-  - Ordem: Orçamento → CRM → Anteprojeto → Proposta → Projeto → Obra
-  - Cada card: ícone, nome do módulo, contador de itens ativos
-- **Etapas vazias:** Esconder módulos sem itens da timeline
-- **Acesso:** Entrada "Jornada" na sidebar (seção OPERAÇÃO)
-- **Seção "Registro":** Em cada página de detalhe, links para entidades relacionadas (solicitação origem, oportunidade, proposta, projeto)
-- **Botões "Voltar":** No header de páginas de detalhe para retornar à entidade anterior na cadeia
-- **Ações contextuais:** Botões "Próxima etapa" — "Criar oportunidade" (Orçamento), "Gerar proposta" (Anteprojeto), etc.
-- **Dashboard:** Painel de pendências consolidado mostrando entidades de toda a jornada com links diretos
-
-### Dark Mode e Consistência Visual
-
-- **Auditoria:** Completa — navegar manualmente por todas as telas em ambos os temas
-- **Correção:** Criar lista de problemas durante implementação e corrigir todos na fase
-- **Contraste:** WCAG AA (4.5:1 para texto)
-- **Escopo da auditoria:** Listas, pipelines, detalhes, formulários, dialogs, dashboard, shell
-- **Toggle de tema:** Manter 'D' + adicionar opção no dropdown do avatar
-
-### Acessibilidade
-
-- **Foco:** Focus trap em dialogs (primeiro campo ao abrir, retorna ao botão ao fechar)
-- **Labels:** Labels em todos os inputs, aria-labels em botões de ação
-- **Foco visível:** Garantir indicador de foco visível em todos os elementos interativos
-
-### Interações e Comportamentos
-
-- **Confirmação:** Dialog de confirmação para ações destrutivas (exclusão, cancelamento, mudança para Recusado/Fechado)
-- **Offline:** Ignorar — frontend-only sem backend real
-- **Navegação entre páginas:** Fade/slide transition
-- **Scroll:** Reset ao topo ao navegar para nova página
-- **Transições:** 150ms micro-interações, 200ms transições de estado, 300ms dialogs/modals
-- **Tooltip delay:** 300ms para mostrar, instant hide ao sair
-- **Busca:** Local instantânea nos dados mockados
-- **Filtros:** Reset ao navegar para outra página
-- **Bulk actions:** Checkboxes para seleção múltipla com ações em massa
-- **Atalhos de teclado:** Apenas 'D' para tema (sem atalhos de módulo)
-- **Botões indisponíveis:** Visual disabled (opacity reduzida), não esconder
-- **Onboarding:** Sem onboarding — interface autoexplicativa
-
-### Formatação de Dados
-
-- **Texto longo:** Truncate + ellipsis + tooltip no hover
-- **Datas:** Formato pt-BR (DD/MM/YYYY para data, DD/MM/YYYY HH:mm para data/hora)
-- **Moeda:** R$ X.XXX,XX com `Intl.NumberFormat` pt-BR
-- **Avatar fallback:** Iniciais coloridas (AvatarFallback shadcn, cor derivada do nome)
-
-### Componentes de Formulário
-
-- **Toggles:** Switch para binário (true/false), Checkbox para multi-seleção
-- **Select vs Radio:** Select para 5+ opções, RadioGroup para 2-4 opções
-- **Textarea:** Auto-resize até 5 linhas, depois scroll interno
-- **Form defaults:** Campos vazios (exceto dados herdados de entidade anterior)
-- **Required field indicator:** Asterisco (*) ao lado do label
-
-### Toolbar de Listas
-
-- **Mobile:** Toolbar com scroll horizontal
-- **Filtros:** Dropdown + campo de busca + botão ação primária
-- **Toggle Kanban/Lista:** ToggleGroup à direita da toolbar
+- **Skeletons tipados:** 4 typed skeletons in @workspace/ui (TableSkeleton, CardGridSkeleton, PipelineSkeleton, DetailSkeleton) -- ALREADY BUILT
+- **EmptyState component:** Props flexiveis (icon, title, description, action) using lucide-react icons -- ALREADY BUILT
+- **Toasts with sonner:** bottom-right, variable duration (success 3s, info 4s, error 5s), stackable, undo support -- HELPERS ALREADY BUILT
+- **Error page `/erro`:** Inline SVG illustration + friendly message + retry/home buttons -- ALREADY BUILT
+- **Error boundary:** Global in root layout -- ALREADY BUILT
+- **DataTables mobile:** Horizontal scroll, hide less-important columns, fixed columns (no column selector), breakpoint md (768px), badge overflow limit 3 + "+N" with tooltip -- COLUMN VISIBILITY AND BADGE OVERFLOW ALREADY IN DataTable
+- **Kanban mobile:** Horizontal tabs per stage, drag-and-drop disabled on mobile, stage change via select in detail
+- **Details mobile:** Vertical stack (actions/timeline first, main data below)
+- **Modals mobile:** Sheet (bottom-up, full-width, pull-to-close), sizes md/lg/xl
+- **Sidebar:** 256px expanded / 64px collapsed, 64px header height (h-16)
+- **Navigation transitions:** Fade/slide 150ms, scroll reset on navigation -- ALREADY BUILT
+- **Tooltip delay:** 300ms -- ALREADY SET in TooltipProvider
+- **Theme toggle:** 'D' keyboard shortcut + avatar dropdown option -- DROPDOWN ALREADY BUILT
+- **Confirmations:** AlertDialog for destructive actions (delete, cancel, stage change to Recusado/Fechado)
+- **Jornada page:** `/jornada` with horizontal timeline, cards connected by arrows, module counters
+- **Jornada sidebar entry:** "Jornada" in OPERACAO section
+- **Lineage section:** "Registro" in detail pages with links to related entities
+- **Back buttons:** In detail page headers to return to previous entity in chain
+- **Next-step buttons:** "Criar oportunidade" (Orcamento), "Gerar proposta" (Anteprojeto), etc. -- SOME ALREADY EXIST
+- **Dashboard pendencies:** Consolidated panel showing entities from entire journey
+- **Dark mode audit:** Full navigation across all screens in both themes, WCAG AA contrast
+- **Accessibility:** Focus trap in dialogs, labels on all inputs, visible focus indicator
+- **Data formatting:** Truncate + ellipsis + tooltip, dates pt-BR DD/MM/YYYY, currency R$ with Intl.NumberFormat
+- **Bulk actions:** Checkboxes for multi-selection with batch actions
+- **Disabled buttons:** Visual disabled (opacity), never hide
 
 ### Claude's Discretion
-
-- Conteúdo mockado específico (números, nomes, datas) para preencher estados
-- Ilustração exata da página de erro
-- Ícones específicos para cada módulo na página /jornada
-- Ordenação das etapas na timeline da jornada
+- Mock data content (numbers, names, dates) for populating states
+- Exact illustration for error page -- DECIDED: inline SVG broken gear
+- Specific icons for each module in /jornada page
+- Stage ordering in journey timeline
 
 ### Deferred Ideas (OUT OF SCOPE)
-
-None — discussion stayed within phase scope
+None -- discussion stayed within phase scope
 </user_constraints>
 
 <phase_requirements>
 ## Phase Requirements
 
 | ID | Description | Research Support |
-|----|-------------|-----------------|
-| PIPE-04 | Usuario pode perceber visualmente o fluxo principal da operacao de orcamento ate execucao da obra por meio da navegacao entre telas relacionadas | Derived journey data model, `/jornada` route, related-record sections in details, back-navigation cleanup, and dependency warning for still-missing Phase 6/7 screens |
-| STAT-01 | Usuario pode ver estados de carregamento simulados nas principais telas por meio de skeletons e placeholders | Shared `@workspace/ui` skeleton primitives, Next loading/error conventions where applicable, and RHF `isSubmitting` pattern for forms |
-| STAT-02 | Usuario pode ver estados de vazio e sem resultados nas listagens, pipelines e paineis principais | Thin `EmptyState` wrapper over shadcn Empty, hide-empty-section rule, and explicit no-results handling for tables/pipelines |
-| STAT-03 | Usuario pode ver estados simulados de sucesso e erro para acoes como envio, exportacao, publicacao e upload visual | Centralized Sonner configuration, undo/cancel actions, `/erro` route, and `global-error.tsx` / segment `error.tsx` boundaries |
-| RESP-01 | Usuario pode utilizar as principais telas do portal, dos modulos, das listagens e dos detalhes em desktop e mobile com navegacao clara | Shared `useIsMobile()` breakpoint, TanStack column visibility for tables, mobile-only pipeline tabs, sheet bottom panels, and shell/header normalization |
+|----|-------------|------------------|
+| PIPE-04 | Usuario pode perceber visualmente o fluxo principal da operacao de orcamento ate execucao da obra por meio da navegacao entre telas relacionadas | Supported by: `/jornada` page with horizontal timeline, lineage "Registro" sections in detail pages, back buttons in headers, next-step handoff buttons, dashboard pendencies panel |
+| STAT-01 | Usuario pode ver estados de carregamento simulados nas principais telas por meio de skeletons e placeholders | Supported by: 4 typed skeletons already in @workspace/ui, `useSimulatedLoading` hook already built, adoption pattern established in CRM/Anteprojects/BudgetRequests/Projects -- remaining screens (Drive, Comunicacao, Works) need adoption |
+| STAT-02 | Usuario pode ver estados de vazio e sem resultados nas listagens, pipelines e paineis principais | Supported by: EmptyState component built, already adopted in CRM/Anteproject lists and pipelines, Budget requests list -- remaining screens need adoption |
+| STAT-03 | Usuario pode ver estados simulados de sucesso e erro para acoes como envio, exportacao, publicacao e upload visual | Supported by: Toast helpers built (showSuccessToast, showInfoToast, showErrorToast, showUndoToast, showPdfReadyToast), `/erro` page built, global-error.tsx built -- toast helpers NOT YET USED in any production component, need adoption in forms, stage changes, dialog submissions |
+| RESP-01 | Usuario pode utilizar as principais telas do portal, dos modulos, das listagens e dos detalhes em desktop e mobile com navegacao clara | Supported by: useIsMobile hook (768px breakpoint), DataTable responsive column hiding pattern established, sidebar mobile drawer already works, NavigationTransition built -- mobile pipeline tabs, bottom-sheet overlays, detail responsive stacking, and font/spacing adjustments still needed |
 </phase_requirements>
-
-## Summary
-
-The repository already has the right base for Phase 08: Next.js 16 App Router, React 19, a shared `@workspace/ui` package, `sonner`, `@tanstack/react-table`, `react-hook-form`, `next-themes`, and a shared `useIsMobile()` hook fixed at `md`/768px. The phase should therefore be planned as consolidation and normalization work, not as net-new framework work. The highest-value move is to push all cross-cutting visual states into shared UI primitives and then refactor module screens to consume them consistently.
-
-The current codebase also exposes concrete gaps that the planner should treat as work items, not assumptions. Empty states are duplicated inline, tables hide only body cells with CSS instead of using table-level column visibility, toast behavior is not centralized, tooltip delay is still `0ms`, the header is `h-14` instead of the locked `h-16`, and some flows still rely on `window.location.href` or `window.alert()`. These are all high-confidence polish targets for 08-01 and 08-02.
-
-The main planning risk is 08-03. `PIPE-04` assumes a visual journey all the way through `Projeto`, `Drive`, and `Obra`, but the current repository state is still at Phase 05 complete and the actual `/projetos`, `/drive`, `/obras`, and `/comunicacao` routes are placeholders. That means the planner should either gate the journey plan on Phases 6 and 7 being completed first, or explicitly narrow the implemented journey to the modules that already exist in code today.
-
-**Primary recommendation:** Plan Phase 08 in two tracks: first shared state/responsive primitives and consistency fixes, then a dependency-gated journey pass that starts only after Phase 6 and Phase 7 outputs exist in the codebase.
 
 ## Standard Stack
 
-### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| Next.js | repo-pinned `16.1.6` (latest `16.2.1`, published 2026-03-20) | App Router routing, loading UI, error boundaries, navigation | Already in repo; official file conventions (`loading.tsx`, `error.tsx`, `global-error.tsx`) solve state/error polish without custom router infrastructure |
-| React | repo-pinned `19.2.4` (latest `19.2.4`, published 2026-01-26) | Client state, conditional rendering, local transitions | The phase work is mostly client-rendered UI orchestration on top of existing mock data |
-| Tailwind CSS | repo-pinned `4.1.18` via `@workspace/ui` (latest `4.2.2`, published 2026-03-18) | Responsive layout, spacing, tokenized dark mode styling | The project already centralizes tokens and scanning in `packages/ui/src/styles/globals.css` |
-| shadcn/ui (`radix-maia`) | repo-pinned CLI `4.0.8` (latest `4.1.0`, published 2026-03-19) | Shared UI primitives in `packages/ui` | Repo rule mandates shadcn-first composition; phase 08 should extend it instead of hand-rolling state and overlay UI |
+### Core (already installed)
+| Library | Purpose | Why Standard |
+|---------|---------|--------------|
+| next + next-themes | App framework + dark mode | Project foundation, class-based theme switching |
+| @workspace/ui (shadcn) | Component library | All UI primitives, skeletons, empty states, dialogs, sheets |
+| sonner | Toast notifications | Already integrated via `<Toaster />` in platform layout |
+| @tanstack/react-table | Data tables | Already powering DataTable with column visibility |
+| @hello-pangea/dnd | Drag and drop | Already powering pipeline boards |
+| lucide-react | Icons | Standard icon library per project conventions |
+| react-hook-form + zod | Forms | Already powering form submissions |
 
-### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| `sonner` | repo-pinned `2.0.7` (latest `2.0.7`, published 2025-08-02) | Toast success/error/info/loading feedback | Use for all transient action feedback and undo/cancel affordances |
-| `@tanstack/react-table` | repo-pinned `8.21.3` (latest `8.21.3`, published 2025-04-14) | List rendering, pagination, dynamic column visibility | Use for responsive table behavior instead of CSS-only hidden cells |
-| `react-hook-form` | repo-pinned `7.63.0` (latest `7.71.2`, published 2026-02-20) | Form submit state and validation | Use `formState.isSubmitting` and existing form patterns for loading/disabled states |
-| `@hello-pangea/dnd` | repo-pinned `18.0.1` (latest `18.0.1`, published 2025-02-09) | Desktop Kanban drag-and-drop | Keep only on desktop branches; disable entirely on mobile |
-| `next-themes` | repo-pinned `0.4.6` (latest `0.4.6`, published 2025-03-11) | Theme sync for shell and toaster | Use for dark-mode parity and avatar-dropdown theme toggle |
+### Supporting (already installed)
+| Library | Purpose | When to Use |
+|---------|---------|-------------|
+| vitest + @testing-library/react | Testing | Wave 0 harness already configured |
+| @vitejs/plugin-react | Vitest JSX transform | Required since Next.js tsconfig uses jsx: preserve |
 
-### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Shared `EmptyState` wrapper over shadcn Empty | Hand-written empty markup per page | Faster for one screen, but duplicates copy/layout and violates the repo’s shadcn-first workflow |
-| TanStack `columnVisibility` state | `hidden md:table-cell` classes only | CSS-only hiding is simpler but causes header/body drift and is already breaking table semantics in current screens |
-| Existing `Sheet` with `side="bottom"` for mobile modals | shadcn `Drawer` (`vaul`) | Drawer gives gesture-heavy bottom sheets, but adds dependency; current phase context already chose Sheet and the repo already has it installed |
-| Next App Router `error.tsx` / `global-error.tsx` | Custom React error boundary inside layout trees | Custom wrappers duplicate framework behavior and miss root-layout failures that `global-error.tsx` handles |
-
-**Installation:**
-```bash
-# No package upgrade is required for Phase 08.
-# Add only missing shadcn primitives through the existing app config.
-pnpm dlx shadcn@latest add empty alert-dialog tabs -c apps/web
-```
-
-**Version verification:** Repo-pinned versions and registry latest versions were checked with `npm view` on 2026-03-20. Current registry latest patches are newer than the repo for `next`, `tailwindcss`, `shadcn`, and `react-hook-form`, but this phase should stay on the repo-pinned stack unless a dedicated upgrade phase is opened.
+### No New Dependencies Needed
+This phase requires NO new package installations. All primitives are built and all libraries are installed.
 
 ## Architecture Patterns
 
-### Recommended Project Structure
-```text
-apps/web/
-├── app/
-│   ├── global-error.tsx              # Root App Router uncaught errors
-│   ├── erro/
-│   │   └── page.tsx                  # Friendly expected-error route
-│   └── (platform)/
-│       ├── error.tsx                 # Segment fallback for platform pages
-│       ├── jornada/
-│       │   └── page.tsx              # Cross-module journey page
-│       └── [module]/loading.tsx      # Only where route-level loading can actually render
-├── components/platform/
-│   ├── journey/                      # Journey cards, timeline, related-record UI
-│   ├── states/                       # Page-level state wrappers that compose shared UI primitives
-│   └── responsive/                   # Mobile-specific table/pipeline/detail branches
-└── lib/
-    ├── journey-data.ts               # Derived cross-module relationships and counters
-    └── feedback.ts                   # Toast duration/action helpers
-packages/ui/src/components/
-├── empty-state.tsx
-├── table-skeleton.tsx
-├── card-grid-skeleton.tsx
-├── pipeline-skeleton.tsx
-└── detail-skeleton.tsx
+### Already-Built Primitives (from Plans 00 and 01)
+
+The following components and utilities exist and MUST be used (not recreated):
+
+**Shared UI components (`@workspace/ui`):**
+- `EmptyState` -- convenience wrapper: `{ icon, title, description, action }`
+- `Empty`, `EmptyIcon`, `EmptyTitle`, `EmptyDescription`, `EmptyActions` -- compound component
+- `TableSkeleton` -- `{ rowCount, columnCount, className }`
+- `CardGridSkeleton` -- `{ itemCount, className }`
+- `PipelineSkeleton` -- `{ columnCount, cardsPerColumn, className }`
+- `DetailSkeleton` -- `{ sectionCount, className }`
+- `DataTable` -- has `emptyState`, `columnVisibility`, `onColumnVisibilityChange` props
+- `BadgeOverflow` -- exported from data-table: `{ items, max, renderBadge }`
+
+**App-level components:**
+- `EmptyState` at `@/components/platform/states/empty-state` -- simpler local version with defaults
+- `TableSkeleton`, `CardGridSkeleton`, `PipelineSkeleton`, `DetailSkeleton` at `@/components/platform/states/skeletons` -- lighter local wrappers with `data-testid` attributes
+- `NavigationTransition` -- fade/slide transition + scroll reset on route change
+
+**Utilities:**
+- `useSimulatedLoading(enabled?)` at `@/lib/use-simulated-loading` -- 800ms dev delay
+- `showSuccessToast(msg)`, `showInfoToast(msg)`, `showErrorToast(msg)`, `showUndoToast(msg, onUndo)`, `showPdfReadyToast(onDownload)` at `@/lib/toast-helpers`
+- `useIsMobile()` at `@workspace/ui/hooks/use-mobile` -- returns true below 768px
+
+**Error surfaces:**
+- `/erro` page with inline SVG illustration, retry, and home link
+- `global-error.tsx` with raw HTML (replaces root layout on crash)
+
+**Test infrastructure:**
+- `vitest.config.ts` configured with jsdom, @vitejs/plugin-react, path aliases
+- Test files in `__tests__/` directories alongside components
+- Existing specs: `empty-states.test.tsx`, `loading-and-feedback.test.tsx`, `responsive-layouts.test.tsx`
+
+### Adoption Status Inventory
+
+| Screen/Module | Loading State | Empty/No-Results | Toast Feedback | Responsive Mobile |
+|---------------|:------------:|:----------------:|:--------------:|:-----------------:|
+| Portal Dashboard | YES (CardGridSkeleton) | partial | NO | partial |
+| Budget Requests List | YES (TableSkeleton) | YES (EmptyState) | NO | partial (column hiding) |
+| CRM Workspace | YES (Table/Pipeline) | YES (EmptyState) | NO | NO (no mobile tabs) |
+| CRM List | -- (parent handles) | YES (emptyState prop) | NO | partial (column hiding) |
+| CRM Pipeline | -- (parent handles) | YES (EmptyState) | NO | NO (desktop-only kanban) |
+| Anteproject Workspace | YES (Table/Pipeline) | YES (EmptyState) | NO | NO (no mobile tabs) |
+| Anteproject List | -- (parent handles) | YES (emptyState prop) | NO | partial (column hiding) |
+| Anteproject Pipeline | -- (parent handles) | YES (EmptyState) | NO | NO (desktop-only kanban) |
+| Projects List | YES (TableSkeleton) | partial | NO | partial |
+| Works Workspace | NO | NO | NO | NO |
+| Proposals List | YES | partial | NO | partial |
+| Price Table | YES | partial | NO | partial |
+| Drive | NO | YES (custom) | NO | partial |
+| Comunicacao Mural | NO | partial | NO | partial |
+| Detail Pages (all 6) | NO (no DetailSkeleton) | n/a | NO | NO (no mobile stacking) |
+
+### Established Patterns for Adoption
+
+**Loading state pattern (follow CRM/Anteprojects):**
+```tsx
+const isLoading = useSimulatedLoading()
+// In render:
+{isLoading ? <TableSkeleton rows={8} /> : <ActualContent />}
 ```
 
-### Pattern 1: Shared State Primitives in `@workspace/ui`
-**What:** Put all repeated loading and empty visuals in `packages/ui`, then compose them in app-level pages. Keep page-specific copy and actions in the app, but keep layout and animation tokens shared.
-**When to use:** All list, dashboard, pipeline, detail, and upload screens touched by 08-01.
-**Why:** Current screens already repeat empty markup and status behaviors. Phase 08 should centralize them once.
-
-### Pattern 2: Responsive Tables via Column Visibility State
-**What:** Move mobile column decisions into `columnVisibility` state on `DataTable`, not just CSS classes on `<td>`.
-**When to use:** `orcamentos`, `crm`, `propostas`, `tabela-de-precos`, and any later Phase 6/7 list page.
-**Example:**
+**Empty state pattern (follow Budget Requests):**
 ```tsx
-// Source: https://tanstack.com/table/latest/docs/guide/column-visibility
-const [columnVisibility, setColumnVisibility] = useState({
-  phone: false,
-  city: false,
-})
-
-const table = useReactTable({
-  data,
-  columns,
-  state: {
-    columnVisibility,
-  },
-  onColumnVisibilityChange: setColumnVisibility,
-})
-```
-
-**Inference from official docs + local code:** In this repository, pair `columnVisibility` with `useIsMobile()` from `packages/ui/src/hooks/use-mobile.ts` so the shared `DataTable` can toggle the same columns on both headers and cells.
-
-### Pattern 3: Responsive Pipelines via Render Branches
-**What:** Render two pipeline branches: desktop keeps `@hello-pangea/dnd`; mobile switches to horizontally scrollable stage tabs and a single active-stage list.
-**When to use:** `crm`, `anteprojetos`, and the future `obras` pipeline.
-**Why:** Touch drag-and-drop on mobile is explicitly out of scope and becomes harder to read than a tabbed stage list.
-
-### Pattern 4: Framework-Native Error and Loading Boundaries
-**What:** Use App Router file conventions for uncaught errors and route loading, and keep `/erro` as the friendly expected-error screen for mocked failures that are intentionally surfaced.
-**When to use:** `global-error.tsx` for root failures, `(platform)/error.tsx` for shell pages, `loading.tsx` only where navigation actually suspends, and `/erro` for manually routed failure states.
-**Example:**
-```tsx
-// Source: https://nextjs.org/docs/app/api-reference/file-conventions/error
-"use client"
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
-    </div>
-  )
+// Full-list empty
+if (items.length === 0) {
+  return <EmptyState icon={SearchIcon} title="..." description="..." action={...} />
 }
+// No-results from filters
+const noResultsState = <EmptyState icon={FilterXIcon} title="Nenhum resultado" ... />
+<DataTable ... emptyState={hasActiveFilters ? noResultsState : undefined} />
 ```
 
-### Pattern 5: Centralized Toast Configuration
-**What:** Keep all global Sonner options in the shared `Toaster` component and put duration/action presets in one app helper.
-**When to use:** Every success/error/info/loading toast in 08-01 and 08-03.
-**Example:**
+**Responsive column hiding (follow CRM List):**
 ```tsx
-// Source: https://sonner.emilkowal.ski/toaster
-<Toaster
-  position="bottom-right"
-  duration={3000}
-  visibleToasts={5}
-  expand
-/>
+// In cell renderer:
+<span className="hidden md:table-cell">{value}</span>  // hidden on mobile
+<span className="hidden lg:table-cell">{value}</span>  // hidden on mobile+tablet
 ```
 
-### Anti-Patterns to Avoid
-- **Inline state markup per page:** The repository already duplicates empty-state structures. Phase 08 should not create a third or fourth version.
-- **CSS-hiding only body cells:** Current list pages hide content spans inside cells, but header labels stay visible and create mobile misalignment.
-- **`window.location.href` for internal navigation:** This breaks SPA navigation, undermines route transitions, and makes `PIPE-04` feel disjointed.
-- **`window.alert()` for visual feedback:** These calls bypass Sonner, cannot be themed, and do not match the phase’s success/error model.
-- **Desktop pipeline on mobile:** Keeping drag-and-drop active on small screens makes touch scrolling and readability worse.
+**Toast usage pattern (NOT YET adopted anywhere -- Plan 05 must introduce):**
+```tsx
+import { showSuccessToast, showErrorToast, showUndoToast } from "@/lib/toast-helpers"
+// After successful form submission:
+showSuccessToast("Solicitacao enviada com sucesso")
+// After stage change:
+showUndoToast("Etapa alterada para Proposta", () => revertStageChange())
+// After simulated PDF export:
+showPdfReadyToast(() => console.log("Download simulado"))
+```
+
+### Pattern: Mobile Pipeline Tabs (NEW -- Plan 04)
+
+The CRM and Anteproject pipelines currently render desktop-only kanban boards. Mobile must use tabs:
+
+```tsx
+const isMobile = useIsMobile()
+
+{isMobile ? (
+  <Tabs defaultValue={stages[0]} className="w-full">
+    <TabsList className="w-full overflow-x-auto">
+      {stages.map(stage => (
+        <TabsTrigger key={stage.id} value={stage.id}>
+          {stage.label} ({stage.count})
+        </TabsTrigger>
+      ))}
+    </TabsList>
+    {stages.map(stage => (
+      <TabsContent key={stage.id} value={stage.id}>
+        {/* Cards for this stage -- no drag-and-drop */}
+        {stage.items.map(item => <PipelineCard key={item.id} {...item} />)}
+      </TabsContent>
+    ))}
+  </Tabs>
+) : (
+  <DragDropContext onDragEnd={onDragEnd}>
+    {/* Existing desktop kanban */}
+  </DragDropContext>
+)}
+```
+
+### Pattern: Bottom Sheet for Mobile Modals (NEW -- Plan 04)
+
+```tsx
+const isMobile = useIsMobile()
+
+{isMobile ? (
+  <Sheet>
+    <SheetTrigger asChild>{trigger}</SheetTrigger>
+    <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+      <SheetTitle>Title</SheetTitle>
+      {content}
+    </SheetContent>
+  </Sheet>
+) : (
+  <Dialog>
+    <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <DialogContent>
+      <DialogTitle>Title</DialogTitle>
+      {content}
+    </DialogContent>
+  </Dialog>
+)}
+```
+
+### Pattern: Destructive Confirmation (NEW -- Plan 04)
+
+```tsx
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger } from "@workspace/ui/components/alert-dialog"
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Excluir</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Confirmar exclusao</AlertDialogTitle>
+      <AlertDialogDescription>
+        Esta acao nao pode ser desfeita.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+      <AlertDialogAction onClick={handleDelete}>Excluir</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+### Pattern: Journey Page Timeline (NEW -- Plan 06)
+
+```
+/jornada page structure:
+- Horizontal timeline with connected cards
+- Each card: icon, module name, active item count
+- Cards connected by arrow lines
+- Empty modules hidden from timeline
+- Entry in sidebar under OPERACAO group
+```
+
+### Pattern: Lineage Section in Detail Pages (NEW -- Plan 07)
+
+```tsx
+// "Registro" section in detail page sidebar
+<Card>
+  <CardHeader>
+    <CardTitle>Registro</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="flex flex-col gap-2">
+      {originEntity && (
+        <Link href={originEntity.href}>
+          <Badge variant="outline">{originEntity.label}</Badge>
+        </Link>
+      )}
+      {nextEntity && (
+        <Link href={nextEntity.href}>
+          <Badge variant="outline">{nextEntity.label}</Badge>
+        </Link>
+      )}
+    </div>
+  </CardContent>
+</Card>
+```
+
+### Project Structure (relevant new files)
+
+```
+apps/web/
+  app/(platform)/
+    jornada/
+      page.tsx                    # NEW - Journey timeline page
+  components/platform/
+    jornada/
+      journey-timeline.tsx        # NEW - Timeline component
+      journey-card.tsx            # NEW - Module card in timeline
+    states/
+      empty-state.tsx             # EXISTS - local EmptyState
+      skeletons.tsx               # EXISTS - local skeleton wrappers
+    crm/
+      crm-pipeline-board.tsx      # MODIFY - add mobile tabs branch
+    anteprojects/
+      anteproject-pipeline-board.tsx # MODIFY - add mobile tabs branch
+    projects/
+      works-pipeline-board.tsx    # MODIFY - add mobile tabs branch
+  lib/
+    toast-helpers.ts              # EXISTS - ready for adoption
+    use-simulated-loading.ts      # EXISTS - ready for adoption
+    platform-config.ts            # MODIFY - add "Jornada" entry
+    journey-data.ts               # NEW - mock data for journey
+```
 
 ## Don't Hand-Roll
 
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
-| Empty states | Custom `div` + icon + buttons on each screen | shadcn `Empty` composed behind `EmptyState` | Keeps markup consistent and aligned with repo UI workflow |
-| Confirmation for destructive actions | Reusing generic `Dialog` with manual button layout | shadcn `AlertDialog` | Correct semantics, focus behavior, and clearer intent |
-| Success/error banners | Manual inline banners and `window.alert()` | `sonner` + shared helper | Official toast actions/durations/stacking already solve this |
-| Error boundaries | Custom layout wrapper with try/catch | Next `error.tsx` and `global-error.tsx` | Handles App Router segments and root failures correctly |
-| Mobile table visibility | Ad hoc `hidden md:*` spans only | TanStack `columnVisibility` | Keeps headers, cells, and row APIs in sync |
-| Mobile bottom sheet | Custom fixed-position panel | Existing `SheetContent side="bottom"` | Already installed, themed, and keyboard accessible |
+| Loading skeletons | Custom animate-pulse divs | `@/components/platform/states/skeletons` wrappers | Already built with exact dimensions matching real components |
+| Empty states | Custom empty state divs | `@/components/platform/states/empty-state` | Already built following shadcn Empty compound pattern |
+| Toast notifications | Custom notification system | `@/lib/toast-helpers` | Already built with correct durations and sonner integration |
+| Responsive detection | Custom window resize listener | `useIsMobile()` from @workspace/ui/hooks | Already built with matchMedia and correct 768px breakpoint |
+| Column visibility | Manual column show/hide logic | DataTable `columnVisibility` prop | Already built into shared DataTable component |
+| Badge overflow | Manual truncation with counters | `BadgeOverflow` from DataTable | Already built with tooltip for overflow items |
+| Confirmation dialogs | Custom modal with confirm/cancel | `AlertDialog` from @workspace/ui | shadcn component with proper accessibility |
+| Bottom sheets | Custom sliding panel | `Sheet` from @workspace/ui with `side="bottom"` | Already installed, handles animation and backdrop |
+| Route transitions | Custom animation logic | `NavigationTransition` wrapper | Already built with fade/slide and scroll reset |
 
-**Key insight:** Almost every difficult piece of Phase 08 is already solved either by the current framework or by the project’s existing shadcn stack. The planner should spend effort on shared composition and consistency, not on inventing new primitives.
+**Key insight:** Plan 01 front-loaded all the primitives. The remaining plans should ONLY adopt and compose -- never recreate.
 
 ## Common Pitfalls
 
-### Pitfall 1: `loading.tsx` Never Appears
-**What goes wrong:** A route-level loading file is added, but the user never sees it.
-**Why it happens:** The current pages mostly render synchronous client-side mock data. App Router loading boundaries only show when navigation suspends.
-**How to avoid:** Use `loading.tsx` only where a route actually suspends or streams. For mock-only client pages, add a local development-only delay hook and render the new typed skeletons inside the workspace component.
-**Warning signs:** You add `loading.tsx`, navigate around, and the UI still swaps instantly.
+### Pitfall 1: Duplicating EmptyState Implementations
+**What goes wrong:** Two EmptyState implementations exist -- one in `@workspace/ui/components/empty-state.tsx` (full) and one in `@/components/platform/states/empty-state.tsx` (simple local). Plans might create a third.
+**Why it happens:** The local version was built for Plan 01 alongside the @workspace/ui version.
+**How to avoid:** Use ONLY the local `@/components/platform/states/empty-state` for consistency with existing screens. All current adoptions use this version.
+**Warning signs:** Import from `@workspace/ui/components/empty-state` in page components.
 
-### Pitfall 2: Mobile Tables Show Wrong Headers
-**What goes wrong:** Body cells disappear on mobile, but the header row still shows labels for hidden columns.
-**Why it happens:** Current code hides spans inside cells, not the column visibility state itself.
-**How to avoid:** Extend `DataTable` with controlled `columnVisibility` and drive it from `useIsMobile()`.
-**Warning signs:** Empty header columns, odd spacing, or rows that no longer line up on small screens.
+### Pitfall 2: Toast Helpers Never Adopted
+**What goes wrong:** Toast helpers exist in `@/lib/toast-helpers.ts` but are currently used ONLY in tests. If Plan 05 doesn't systematically adopt them, STAT-03 fails.
+**Why it happens:** Plans 00-01 created the helpers but didn't modify existing form/action code to use them.
+**How to avoid:** Plan 05 must explicitly wire toast calls into: form submissions, stage changes, dialog confirmations, PDF export, file upload simulation.
+**Warning signs:** `showSuccessToast` etc. still only appear in test files after Plan 05 completes.
 
-### Pitfall 3: Toast Behavior Drifts Screen by Screen
-**What goes wrong:** Some toasts last 3 seconds, others use Sonner defaults, and undo actions are implemented inconsistently.
-**Why it happens:** Current `Toaster` only styles icons/theme; it does not yet set global duration, position, or stack behavior.
-**How to avoid:** Centralize global `Toaster` props and expose app-level helpers such as `showSuccessToast`, `showErrorToast`, and `showUndoToast`.
-**Warning signs:** Position changes, inconsistent timing, or duplicated toast option objects across modules.
+### Pitfall 3: Mobile Pipeline Without Stage Change
+**What goes wrong:** Drag-and-drop is disabled on mobile, but users have no way to change pipeline stages.
+**Why it happens:** Desktop uses drag to change stages; mobile tabs show cards read-only.
+**How to avoid:** The decision specifies "mudar etapa via select no detalhe" -- detail pages must have a stage change select (CRM already has `CrmStageChangeSelect`; verify it works on mobile).
+**Warning signs:** Mobile user can view pipeline but cannot change any card's stage.
 
-### Pitfall 4: Journey Polish Starts Before Journey Endpoints Exist
-**What goes wrong:** The plan tries to deliver the full `PIPE-04` flow, but `/projetos`, `/drive`, and `/obras` still render placeholders.
-**Why it happens:** The phase depends on later modules being implemented, but the repository state is still at Phase 05 complete.
-**How to avoid:** Gate 08-03 behind completed Phase 6/7 outputs, or explicitly scope the journey to the currently implemented modules until those outputs land.
-**Warning signs:** `/jornada` needs counts or links that have no source data, or detail pages can only route into placeholders.
+### Pitfall 4: Navigation Transition Double-Render
+**What goes wrong:** NavigationTransition uses state to swap children, which can cause visible flicker.
+**Why it happens:** The 150ms fade-out swaps `displayChildren` on timeout.
+**How to avoid:** Keep transition duration at 150ms (already set). Don't add additional transitions on page components.
+**Warning signs:** Content flashing or appearing twice during navigation.
 
-### Pitfall 5: Touch UX Breaks in Mobile Pipelines
-**What goes wrong:** Horizontal scrolling and drag gestures fight each other, making the pipeline feel broken on phones.
-**Why it happens:** Desktop DnD patterns are carried over to touch screens.
-**How to avoid:** Do not mount `DragDropContext` on mobile. Render a separate mobile branch with tabs plus active-stage cards, and keep stage change inside detail selects.
-**Warning signs:** Cards become hard to scroll past, or users accidentally drag while trying to swipe.
+### Pitfall 5: Dark Mode Issues Only Found Late
+**What goes wrong:** Dark mode contrast or color issues discovered after most plans are done.
+**Why it happens:** Implementation focuses on light mode, dark mode tested last.
+**How to avoid:** Every plan should verify its changes in both themes. Use semantic colors only (`bg-background`, `text-muted-foreground`, etc.). Never use raw color values.
+**Warning signs:** Components using hardcoded colors like `text-gray-500` instead of `text-muted-foreground`.
 
-### Pitfall 6: Tooltip Noise Increases Instead of Helping
-**What goes wrong:** Every hover or focus opens a tooltip instantly, which feels jittery in the shell and on truncated text.
-**Why it happens:** The current `TooltipProvider` default is `delayDuration = 0`.
-**How to avoid:** Set the platform `TooltipProvider` delay to the locked `300ms` and reserve tooltips for truncated or overflow content only.
-**Warning signs:** Sidebar collapsed tooltips flash immediately and long-text cells show tooltip overload.
+### Pitfall 6: Sheet Missing Title Accessibility
+**What goes wrong:** Sheet used for mobile modals without SheetTitle causes accessibility violation.
+**Why it happens:** Developer forgets SheetTitle or uses Dialog content directly.
+**How to avoid:** shadcn skill rule: "Dialog, Sheet, and Drawer always need a Title." Use `className="sr-only"` if visually hidden.
+**Warning signs:** Console warning about missing aria-labelledby.
 
-### Pitfall 7: Global Error UI Is Wired to the Wrong File
-**What goes wrong:** A React error boundary is placed inside `layout.tsx`, but root layout failures still blank the screen.
-**Why it happens:** In App Router, root uncaught exceptions are handled by `app/global-error.tsx`, not by an arbitrary wrapper.
-**How to avoid:** Use `app/global-error.tsx` for root fallback, `(platform)/error.tsx` for segment fallback, and `/erro` for friendly mocked error routes.
-**Warning signs:** Root failures bypass the fallback or the fallback renders without `html/body` when it replaces the root layout.
+### Pitfall 7: Jornada Page Over-Engineered
+**What goes wrong:** Journey page becomes a complex interactive visualization instead of a simple timeline.
+**Why it happens:** Timeline with arrows sounds like it needs a diagram library.
+**How to avoid:** Build with pure CSS/Tailwind + Flexbox. Cards in a horizontal flex container with CSS pseudo-element arrows between them. No diagram library needed.
+**Warning signs:** Considering installing a timeline/diagram library.
 
 ## Code Examples
 
-Verified patterns from official sources:
-
-### Route Loading UI
+### Existing: Loading + Empty State Adoption (Budget Requests -- reference pattern)
 ```tsx
-// Source: https://nextjs.org/docs/app/api-reference/file-conventions/loading
-export default function Loading() {
-  return <LoadingSkeleton />
+// Source: apps/web/components/platform/budget-requests/budget-requests-list-page.tsx
+const isLoading = useSimulatedLoading()
+
+// Loading
+if (isLoading) {
+  return <TableSkeleton rows={8} />
 }
-```
 
-### Root Error Boundary
-```tsx
-// Source: https://nextjs.org/docs/app/getting-started/error-handling
-"use client"
-
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
+// Empty (no data at all)
+if (requests.length === 0) {
   return (
-    <html>
-      <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
-      </body>
-    </html>
+    <EmptyState
+      icon={FileSearchIcon}
+      title="Nenhuma solicitacao encontrada"
+      description="Ajuste os filtros..."
+      action={<Button asChild><Link href="/orcamentos/nova">Nova solicitacao</Link></Button>}
+    />
   )
 }
-```
 
-### Sonner Toaster Defaults
-```tsx
-// Source: https://sonner.emilkowal.ski/toaster
-<Toaster
-  position="bottom-right"
-  visibleToasts={5}
-  expand
-  toastOptions={{
-    duration: 4000,
-  }}
-/>
-```
-
-### React Hook Form Submit Pending State
-```tsx
-// Source: https://react-hook-form.com/docs/useform/formstate
-const {
-  handleSubmit,
-  formState: { isSubmitting },
-} = useForm()
-
-return (
-  <form onSubmit={handleSubmit(onSubmit)}>
-    <button type="submit" disabled={isSubmitting}>
-      {isSubmitting ? "Submitting..." : "Submit"}
-    </button>
-  </form>
+// No-results (filters applied, no matches)
+const noResultsState = (
+  <EmptyState
+    icon={FilterXIcon}
+    title="Nenhuma solicitacao encontrada"
+    description="Tente ajustar os filtros..."
+    action={<Button variant="outline" onClick={handleClearFilters}>Limpar filtros</Button>}
+  />
 )
+<DataTable ... emptyState={hasActiveFilters ? noResultsState : undefined} />
 ```
 
-### TanStack Column Visibility
+### Existing: Workspace Loading Toggle (CRM -- reference pattern)
 ```tsx
-// Source: https://tanstack.com/table/latest/docs/guide/column-visibility
-const [columnVisibility, setColumnVisibility] = useState({
-  phone: false,
-  city: false,
-})
+// Source: apps/web/components/platform/crm/crm-workspace-page.tsx
+{isLoading ? (
+  viewMode === "lista" ? (
+    <TableSkeleton rows={8} />
+  ) : (
+    <PipelineSkeleton stages={5} />
+  )
+) : viewMode === "lista" ? (
+  <CrmListPage opportunities={filteredOpportunities} />
+) : (
+  <CrmPipelineBoard opportunities={filteredOpportunities} onDragEnd={onDragEnd} />
+)}
+```
 
-const table = useReactTable({
-  data,
-  columns,
-  state: {
-    columnVisibility,
-  },
-  onColumnVisibilityChange: setColumnVisibility,
-})
+### Existing: Profile + Theme Switcher Dropdown
+```tsx
+// Source: apps/web/components/platform/profile-switcher.tsx
+// Theme options already in dropdown with icons and check marks
+const THEME_OPTIONS = [
+  { value: "light", label: "Tema claro", icon: SunIcon },
+  { value: "dark", label: "Tema escuro", icon: MoonIcon },
+  { value: "system", label: "Seguir sistema", icon: MonitorIcon },
+]
+```
+
+### Existing: Responsive Column Hiding (CRM List)
+```tsx
+// Source: apps/web/components/platform/crm/crm-list-page.tsx
+{
+  accessorKey: "company",
+  header: "Cliente/Empresa",
+  cell: ({ row }) => (
+    <span className="hidden md:table-cell">{row.original.company}</span>
+  ),
+},
+```
+
+### Existing: Next-Step Handoff Buttons
+```tsx
+// CRM detail -> Anteproject
+<Link href={`/anteprojetos?sourceOpportunityId=${opportunity.id}`}>
+  Criar anteprojeto
+</Link>
+
+// Anteproject detail -> Proposal
+<Link href={`/propostas/nova?anteprojectId=${anteproject.id}`}>
+  Gerar proposta
+</Link>
 ```
 
 ## State of the Art
 
 | Old Approach | Current Approach | When Changed | Impact |
 |--------------|------------------|--------------|--------|
-| Static column hiding in older `react-table` patterns or CSS-only cell hiding | Dedicated `columnVisibility` state in TanStack Table v8 | v8 | Responsive tables should be state-driven so headers and cells stay aligned |
-| Custom router-level error wrappers | App Router `error.tsx` and `global-error.tsx` file conventions | Next.js App Router | Error handling belongs in route/file conventions, not bespoke wrappers |
-| Manual route-animation hacks tied to router events | `transitionTypes` on `next/link` with React View Transitions | Next.js 16 / React 19 | Route transitions can be implemented as progressive enhancement without adding a motion library |
-
-**Deprecated/outdated:**
-- `window.location.href` for internal navigation: use `Link` or `router.push()` to preserve SPA behavior and transition hooks.
-- `window.alert()` for UI feedback: use `sonner` for feedback and `AlertDialog` for confirmations.
-- `react-beautiful-dnd` era assumptions: this repository already uses `@hello-pangea/dnd`; keep that fork and do not introduce legacy DnD packages.
-
-## Open Questions
-
-1. **Is Phase 08 planning allowed to assume Phases 6 and 7 are already implemented?**
-   - What we know: `.planning/STATE.md` still says Phase 05 is the current completed phase, and `/projetos`, `/drive`, `/obras`, `/comunicacao` still render placeholders.
-   - What's unclear: Whether 08-03 should be planned against future code that is not yet in this repository.
-   - Recommendation: Treat full `PIPE-04` journey work as dependency-gated and call that out explicitly in the planner.
-
-2. **Should mobile stage navigation use real Tabs or a lighter button bar?**
-   - What we know: The phase context requires horizontal tabs, `Tabs` is not installed, and `ToggleGroup` is already installed but is a worse semantic fit for 6-10 stages.
-   - What's unclear: Whether the planner wants to add a new shadcn primitive in this phase.
-   - Recommendation: Add shadcn `Tabs` through the existing app config and wrap the tab list in `ScrollArea`.
-
-3. **How far should the dashboard “pendências consolidadas” go in this phase?**
-   - What we know: Cross-module dashboard data is not yet centralized; current module data lives in separate `apps/web/lib/*-data.ts` files.
-   - What's unclear: Whether the dashboard should only link existing entities or also model future Phase 6/7 records.
-   - Recommendation: Build a derived `journey-data.ts` aggregator and keep it limited to data contracts that exist in the repository at planning time.
+| Inline loading placeholders | Typed skeleton components | Plan 08-01 | Consistent loading states across all screens |
+| Ad-hoc empty messages | EmptyState compound component | Plan 08-01 | Standardized empty/no-results UX |
+| No toast feedback | Toast helpers with standard durations | Plan 08-01 | Ready for adoption but NOT YET wired |
+| Desktop-only pipelines | Mobile tabs planned | Plan 08-04 (upcoming) | useIsMobile + Tabs pattern |
+| No journey visualization | /jornada page planned | Plan 08-06 (upcoming) | Timeline connecting all modules |
 
 ## Validation Architecture
 
 ### Test Framework
 | Property | Value |
 |----------|-------|
-| Framework | None detected in repo; recommend `vitest` + `@testing-library/react` + `jsdom` in Wave 0 |
-| Config file | none — see Wave 0 |
-| Quick run command | `pnpm lint && pnpm typecheck` now; after Wave 0: `pnpm --filter web vitest run <target-spec>` |
-| Full suite command | `pnpm lint && pnpm typecheck` now; after Wave 0: `pnpm lint && pnpm typecheck && pnpm --filter web vitest run` |
+| Framework | Vitest 3.x + @testing-library/react |
+| Config file | `apps/web/vitest.config.ts` |
+| Quick run command | `cd apps/web && pnpm vitest run --reporter=verbose` |
+| Full suite command | `cd apps/web && pnpm vitest run` |
 
-### Phase Requirements → Test Map
+### Phase Requirements -> Test Map
 | Req ID | Behavior | Test Type | Automated Command | File Exists? |
 |--------|----------|-----------|-------------------|-------------|
-| PIPE-04 | Cross-screen journey from orçamento to obra stays connected, with back-links and related-record links | manual smoke now; promote to Playwright route smoke later | `none — add Playwright or keep manual until installed` | ❌ Wave 0 |
-| STAT-01 | Main pages show loading skeletons and submit buttons lock during async/mocked submit | component | `pnpm --filter web vitest run apps/web/components/platform/states/__tests__/loading-states.test.tsx` | ❌ Wave 0 |
-| STAT-02 | Lists, pipelines, and panels render empty/no-results states with correct actions | component | `pnpm --filter web vitest run apps/web/components/platform/states/__tests__/empty-states.test.tsx` | ❌ Wave 0 |
-| STAT-03 | Success/error flows show toast feedback and route/error fallbacks | component + route smoke | `pnpm --filter web vitest run apps/web/components/platform/states/__tests__/feedback-and-error.test.tsx` | ❌ Wave 0 |
-| RESP-01 | Shell, tables, details, and pipelines remain readable on mobile and desktop | component + manual responsive audit | `pnpm --filter web vitest run apps/web/components/platform/responsive/__tests__/responsive-layouts.test.tsx` | ❌ Wave 0 |
+| STAT-01 | Skeleton rendering with correct structure | unit | `cd apps/web && pnpm vitest run components/platform/states/__tests__/loading-and-feedback.test.tsx` | YES |
+| STAT-02 | EmptyState rendering with all prop variants | unit | `cd apps/web && pnpm vitest run components/platform/states/__tests__/empty-states.test.tsx` | YES |
+| STAT-03 | Toast helpers call sonner with correct params | unit | `cd apps/web && pnpm vitest run components/platform/states/__tests__/loading-and-feedback.test.tsx` | YES (toast section) |
+| RESP-01 | useIsMobile breakpoint, DataTable responsive, mobile tabs, header h-16 | unit | `cd apps/web && pnpm vitest run components/platform/responsive/__tests__/responsive-layouts.test.tsx` | YES |
+| PIPE-04 | Journey page renders timeline with module cards | unit | TBD -- needs new test file | NO (Wave 0 gap) |
 
 ### Sampling Rate
-- **Per task commit:** `pnpm lint && pnpm typecheck`
-- **Per wave merge:** `pnpm lint && pnpm typecheck` plus targeted Vitest once Wave 0 exists
-- **Phase gate:** Manual desktop/mobile + dark-mode audit, plus all added Vitest specs green before `/gsd:verify-work`
+- **Per task commit:** `cd apps/web && pnpm vitest run --reporter=verbose`
+- **Per wave merge:** `cd apps/web && pnpm vitest run`
+- **Phase gate:** Full suite green before `/gsd:verify-work`
 
 ### Wave 0 Gaps
-- [ ] `apps/web/vitest.config.ts` — test runner config for `web`
-- [ ] `apps/web/test/setup.ts` — `@testing-library/jest-dom` and DOM polyfills
-- [ ] `apps/web/components/platform/states/__tests__/loading-states.test.tsx` — covers STAT-01
-- [ ] `apps/web/components/platform/states/__tests__/empty-states.test.tsx` — covers STAT-02
-- [ ] `apps/web/components/platform/states/__tests__/feedback-and-error.test.tsx` — covers STAT-03
-- [ ] `apps/web/components/platform/responsive/__tests__/responsive-layouts.test.tsx` — covers RESP-01
-- [ ] Optional e2e: `apps/web/e2e/journey.spec.ts` — covers PIPE-04 if planner wants automated route smoke
-- [ ] Framework install: `pnpm add -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event --filter web`
-- [ ] Package script: add `"test": "vitest run"` to `apps/web/package.json`
+- [ ] `components/platform/jornada/__tests__/journey-page.test.tsx` -- covers PIPE-04 journey rendering
+- [ ] Verify existing test specs still pass with current codebase changes
+
+## Open Questions
+
+1. **Works Pipeline Loading State**
+   - What we know: `works-workspace-page.tsx` does NOT use `useSimulatedLoading` or any skeleton
+   - What's unclear: Whether this was intentional or an oversight from Phase 6
+   - Recommendation: Plan 02 should add loading states to Works workspace following the CRM pattern
+
+2. **Drive and Comunicacao Loading States**
+   - What we know: Neither module uses `useSimulatedLoading`
+   - What's unclear: Whether these modules are considered "main screens" for STAT-01
+   - Recommendation: Add loading states to both for completeness (they are part of the platform)
+
+3. **Detail Page Loading States**
+   - What we know: No detail page currently uses DetailSkeleton
+   - What's unclear: Whether the detail pages should show skeletons (they load instantly from mock data)
+   - Recommendation: Add DetailSkeleton with `useSimulatedLoading` to maintain consistency and demonstrate the skeleton
+
+4. **Journey Data Source**
+   - What we know: The /jornada page needs counts of active items per module
+   - What's unclear: Whether to aggregate from existing data files or create a dedicated journey-data.ts
+   - Recommendation: Create a `journey-data.ts` that imports from each module's data file and aggregates counts
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- Local codebase inspection:
-  - `apps/web/app/(platform)/layout.tsx`
-  - `apps/web/components/platform/app-header.tsx`
-  - `apps/web/components/platform/app-sidebar.tsx`
-  - `apps/web/components/platform/app-breadcrumbs.tsx`
-  - `apps/web/components/platform/budget-requests/budget-requests-list-page.tsx`
-  - `apps/web/components/platform/budget-requests/budget-request-detail-page.tsx`
-  - `apps/web/components/platform/crm/crm-workspace-page.tsx`
-  - `apps/web/components/platform/crm/crm-pipeline-board.tsx`
-  - `apps/web/components/platform/crm/crm-opportunity-detail-page.tsx`
-  - `apps/web/components/platform/anteprojects/anteprojects-workspace-page.tsx`
-  - `apps/web/components/platform/proposals/proposals-list-page.tsx`
-  - `apps/web/components/platform/proposals/proposal-detail-page.tsx`
-  - `apps/web/components/platform/price-table/price-table-page.tsx`
-  - `apps/web/components/platform/price-table/price-table-upload-page.tsx`
-  - `apps/web/lib/budget-requests-data.ts`
-  - `apps/web/lib/crm-data.ts`
-  - `apps/web/lib/anteprojects-data.ts`
-  - `apps/web/lib/proposals-data.ts`
-  - `packages/ui/src/components/data-table.tsx`
-  - `packages/ui/src/components/sidebar.tsx`
-  - `packages/ui/src/components/sheet.tsx`
-  - `packages/ui/src/components/tooltip.tsx`
-  - `packages/ui/src/components/sonner.tsx`
-  - `packages/ui/src/hooks/use-mobile.ts`
-- Context7 `/vercel/next.js/v16.1.6` — loading file convention, `error.tsx`, `reset()`, navigation behavior
-- Next.js official docs:
-  - https://nextjs.org/docs/app/api-reference/components/link
-  - https://nextjs.org/docs/app/api-reference/file-conventions/error
-  - https://nextjs.org/docs/app/getting-started/error-handling
-- Context7 `/react-hook-form/documentation` — `formState.isSubmitting`
-- Context7 `/emilkowalski/sonner` and Sonner official docs:
-  - https://sonner.emilkowal.ski/getting-started
-  - https://sonner.emilkowal.ski/toaster
-- TanStack Table official docs:
-  - https://tanstack.com/table/latest/docs/guide/column-visibility
-- MCP shadcn project info + registry inspection:
-  - confirmed installed component set for this repo
-  - confirmed official registry availability of `empty`, `alert-dialog`, `tabs`, `drawer`
+- Direct codebase inspection of all files in `apps/web/components/platform/` and `packages/ui/src/components/`
+- Existing test files in `__tests__/` directories
+- `vitest.config.ts` configuration
+- `package.json` dependency listing
 
 ### Secondary (MEDIUM confidence)
-- None
-
-### Tertiary (LOW confidence)
-- None
+- CONTEXT.md decisions document -- user-locked implementation choices
+- ROADMAP.md plan descriptions -- intent for each plan slot
 
 ## Metadata
 
 **Confidence breakdown:**
-- Standard stack: HIGH - verified against local package manifests, `npm view`, Context7, and official docs
-- Architecture: MEDIUM - patterns are clear for states and responsiveness, but full journey architecture is blocked by still-missing Phase 6/7 module output
-- Pitfalls: HIGH - directly observed in current source files and cross-checked with official docs where framework behavior matters
+- Standard stack: HIGH - all packages already installed, versions verified in codebase
+- Architecture: HIGH - patterns established by 7+ prior phases, primitives already built
+- Pitfalls: HIGH - based on direct inspection of what exists vs what's missing
+- Adoption gaps: HIGH - systematic grep across all modules confirmed which screens lack states
 
-**Research date:** 2026-03-20
-**Valid until:** 2026-03-27
+**Research date:** 2026-03-21
+**Valid until:** 2026-04-21 (stable -- no external dependencies changing)
