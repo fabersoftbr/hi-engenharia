@@ -131,14 +131,13 @@ describe("loading-and-feedback", () => {
     }
 
     it("starts in loading state when enabled in development", () => {
-      const originalEnv = process.env.NODE_ENV
-      process.env.NODE_ENV = "development"
+      vi.stubEnv("NODE_ENV", "development")
 
       render(<LoadingConsumer enabled />)
       // Initial state is true; dev delay keeps it loading before timeout
       expect(screen.getByTestId("loading-state")).toHaveTextContent("loading")
 
-      process.env.NODE_ENV = originalEnv
+      vi.unstubAllEnvs()
     })
 
     it("resolves to ready when disabled", () => {
@@ -147,8 +146,7 @@ describe("loading-and-feedback", () => {
     })
 
     it("resolves to ready in non-development environment", async () => {
-      const originalEnv = process.env.NODE_ENV
-      process.env.NODE_ENV = "production"
+      vi.stubEnv("NODE_ENV", "production")
 
       render(<LoadingConsumer enabled />)
 
@@ -158,7 +156,7 @@ describe("loading-and-feedback", () => {
       })
       expect(screen.getByTestId("loading-state")).toHaveTextContent("ready")
 
-      process.env.NODE_ENV = originalEnv
+      vi.unstubAllEnvs()
     })
   })
 })
