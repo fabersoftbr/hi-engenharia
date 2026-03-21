@@ -8,6 +8,8 @@ import {
   getDashboardHighlightsForProfile,
   getTotalPendingCount,
 } from "@/lib/dashboard-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { CardGridSkeleton } from "@/components/platform/states/skeletons"
 import { DashboardWelcome } from "@/components/platform/dashboard/dashboard-welcome"
 import { DashboardSummaryGrid } from "@/components/platform/dashboard/dashboard-summary-grid"
 import { DashboardQuickActions } from "@/components/platform/dashboard/dashboard-quick-actions"
@@ -16,12 +18,22 @@ import { DashboardUrgentHighlights } from "@/components/platform/dashboard/dashb
 
 export function PortalDashboard() {
   const { activeProfile, profileLabel } = useActiveProfile()
+  const isLoading = useSimulatedLoading()
 
   const modules = getDashboardModulesForProfile(activeProfile)
   const quickActions = getDashboardQuickActionsForProfile(activeProfile)
   const announcements = getDashboardAnnouncements()
   const highlights = getDashboardHighlightsForProfile(activeProfile)
   const totalPendingCount = getTotalPendingCount(modules)
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-6">
+        <CardGridSkeleton cards={4} />
+        <CardGridSkeleton cards={3} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-6">

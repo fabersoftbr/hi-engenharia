@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ColumnDef } from "@tanstack/react-table"
-import { PlusIcon } from "lucide-react"
+import { PlusIcon, FileTextIcon, FilterXIcon } from "lucide-react"
 import { DataTable } from "@workspace/ui/components/data-table"
 import { Button } from "@workspace/ui/components/button"
 import { Badge } from "@workspace/ui/components/badge"
@@ -16,6 +17,9 @@ import {
   type ProposalRecord,
   type ProposalFilterInput,
 } from "@/lib/proposals-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { TableSkeleton } from "@/components/platform/states/skeletons"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { ProposalsToolbar } from "./proposals-toolbar"
 
 const columns: ColumnDef<ProposalRecord>[] = [
@@ -72,6 +76,8 @@ const columns: ColumnDef<ProposalRecord>[] = [
 ]
 
 export function ProposalsListPage() {
+  const router = useRouter()
+  const isLoading = useSimulatedLoading()
   const [statusFilter, setStatusFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -83,18 +89,47 @@ export function ProposalsListPage() {
   const filteredProposals = filterProposals(filterInput)
   const allProposals = getProposals()
 
+  const hasActiveFilters = statusFilter !== "all" || searchQuery !== ""
+
   const handleRowClick = (row: { original: ProposalRecord }) => {
-    // Navigate to proposal detail page
-    window.location.href = `/propostas/${row.original.id}`
+    router.push(`/propostas/${row.original.id}`)
   }
 
+  const handleClearFilters = () => {
+    setStatusFilter("all")
+    setSearchQuery("")
+  }
+
+  // No-results state after filtering
+  const noResultsState = (
+    <EmptyState
+      icon={FilterXIcon}
+      title="Nenhuma proposta encontrada"
+      description="Tente ajustar os filtros para encontrar o que procura."
+      action={
+        <Button variant="outline" onClick={handleClearFilters}>
+          <FilterXIcon data-icon="inline-start" />
+          Limpar filtros
+        </Button>
+      }
+    />
+  )
+
+  // Empty state when no proposals exist
   const emptyState = (
-    <div className="flex flex-col items-center justify-center py-12 text-center">
-      <p className="text-muted-foreground">Nenhuma proposta encontrada</p>
-      <Button asChild className="mt-4">
-        <Link href="/propostas/nova">Nova proposta</Link>
-      </Button>
-    </div>
+    <EmptyState
+      icon={FileTextIcon}
+      title="Nenhuma proposta cadastrada"
+      description="Crie sua primeira proposta para iniciar."
+      action={
+        <Button asChild>
+          <Link href="/propostas/nova">
+            <PlusIcon data-icon="inline-start" />
+            Nova proposta
+          </Link>
+        </Button>
+      }
+    />
   )
 
   return (
@@ -115,21 +150,34 @@ export function ProposalsListPage() {
         </Button>
       </div>
 
-      {/* Toolbar */}
-      <ProposalsToolbar
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-        searchQuery={searchQuery}
-        onSearchQueryChange={setSearchQuery}
-      />
+      {/* Loading state */}
+      {isLoading ? (
+        <TableSkeleton rows={8} />
+      ) : (
+        <>
+          {/* Toolbar */}
+          <ProposalsToolbar
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+          />
 
-      {/* Data table */}
-      <DataTable
-        columns={columns}
-        data={filteredProposals}
-        emptyState={emptyState}
-        onRowClick={handleRowClick}
-      />
+          {/* Data table */}
+          <DataTable
+            columns={columns}
+            data={filteredProposals}
+            emptyState={
+              hasActiveFilters
+                ? noResultsState
+                : allProposals.length === 0
+                  ? emptyState
+                  : undefined
+            }
+            onRowClick={handleRowClick}
+          />
+        </>
+      )}
     </div>
   )
 }

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
+import { TableIcon, FilterXIcon } from "lucide-react"
 import { DataTable } from "@workspace/ui/components/data-table"
 import { Button } from "@workspace/ui/components/button"
 import {
@@ -11,6 +12,9 @@ import {
   type PriceTableRow,
   type PriceTableFilterInput,
 } from "@/lib/price-table-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { TableSkeleton } from "@/components/platform/states/skeletons"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { PriceTableToolbar } from "./price-table-toolbar"
 import { PriceItemDetailDialog } from "./price-item-detail-dialog"
 
@@ -62,6 +66,7 @@ const columns: ColumnDef<PriceTableRow>[] = [
 ]
 
 export function PriceTablePage() {
+  const isLoading = useSimulatedLoading()
   const [regionFilter, setRegionFilter] = useState("all")
   const [consumptionBandFilter, setConsumptionBandFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
@@ -84,15 +89,47 @@ export function PriceTablePage() {
       )
     : rows
 
+  const hasActiveFilters =
+    regionFilter !== "all" ||
+    consumptionBandFilter !== "all" ||
+    searchQuery !== ""
+
   const handleRowClick = (row: { original: PriceTableRow }) => {
     setSelectedItemId(row.original.itemId)
     setShowDetailDialog(true)
   }
 
+  const handleClearFilters = () => {
+    setRegionFilter("all")
+    setConsumptionBandFilter("all")
+    setSearchQuery("")
+  }
+
+  const noResultsState = (
+    <EmptyState
+      icon={FilterXIcon}
+      title="Nenhum item encontrado"
+      description="Tente ajustar os filtros para encontrar o que procura."
+      action={
+        <Button variant="outline" onClick={handleClearFilters}>
+          <FilterXIcon data-icon="inline-start" />
+          Limpar filtros
+        </Button>
+      }
+    />
+  )
+
   const emptyState = (
-    <div className="flex flex-col items-center justify-center py-12 text-center">
-      <p className="text-muted-foreground">Nenhum item encontrado</p>
-    </div>
+    <EmptyState
+      icon={TableIcon}
+      title="Nenhum item na tabela de precos"
+      description="Envie uma tabela de precos para comecar."
+      action={
+        <Button variant="secondary" asChild>
+          <Link href="/tabela-de-precos/upload">Enviar tabela</Link>
+        </Button>
+      }
+    />
   )
 
   return (
@@ -110,23 +147,36 @@ export function PriceTablePage() {
         </Button>
       </div>
 
-      {/* Toolbar */}
-      <PriceTableToolbar
-        regionFilter={regionFilter}
-        onRegionFilterChange={setRegionFilter}
-        consumptionBandFilter={consumptionBandFilter}
-        onConsumptionBandFilterChange={setConsumptionBandFilter}
-        searchQuery={searchQuery}
-        onSearchQueryChange={setSearchQuery}
-      />
+      {/* Loading state */}
+      {isLoading ? (
+        <TableSkeleton rows={8} />
+      ) : (
+        <>
+          {/* Toolbar */}
+          <PriceTableToolbar
+            regionFilter={regionFilter}
+            onRegionFilterChange={setRegionFilter}
+            consumptionBandFilter={consumptionBandFilter}
+            onConsumptionBandFilterChange={setConsumptionBandFilter}
+            searchQuery={searchQuery}
+            onSearchQueryChange={setSearchQuery}
+          />
 
-      {/* Data table */}
-      <DataTable
-        columns={columns}
-        data={filteredRows}
-        emptyState={emptyState}
-        onRowClick={handleRowClick}
-      />
+          {/* Data table */}
+          <DataTable
+            columns={columns}
+            data={filteredRows}
+            emptyState={
+              hasActiveFilters
+                ? noResultsState
+                : rows.length === 0
+                  ? emptyState
+                  : undefined
+            }
+            onRowClick={handleRowClick}
+          />
+        </>
+      )}
 
       {/* Detail dialog */}
       <PriceItemDetailDialog

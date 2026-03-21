@@ -13,6 +13,9 @@ import {
   BudgetRequestStatus,
   getBudgetRequests,
 } from "@/lib/budget-requests-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import { TableSkeleton } from "@/components/platform/states/skeletons"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { BudgetRequestStatusBadge } from "./budget-request-status-badge"
 import { BudgetRequestsToolbar } from "./budget-requests-toolbar"
 
@@ -20,6 +23,7 @@ const PENDING_STATUSES: BudgetRequestStatus[] = ["novo", "em-analise"]
 
 export function BudgetRequestsListPage() {
   const router = useRouter()
+  const isLoading = useSimulatedLoading()
   const requests = useMemo(() => getBudgetRequests(), [])
 
   const [statusFilter, setStatusFilter] = useState<string>("all")
@@ -115,47 +119,43 @@ export function BudgetRequestsListPage() {
     setShowPendingOnly(false)
   }
 
+  // Loading state
+  if (isLoading) {
+    return <TableSkeleton rows={8} />
+  }
+
   // Empty state for no requests at all
   if (requests.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-16">
-        <FileSearchIcon className="size-12 text-muted-foreground/50" />
-        <div className="text-center">
-          <h3 className="text-lg font-semibold">
-            Nenhuma solicitacao encontrada
-          </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Ajuste os filtros ou crie uma nova solicitacao para iniciar o fluxo
-            comercial.
-          </p>
-        </div>
-        <Button asChild>
-          <Link href="/orcamentos/nova">
-            <PlusIcon data-icon="inline-start" />
-            Nova solicitacao
-          </Link>
-        </Button>
-      </div>
+      <EmptyState
+        icon={FileSearchIcon}
+        title="Nenhuma solicitacao encontrada"
+        description="Ajuste os filtros ou crie uma nova solicitacao para iniciar o fluxo comercial."
+        action={
+          <Button asChild>
+            <Link href="/orcamentos/nova">
+              <PlusIcon data-icon="inline-start" />
+              Nova solicitacao
+            </Link>
+          </Button>
+        }
+      />
     )
   }
 
-  // Empty state for filtered results
-  const EmptyFilteredState = (
-    <div className="flex flex-col items-center justify-center gap-4 py-16">
-      <FilterXIcon className="size-12 text-muted-foreground/50" />
-      <div className="text-center">
-        <h3 className="text-lg font-semibold">
-          Nenhum resultado para sua busca
-        </h3>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Tente ajustar os filtros para encontrar o que procura.
-        </p>
-      </div>
-      <Button variant="outline" onClick={handleClearFilters}>
-        <FilterXIcon data-icon="inline-start" />
-        Limpar filtros
-      </Button>
-    </div>
+  // No-results state for filtered results
+  const noResultsState = (
+    <EmptyState
+      icon={FilterXIcon}
+      title="Nenhuma solicitacao encontrada"
+      description="Tente ajustar os filtros para encontrar o que procura."
+      action={
+        <Button variant="outline" onClick={handleClearFilters}>
+          <FilterXIcon data-icon="inline-start" />
+          Limpar filtros
+        </Button>
+      }
+    />
   )
 
   return (
@@ -182,7 +182,7 @@ export function BudgetRequestsListPage() {
         data={filteredRequests}
         pageSize={10}
         onRowClick={handleRowClick}
-        emptyState={hasActiveFilters ? EmptyFilteredState : undefined}
+        emptyState={hasActiveFilters ? noResultsState : undefined}
       />
     </div>
   )

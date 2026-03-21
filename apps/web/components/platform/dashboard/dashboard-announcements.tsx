@@ -11,7 +11,8 @@ import {
 } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Separator } from "@workspace/ui/components/separator"
-import { ChevronRightIcon } from "lucide-react"
+import { ChevronRightIcon, MegaphoneIcon } from "lucide-react"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import type { DashboardAnnouncement } from "@/lib/dashboard-data"
 
 export interface DashboardAnnouncementsProps {
@@ -26,9 +27,11 @@ export function DashboardAnnouncements({ items }: DashboardAnnouncementsProps) {
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Nenhum comunicado para hoje.
-          </p>
+          <EmptyState
+            icon={MegaphoneIcon}
+            title="Nenhum comunicado publicado"
+            description="Nenhum comunicado foi publicado ainda."
+          />
         ) : (
           items.map((item, index) => (
             <React.Fragment key={item.id}>

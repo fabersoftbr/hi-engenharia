@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card"
 import { Badge } from "@workspace/ui/components/badge"
-import { AlertTriangleIcon } from "lucide-react"
+import { AlertTriangleIcon, CheckCircleIcon } from "lucide-react"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import type { DashboardHighlight } from "@/lib/dashboard-data"
 
 export interface DashboardUrgentHighlightsProps {
@@ -25,9 +26,11 @@ export function DashboardUrgentHighlights({
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Nenhuma pendencia urgente no momento.
-          </p>
+          <EmptyState
+            icon={CheckCircleIcon}
+            title="Nenhuma pendencia"
+            description="Nenhuma pendencia urgente no momento."
+          />
         ) : (
           items.map((item) => (
             <Link
