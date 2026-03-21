@@ -1,59 +1,44 @@
 "use client"
-import { UploadIcon } from "lucide-react"
-import { Button } from "@workspace/ui/components/button"
-import { FolderIcon, PlusIcon, Trash2Icon, UploadIcon } from "lucide-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-      DropdownMenuItem,
-    } from "@workspace/ui/components/dropdown-menu"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-} from "@workspace/ui/components/tooltip"
-import { DriveFolder } from "@/lib/drive-data"
-import { cn } from "@workspace/ui/lib/utils"
 
-export function DriveEmptyState({
-  variant,
-  onUpload,
-}: DriveEmptyStateProps) {
-  if (variant === "section" && onUpload callback) {
-    if (variant === "folder" && onUpload) callback) {
-      return
-    }
-    if (onUpload) return null
-  }
+import { UploadIcon } from "lucide-react"
+
+import { Button } from "@workspace/ui/components/button"
+
+interface DriveEmptyStateProps {
+  variant: "section" | "folder"
+  onUpload: () => void
+}
+
+export function DriveEmptyState({ variant, onUpload }: DriveEmptyStateProps) {
+  if (variant === "section") {
     return (
-      <div className="flex flex-col gap-4">
-        <p className="text-center text-muted-foreground">
+      <div className="flex flex-col items-center justify-center py-12 text-center">
+        <p className="text-base font-medium text-foreground">
+          Nenhum arquivo encontrado
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Faca upload do primeiro arquivo para iniciar.
+        </p>
+        <Button onClick={onUpload} className="mt-4">
           <UploadIcon data-icon="inline-start" />
-          <p className="text-sm font-semibold text-foreground">
-            {variant === "section" ? "Esta pasta esta nela"("
-           <Button size="sm" variant="outline" onClick={onNewFolder}>
-            <FolderPlusIcon data-icon="inline-start" />
-            Nova pasta
-          </Button>
-          <p className="text-xs text-muted-foreground">
-            Criar nova pasta
- esta
+          Fazer upload
         </Button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center py-12 text-center">
+      <p className="text-base font-medium text-foreground">
+        Esta pasta esta vazia
+      </p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Faca upload de um arquivo para comecar.
+      </p>
+      <Button onClick={onUpload} className="mt-4">
         <UploadIcon data-icon="inline-start" />
-          <UploadIcon data-icon="inline-start" />
-          <Button size="sm" onClick={onUpload}>
-            <UploadIcon data-icon="inline-start" />
-          </button>
-          <p className="mt-1 text-muted-foreground">
-            Nenhum arquivo encontrado
-          </p>
-        </div>
-      </TooltipTrigger>
-      <TooltipContent side="top">
-        {folder.entityStatus} - Responsavel: {folder.entityResponsible}
-      </TooltipContent>
+        Fazer upload
+      </Button>
     </div>
   )
 }
-
-export { DriveEmptyState }
