@@ -31,6 +31,29 @@ export function AppBreadcrumbs() {
     pageLabel = "Detalhe"
   }
 
+  // Handle dynamic anteproject detail routes: /anteprojetos/{anteprojectId}
+  if (segments[0] === "anteprojetos" && segments.length >= 2) {
+    pageLabel = "Detalhe"
+  }
+
+  // Handle dynamic proposal routes
+  if (segments[0] === "propostas") {
+    if (segments[1] === "nova") {
+      pageLabel = "Nova proposta"
+    } else if (segments.length >= 2) {
+      pageLabel = "Detalhe"
+    }
+  }
+
+  // Handle dynamic price table routes
+  if (segments[0] === "tabela-de-precos") {
+    if (segments[1] === "upload") {
+      pageLabel = "Upload"
+    } else if (segments.length >= 2) {
+      pageLabel = "Detalhe"
+    }
+  }
+
   return (
     <Breadcrumb>
       <BreadcrumbList>

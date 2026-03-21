@@ -5,6 +5,16 @@
  */
 
 /**
+ * Format a number as Brazilian Real currency.
+ */
+export function formatCurrency(value: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value)
+}
+
+/**
  * Status IDs for proposals.
  */
 export type ProposalStatus =
@@ -64,13 +74,19 @@ export interface ProposalRecord {
  */
 export const PROPOSAL_STATUS_META: Record<
   ProposalStatus,
-  { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
+  {
+    label: string
+    variant: "default" | "secondary" | "outline" | "destructive"
+  }
 > = {
   rascunho: { label: "Rascunho", variant: "secondary" },
   "em-revisao": { label: "Em revisao", variant: "outline" },
   pronta: { label: "Pronta para envio", variant: "outline" },
   enviada: { label: "Enviada", variant: "default" },
-  "em-analise-cliente": { label: "Em analise pelo cliente", variant: "outline" },
+  "em-analise-cliente": {
+    label: "Em analise pelo cliente",
+    variant: "outline",
+  },
   aceita: { label: "Aceita", variant: "default" },
   recusada: { label: "Recusada", variant: "destructive" },
 }
@@ -359,7 +375,9 @@ export function getProposals(): ProposalRecord[] {
 /**
  * Get a single proposal by ID.
  */
-export function getProposalById(proposalId: string): ProposalRecord | undefined {
+export function getProposalById(
+  proposalId: string
+): ProposalRecord | undefined {
   return PROPOSALS.find((prop) => prop.id === proposalId)
 }
 
@@ -425,9 +443,14 @@ export function calculateProposalTotal(items: ProposalItem[]): number {
 /**
  * Create a draft proposal from an origin.
  */
-export function createProposalDraftFromOrigin(origin: ProposalOrigin): Omit<ProposalRecord, "id" | "createdAt" | "updatedAt"> {
+export function createProposalDraftFromOrigin(
+  origin: ProposalOrigin
+): Omit<ProposalRecord, "id" | "createdAt" | "updatedAt"> {
   return {
-    title: origin.type === "cliente" ? "Nova proposta" : `Proposta - ${origin.label}`,
+    title:
+      origin.type === "cliente"
+        ? "Nova proposta"
+        : `Proposta - ${origin.label}`,
     clientName: "",
     status: "rascunho",
     origin,

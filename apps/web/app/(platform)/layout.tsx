@@ -5,6 +5,7 @@ import { AppHeader } from "@/components/platform/app-header"
 import { PlatformShellProvider } from "@/components/platform/platform-shell-provider"
 import { SidebarProvider, SidebarInset } from "@workspace/ui/components/sidebar"
 import { TooltipProvider } from "@workspace/ui/components/tooltip"
+import { Toaster } from "@workspace/ui/components/sonner"
 
 export default async function PlatformLayout({
   children,
@@ -31,6 +32,7 @@ export default async function PlatformLayout({
           </SidebarInset>
         </SidebarProvider>
       </TooltipProvider>
+      <Toaster />
     </PlatformShellProvider>
   )
 }

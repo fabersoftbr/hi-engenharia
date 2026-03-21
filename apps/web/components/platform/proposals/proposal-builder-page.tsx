@@ -28,7 +28,7 @@ import {
   calculateItemsGrandTotal,
   VALIDITY_OPTIONS,
 } from "@/lib/proposal-form"
-import { formatCurrency } from "@/lib/proposals-data"
+import { formatCurrency, type ProposalOriginType } from "@/lib/proposals-data"
 import { ProposalOriginDialog } from "./proposal-origin-dialog"
 import { ProposalItemsSection } from "./proposal-items-section"
 
@@ -39,9 +39,8 @@ export function ProposalBuilderPage() {
   const anteprojectId = searchParams.get("anteprojectId")
 
   const [showOriginDialog, setShowOriginDialog] = useState(false)
-  const [selectedOrigin, setSelectedOrigin] = useState<
-    "cliente" | "oportunidade" | null
-  >(null)
+  const [selectedOrigin, setSelectedOrigin] =
+    useState<ProposalOriginType | null>(null)
 
   const form = useForm<ProposalFormValues>({
     resolver: zodResolver(proposalFormSchema),
