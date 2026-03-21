@@ -19,6 +19,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@workspace/ui/components/sheet"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
 import {
@@ -36,6 +44,7 @@ import {
 } from "@/lib/projects-data"
 import { ProjectMilestoneTimeline } from "./project-milestone-timeline"
 import { ProjectGanttSchedule } from "./project-gantt-schedule"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 
 interface ProjectWorkTrackerPageProps {
   project: ProjectRecord
@@ -61,6 +70,7 @@ function formatDate(isoString: string): string {
 export function ProjectWorkTrackerPage({
   project: initialProject,
 }: ProjectWorkTrackerPageProps) {
+  const isMobile = useIsMobile()
   const [project, setProject] = React.useState<ProjectRecord>(initialProject)
   const owner = getProjectOwnerById(project.ownerId)
 
@@ -179,6 +189,104 @@ export function ProjectWorkTrackerPage({
     }))
   }
 
+  const dialogTitle = editingMilestone ? "Editar marco" : "Adicionar marco"
+  const dialogDescription = editingMilestone
+    ? "Atualize as informacoes do marco."
+    : "Preencha os campos para adicionar um novo marco."
+
+  const formContent = (
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="name">Nome</Label>
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, name: e.target.value }))
+          }
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="startDate">Data de inicio</Label>
+        <Input
+          id="startDate"
+          type="date"
+          value={formData.startDate}
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              startDate: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="endDate">Data de fim</Label>
+        <Input
+          id="endDate"
+          type="date"
+          value={formData.endDate}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, endDate: e.target.value }))
+          }
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="responsibleId">Responsavel</Label>
+        <Input
+          id="responsibleId"
+          value={formData.responsibleId}
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              responsibleId: e.target.value,
+            }))
+          }
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="status">Status</Label>
+        <Select
+          value={formData.status}
+          onValueChange={(value) =>
+            setFormData((prev) => ({
+              ...prev,
+              status: value as ProjectMilestone["status"],
+            }))
+          }
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="pendente">Pendente</SelectItem>
+            <SelectItem value="em-andamento">Em andamento</SelectItem>
+            <SelectItem value="concluido">Concluido</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="notes">Observacoes</Label>
+        <Textarea
+          id="notes"
+          value={formData.notes}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, notes: e.target.value }))
+          }
+        />
+      </div>
+    </div>
+  )
+
+  const footerContent = (
+    <>
+      <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+        Cancelar
+      </Button>
+      <Button onClick={handleSaveMilestone}>Salvar</Button>
+    </>
+  )
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -264,107 +372,29 @@ export function ProjectWorkTrackerPage({
         </Button>
       </div>
 
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              {editingMilestone ? "Editar marco" : "Adicionar marco"}
-            </DialogTitle>
-            <DialogDescription>
-              {editingMilestone
-                ? "Atualize as informacoes do marco."
-                : "Preencha os campos para adicionar um novo marco."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="name">Nome</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, name: e.target.value }))
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="startDate">Data de inicio</Label>
-              <Input
-                id="startDate"
-                type="date"
-                value={formData.startDate}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    startDate: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="endDate">Data de fim</Label>
-              <Input
-                id="endDate"
-                type="date"
-                value={formData.endDate}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, endDate: e.target.value }))
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="responsibleId">Responsavel</Label>
-              <Input
-                id="responsibleId"
-                value={formData.responsibleId}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    responsibleId: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="status">Status</Label>
-              <Select
-                value={formData.status}
-                onValueChange={(value) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    status: value as ProjectMilestone["status"],
-                  }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="pendente">Pendente</SelectItem>
-                  <SelectItem value="em-andamento">Em andamento</SelectItem>
-                  <SelectItem value="concluido">Concluido</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="notes">Observacoes</Label>
-              <Textarea
-                id="notes"
-                value={formData.notes}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, notes: e.target.value }))
-                }
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleSaveMilestone}>Salvar</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {isMobile ? (
+        <Sheet open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+            <SheetHeader>
+              <SheetTitle>{dialogTitle}</SheetTitle>
+              <SheetDescription>{dialogDescription}</SheetDescription>
+            </SheetHeader>
+            <div className="py-4">{formContent}</div>
+            <SheetFooter>{footerContent}</SheetFooter>
+          </SheetContent>
+        </Sheet>
+      ) : (
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{dialogTitle}</DialogTitle>
+              <DialogDescription>{dialogDescription}</DialogDescription>
+            </DialogHeader>
+            {formContent}
+            <DialogFooter>{footerContent}</DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   )
 }

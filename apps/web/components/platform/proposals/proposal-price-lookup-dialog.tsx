@@ -9,6 +9,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@workspace/ui/components/sheet"
 import { Input } from "@workspace/ui/components/input"
 import { Button } from "@workspace/ui/components/button"
 import { DataTable } from "@workspace/ui/components/data-table"
@@ -27,6 +34,7 @@ import {
   formatPrice,
   type PriceTableRow,
 } from "@/lib/price-table-data"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 
 interface ProposalPriceLookupDialogProps {
   isOpen: boolean
@@ -39,6 +47,7 @@ export function ProposalPriceLookupDialog({
   onClose,
   onSelect,
 }: ProposalPriceLookupDialogProps) {
+  const isMobile = useIsMobile()
   const [regionFilter, setRegionFilter] = useState("all")
   const [consumptionBandFilter, setConsumptionBandFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
@@ -105,6 +114,76 @@ export function ProposalPriceLookupDialog({
     onClose()
   }
 
+  const content = (
+    <div className="flex flex-col gap-4 py-4">
+      {/* Filters */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Select value={regionFilter} onValueChange={setRegionFilter}>
+          <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectValue placeholder="Regiao" />
+          </SelectTrigger>
+          <SelectContent>
+            {regionOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={consumptionBandFilter}
+          onValueChange={setConsumptionBandFilter}
+        >
+          <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectValue placeholder="Faixa de consumo" />
+          </SelectTrigger>
+          <SelectContent>
+            {consumptionBandOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <div className="relative flex-1">
+          <SearchIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Buscar item..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+      </div>
+
+      {/* Data table */}
+      <DataTable
+        columns={columns}
+        data={rows}
+        pageSize={5}
+        onRowClick={handleRowClick}
+      />
+    </div>
+  )
+
+  if (isMobile) {
+    return (
+      <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
+        <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Consultar tabela de precos</SheetTitle>
+            <SheetDescription>
+              Selecione um item da tabela para adicionar a proposta
+            </SheetDescription>
+          </SheetHeader>
+          {content}
+        </SheetContent>
+      </Sheet>
+    )
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl">
@@ -114,58 +193,7 @@ export function ProposalPriceLookupDialog({
             Selecione um item da tabela para adicionar a proposta
           </DialogDescription>
         </DialogHeader>
-
-        <div className="flex flex-col gap-4 py-4">
-          {/* Filters */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Select value={regionFilter} onValueChange={setRegionFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
-                <SelectValue placeholder="Regiao" />
-              </SelectTrigger>
-              <SelectContent>
-                {regionOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={consumptionBandFilter}
-              onValueChange={setConsumptionBandFilter}
-            >
-              <SelectTrigger className="w-full sm:w-[180px]">
-                <SelectValue placeholder="Faixa de consumo" />
-              </SelectTrigger>
-              <SelectContent>
-                {consumptionBandOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <div className="relative flex-1">
-              <SearchIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Buscar item..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-          </div>
-
-          {/* Data table */}
-          <DataTable
-            columns={columns}
-            data={rows}
-            pageSize={5}
-            onRowClick={handleRowClick}
-          />
-        </div>
+        {content}
       </DialogContent>
     </Dialog>
   )

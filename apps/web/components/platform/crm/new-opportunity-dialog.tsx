@@ -8,6 +8,13 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@workspace/ui/components/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "@workspace/ui/components/sheet"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import {
@@ -23,6 +30,7 @@ import {
   CRM_OWNERS,
   getCrmResponsibleOptions,
 } from "@/lib/crm-data"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 
 interface NewOpportunityDialogProps {
   isOpen: boolean
@@ -35,6 +43,7 @@ export function NewOpportunityDialog({
   onClose,
   onSubmit,
 }: NewOpportunityDialogProps) {
+  const isMobile = useIsMobile()
   const [title, setTitle] = useState("")
   const [company, setCompany] = useState("")
   const [ownerId, setOwnerId] = useState(CRM_OWNERS[0]?.id ?? "")
@@ -82,95 +91,111 @@ export function NewOpportunityDialog({
     (opt) => opt.value !== "all"
   )
 
+  const formContent = (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="title" className="text-sm font-medium">
+          Oportunidade
+        </label>
+        <Input
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Titulo da oportunidade"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="company" className="text-sm font-medium">
+          Empresa
+        </label>
+        <Input
+          id="company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          placeholder="Nome da empresa"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="responsible" className="text-sm font-medium">
+          Responsavel
+        </label>
+        <Select value={ownerId} onValueChange={setOwnerId}>
+          <SelectTrigger id="responsible">
+            <SelectValue placeholder="Selecione o responsavel" />
+          </SelectTrigger>
+          <SelectContent>
+            {responsibleOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="priority" className="text-sm font-medium">
+          Prioridade
+        </label>
+        <Select
+          value={priority}
+          onValueChange={(v) => setPriority(v as CrmPriority)}
+        >
+          <SelectTrigger id="priority">
+            <SelectValue placeholder="Selecione a prioridade" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="alta">Alta</SelectItem>
+            <SelectItem value="media">Media</SelectItem>
+            <SelectItem value="baixa">Baixa</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="value" className="text-sm font-medium">
+          Valor estimado
+        </label>
+        <Input
+          id="value"
+          value={estimatedValue}
+          onChange={(e) => setEstimatedValue(e.target.value)}
+          placeholder="R$ 0,00"
+          type="number"
+        />
+      </div>
+
+      <DialogFooter className="sm:flex-col-reverse sm:gap-2">
+        <Button type="button" variant="outline" onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button type="submit">Criar oportunidade</Button>
+      </DialogFooter>
+    </form>
+  )
+
+  if (isMobile) {
+    return (
+      <Sheet open={isOpen} onOpenChange={onClose}>
+        <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Nova oportunidade</SheetTitle>
+          </SheetHeader>
+          <div className="py-4">{formContent}</div>
+        </SheetContent>
+      </Sheet>
+    )
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Nova oportunidade</DialogTitle>
         </DialogHeader>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="title" className="text-sm font-medium">
-              Oportunidade
-            </label>
-            <Input
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Titulo da oportunidade"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="company" className="text-sm font-medium">
-              Empresa
-            </label>
-            <Input
-              id="company"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              placeholder="Nome da empresa"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="responsible" className="text-sm font-medium">
-              Responsavel
-            </label>
-            <Select value={ownerId} onValueChange={setOwnerId}>
-              <SelectTrigger id="responsible">
-                <SelectValue placeholder="Selecione o responsavel" />
-              </SelectTrigger>
-              <SelectContent>
-                {responsibleOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="priority" className="text-sm font-medium">
-              Prioridade
-            </label>
-            <Select
-              value={priority}
-              onValueChange={(v) => setPriority(v as CrmPriority)}
-            >
-              <SelectTrigger id="priority">
-                <SelectValue placeholder="Selecione a prioridade" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="alta">Alta</SelectItem>
-                <SelectItem value="media">Media</SelectItem>
-                <SelectItem value="baixa">Baixa</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="value" className="text-sm font-medium">
-              Valor estimado
-            </label>
-            <Input
-              id="value"
-              value={estimatedValue}
-              onChange={(e) => setEstimatedValue(e.target.value)}
-              placeholder="R$ 0,00"
-              type="number"
-            />
-          </div>
-
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button type="submit">Criar oportunidade</Button>
-          </DialogFooter>
-        </form>
+        {formContent}
       </DialogContent>
     </Dialog>
   )

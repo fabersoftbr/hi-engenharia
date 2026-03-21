@@ -10,6 +10,11 @@ import {
   filterCrmOpportunities,
 } from "@/lib/crm-data"
 import { Button } from "@workspace/ui/components/button"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import {
+  TableSkeleton,
+  PipelineSkeleton,
+} from "@/components/platform/states/skeletons"
 import { CrmToolbar } from "./crm-toolbar"
 import { CrmListPage } from "./crm-list-page"
 import { CrmPipelineBoard } from "./crm-pipeline-board"
@@ -18,6 +23,7 @@ import { NewOpportunityDialog } from "./new-opportunity-dialog"
 type ViewMode = "kanban" | "lista"
 
 export function CrmWorkspacePage() {
+  const isLoading = useSimulatedLoading()
   const [viewMode, setViewMode] = useState<ViewMode>("kanban")
   const [responsibleFilter, setResponsibleFilter] = useState<string>("all")
   const [priorityFilter, setPriorityFilter] = useState<string>("all")
@@ -128,7 +134,13 @@ export function CrmWorkspacePage() {
         onSearchQueryChange={setSearchQuery}
       />
 
-      {viewMode === "lista" ? (
+      {isLoading ? (
+        viewMode === "lista" ? (
+          <TableSkeleton rows={8} />
+        ) : (
+          <PipelineSkeleton stages={5} />
+        )
+      ) : viewMode === "lista" ? (
         <CrmListPage opportunities={filteredOpportunities} />
       ) : (
         <CrmPipelineBoard

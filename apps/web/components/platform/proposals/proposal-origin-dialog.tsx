@@ -8,8 +8,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@workspace/ui/components/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@workspace/ui/components/sheet"
 import { Button } from "@workspace/ui/components/button"
 import type { ProposalOriginType } from "@/lib/proposals-data"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 
 interface ProposalOriginDialogProps {
   isOpen: boolean
@@ -42,6 +50,51 @@ export function ProposalOriginDialog({
   onClose,
   onSelect,
 }: ProposalOriginDialogProps) {
+  const isMobile = useIsMobile()
+
+  const content = (
+    <div className="flex flex-col gap-3 py-4">
+      {originOptions.map((option) => {
+        const Icon = option.icon
+        return (
+          <Button
+            key={option.type}
+            variant="outline"
+            className="h-auto flex-col items-start gap-1 py-4"
+            onClick={() => {
+              onSelect(option.type)
+              onClose()
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <Icon className="size-4" />
+              <span className="font-medium">{option.label}</span>
+            </div>
+            <span className="text-left text-sm font-normal text-muted-foreground">
+              {option.description}
+            </span>
+          </Button>
+        )
+      })}
+    </div>
+  )
+
+  if (isMobile) {
+    return (
+      <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
+        <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Selecionar origem da proposta</SheetTitle>
+            <SheetDescription>
+              Escolha a origem da proposta para preencher os dados iniciais
+            </SheetDescription>
+          </SheetHeader>
+          {content}
+        </SheetContent>
+      </Sheet>
+    )
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md">
@@ -51,30 +104,7 @@ export function ProposalOriginDialog({
             Escolha a origem da proposta para preencher os dados iniciais
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-3 py-4">
-          {originOptions.map((option) => {
-            const Icon = option.icon
-            return (
-              <Button
-                key={option.type}
-                variant="outline"
-                className="h-auto flex-col items-start gap-1 py-4"
-                onClick={() => {
-                  onSelect(option.type)
-                  onClose()
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <Icon className="size-4" />
-                  <span className="font-medium">{option.label}</span>
-                </div>
-                <span className="text-left text-sm font-normal text-muted-foreground">
-                  {option.description}
-                </span>
-              </Button>
-            )
-          })}
-        </div>
+        {content}
       </DialogContent>
     </Dialog>
   )

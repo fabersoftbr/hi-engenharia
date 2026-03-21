@@ -13,6 +13,11 @@ import {
   getAnteprojects,
 } from "@/lib/anteprojects-data"
 import { getCrmOpportunityById } from "@/lib/crm-data"
+import { useSimulatedLoading } from "@/lib/use-simulated-loading"
+import {
+  TableSkeleton,
+  PipelineSkeleton,
+} from "@/components/platform/states/skeletons"
 import { AnteprojectToolbar } from "./anteproject-toolbar"
 import { AnteprojectListPage } from "./anteproject-list-page"
 import { AnteprojectPipelineBoard } from "./anteproject-pipeline-board"
@@ -24,6 +29,7 @@ export function AnteprojectsWorkspacePage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sourceOpportunityId = searchParams.get("sourceOpportunityId")
+  const isLoading = useSimulatedLoading()
 
   const [viewMode, setViewMode] = useState<ViewMode>("kanban")
   const [responsibleFilter, setResponsibleFilter] = useState<string>("all")
@@ -182,7 +188,13 @@ export function AnteprojectsWorkspacePage() {
         onShowAwaitingOnlyChange={setShowAwaitingOnly}
       />
 
-      {viewMode === "lista" ? (
+      {isLoading ? (
+        viewMode === "lista" ? (
+          <TableSkeleton rows={8} />
+        ) : (
+          <PipelineSkeleton stages={5} />
+        )
+      ) : viewMode === "lista" ? (
         <AnteprojectListPage anteprojects={filteredAnteprojects} />
       ) : (
         <AnteprojectPipelineBoard
