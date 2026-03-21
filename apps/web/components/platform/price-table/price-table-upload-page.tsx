@@ -9,7 +9,6 @@ import {
   FileTextIcon,
   ArrowLeftIcon,
 } from "lucide-react"
-import { toast } from "sonner"
 import {
   Card,
   CardContent,
@@ -17,6 +16,14 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
+import { Input } from "@workspace/ui/components/input"
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldDescription,
+} from "@workspace/ui/components/field"
+import { showSuccessToast, showErrorToast } from "@/lib/toast-helpers"
 
 // Mock version history
 const VERSION_HISTORY = [
@@ -80,9 +87,10 @@ export function PriceTableUploadPage() {
 
     if (success) {
       setUploadStatus("success")
-      toast.success("Tabela enviada com sucesso")
+      showSuccessToast("Tabela enviada com sucesso")
     } else {
       setUploadStatus("error")
+      showErrorToast("Nao foi possivel enviar a tabela")
     }
   }
 
