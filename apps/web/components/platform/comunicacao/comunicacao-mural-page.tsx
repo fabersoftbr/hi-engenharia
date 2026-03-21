@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { PlusIcon, FilterXIcon } from "lucide-react"
+import { PlusIcon } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import {
   filterComunicados,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/comunicacao-data"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { CardGridSkeleton } from "@/components/platform/states/skeletons"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { ComunicacaoCard } from "./comunicacao-card"
 import { ComunicacaoToolbar } from "./comunicacao-toolbar"
 import { ComunicacaoPublishDialog } from "./comunicacao-publish-dialog"
@@ -43,35 +44,25 @@ export function ComunicacaoMuralPage() {
   // Empty state for no comunicados at all
   if (comunicados.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-16">
-        <FilterXIcon className="size-12 text-muted-foreground/50" />
-        <div className="text-center">
-          <h3 className="text-lg font-semibold">Nenhum comunicado publicado</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Publique o primeiro comunicado para informar a equipe.
-          </p>
-        </div>
-        <Button onClick={handleNewComunicado}>
-          <PlusIcon data-icon="inline-start" />
-          Publicar
-        </Button>
-      </div>
+      <EmptyState
+        title="Nenhum comunicado publicado"
+        description="Publique o primeiro comunicado para informar a equipe."
+        action={
+          <Button onClick={handleNewComunicado}>
+            <PlusIcon data-icon="inline-start" />
+            Publicar
+          </Button>
+        }
+      />
     )
   }
   // Empty state for filtered results
   if (filteredComunicados.length === 0 && comunicados.length > 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-16">
-        <FilterXIcon className="size-12 text-muted-foreground/50" />
-        <div className="text-center">
-          <h3 className="text-lg font-semibold">
-            Nenhum comunicado encontrado
-          </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Ajuste os filtros ou termos de busca.
-          </p>
-        </div>
-      </div>
+      <EmptyState
+        title="Nenhum comunicado encontrado"
+        description="Ajuste os filtros ou termos de busca."
+      />
     )
   }
   return (

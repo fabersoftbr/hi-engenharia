@@ -14,6 +14,7 @@ import {
 import { useActiveProfile } from "@/components/platform/platform-shell-provider"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { TableSkeleton } from "@/components/platform/states/skeletons"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -201,14 +202,10 @@ export function DrivePage() {
         searchResults.filesWithFolder.length === 0
       ) {
         return (
-          <div className="py-12 text-center">
-            <p className="text-base font-medium text-foreground">
-              Nenhum resultado para sua busca
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Tente ajustar os termos de busca.
-            </p>
-          </div>
+          <EmptyState
+            title="Nenhum resultado para sua busca"
+            description="Tente ajustar os termos de busca."
+          />
         )
       }
 

@@ -8,6 +8,7 @@ import {
   WORK_STAGE_ORDER,
   groupProjectsByStage,
 } from "@/lib/projects-data"
+import { EmptyState } from "@/components/platform/states/empty-state"
 import { WorksPipelineColumn } from "./works-pipeline-column"
 
 interface WorksPipelineBoardProps {
@@ -23,6 +24,16 @@ export function WorksPipelineBoard({
     () => groupProjectsByStage(projects),
     [projects]
   )
+
+  // Empty state when filters produce zero cards
+  if (projects.length === 0) {
+    return (
+      <EmptyState
+        title="Nenhum resultado"
+        description="Nenhuma obra encontrada para os filtros aplicados."
+      />
+    )
+  }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
