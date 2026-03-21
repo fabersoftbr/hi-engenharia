@@ -80,6 +80,11 @@ export function AppBreadcrumbs() {
     }
   }
 
+  // Handle jornada route
+  if (segments[0] === "jornada") {
+    pageLabel = "Jornada"
+  }
+
   return (
     <Breadcrumb className="min-w-0">
       <BreadcrumbList className="flex-wrap">

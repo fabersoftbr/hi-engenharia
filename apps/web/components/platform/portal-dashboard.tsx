@@ -7,6 +7,7 @@ import {
   getDashboardAnnouncements,
   getDashboardHighlightsForProfile,
   getTotalPendingCount,
+  getJourneyPendencies,
 } from "@/lib/dashboard-data"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { CardGridSkeleton } from "@/components/platform/states/skeletons"
@@ -15,6 +16,7 @@ import { DashboardSummaryGrid } from "@/components/platform/dashboard/dashboard-
 import { DashboardQuickActions } from "@/components/platform/dashboard/dashboard-quick-actions"
 import { DashboardAnnouncements } from "@/components/platform/dashboard/dashboard-announcements"
 import { DashboardUrgentHighlights } from "@/components/platform/dashboard/dashboard-urgent-highlights"
+import { DashboardJourneyPendencies } from "@/components/platform/dashboard/dashboard-journey-pendencies"
 
 export function PortalDashboard() {
   const { activeProfile, profileLabel } = useActiveProfile()
@@ -25,6 +27,7 @@ export function PortalDashboard() {
   const announcements = getDashboardAnnouncements()
   const highlights = getDashboardHighlightsForProfile(activeProfile)
   const totalPendingCount = getTotalPendingCount(modules)
+  const journeyPendencies = getJourneyPendencies()
 
   if (isLoading) {
     return (
@@ -48,6 +51,9 @@ export function PortalDashboard() {
 
       {/* Quick-actions row */}
       <DashboardQuickActions actions={quickActions} />
+
+      {/* Journey pendencies panel */}
+      <DashboardJourneyPendencies items={journeyPendencies} />
 
       {/* Footer grid: announcements (left) + urgent highlights (right) */}
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-5">

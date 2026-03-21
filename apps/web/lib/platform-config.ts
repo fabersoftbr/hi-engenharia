@@ -100,6 +100,15 @@ export const MODULES: ModuleConfig[] = [
     group: "operation",
     visibleTo: ["admin", "commercial"],
   },
+  {
+    id: "jornada",
+    route: "/jornada",
+    label: "Jornada",
+    breadcrumb: "Jornada",
+    iconName: "folder-kanban",
+    group: "operation",
+    visibleTo: ["admin", "commercial", "operations", "partner", "cliente"],
+  },
   // PROJETOS
   {
     id: "anteprojetos",
