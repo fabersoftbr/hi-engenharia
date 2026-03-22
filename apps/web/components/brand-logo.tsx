@@ -22,8 +22,8 @@ export function BrandLogo({ variant = "full", className }: BrandLogoProps) {
 
   const isFullLogo = variant === "full"
 
-  // TODO: Replace with actual logo when files are provided
-  // Uncomment this block when logo files exist at public/brand/
+  // Logo placeholder - text-only fallback until official logo files are provided
+  // When logo files exist at public/brand/, uncomment the Image components below
   /*
   if (isFullLogo) {
     return (
