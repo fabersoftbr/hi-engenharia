@@ -339,9 +339,7 @@ export function DrivePage() {
 
   // Render content based on state
   const renderContent = () => {
-    if (isLoading) {
-      return <TableSkeleton rows={8} />
-    }
+    if (isLoading) return <TableSkeleton rows={8} />
 
     if (searchResults) {
       return renderSearchResults(
@@ -351,31 +349,23 @@ export function DrivePage() {
       )
     }
 
+    const fileTableHandlers: FileTableHandlers = {
+      onFileClick: handleFileClick,
+      onSelectionChange: handleSelectionChange,
+      onDeleteFile: handleDeleteFile,
+      onDownload: handleDownload,
+      onRename: handleRename,
+    }
+
     if (currentFolderId && currentSubfolderId) {
-      return (
-        <DriveFileTable
-          files={currentFiles}
-          onFileClick={handleFileClick}
-          onSelectionChange={handleSelectionChange}
-          onDeleteFile={handleDeleteFile}
-          onDownload={handleDownload}
-          onRename={handleRename}
-        />
-      )
+      return renderFileTable(currentFiles, fileTableHandlers)
     }
 
     if (currentFolderId && currentFolder) {
       return (
         <div className="flex flex-col gap-6">
           {renderSubfolderCards(currentFolder.subfolders, handleSubfolderClick)}
-          <DriveFileTable
-            files={currentFiles}
-            onFileClick={handleFileClick}
-            onSelectionChange={handleSelectionChange}
-            onDeleteFile={handleDeleteFile}
-            onDownload={handleDownload}
-            onRename={handleRename}
-          />
+          {renderFileTable(currentFiles, fileTableHandlers)}
         </div>
       )
     }
