@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { ArrowLeftIcon } from "lucide-react"
 import type { CrmOpportunityRecord } from "@/lib/crm-data"
 import { getCrmOwnerById } from "@/lib/crm-data"
 import {
@@ -62,6 +63,14 @@ export function CrmOpportunityDetailPage({
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/crm">
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Link>
+            </Button>
+          </div>
           <h1 className="text-2xl font-semibold">{opportunity.title}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
@@ -109,11 +118,11 @@ export function CrmOpportunityDetailPage({
             </CardContent>
           </Card>
 
-          {/* Origin request - responsive ordering */}
+          {/* Registro - upstream links */}
           {opportunity.originBudgetRequestId && (
             <Card className="order-3 lg:order-3">
               <CardHeader>
-                <CardTitle>Solicitacao de origem</CardTitle>
+                <CardTitle>Registro</CardTitle>
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild>

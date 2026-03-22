@@ -2,7 +2,12 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { FileTextIcon, AlertCircleIcon, CheckCircleIcon } from "lucide-react"
+import {
+  FileTextIcon,
+  AlertCircleIcon,
+  CheckCircleIcon,
+  ArrowLeftIcon,
+} from "lucide-react"
 import type { AnteprojectRecord } from "@/lib/anteprojects-data"
 import {
   getAnteprojectOwnerById,
@@ -16,10 +21,12 @@ import {
 } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
+import { Separator } from "@workspace/ui/components/separator"
 import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 import { AnteprojectPriorityBadge } from "./anteproject-priority-badge"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
+import { getAnteprojectLineage, getVoltarRoute } from "@/lib/journey-lineage"
 
 interface AnteprojectDetailPageProps {
   anteproject: AnteprojectRecord
@@ -93,6 +100,10 @@ export function AnteprojectDetailPage({
   const isLoading = useSimulatedLoading()
   const owner = getAnteprojectOwnerById(anteproject.ownerId)
 
+  // Resolve lineage for Registro section and Voltar navigation
+  const lineage = getAnteprojectLineage(anteproject.id)
+  const voltarRoute = getVoltarRoute(lineage)
+
   if (isLoading) {
     return <DetailSkeleton />
   }
@@ -102,6 +113,14 @@ export function AnteprojectDetailPage({
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href={voltarRoute}>
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Link>
+            </Button>
+          </div>
           <h1 className="text-2xl font-semibold">{anteproject.title}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
@@ -220,11 +239,11 @@ export function AnteprojectDetailPage({
             </CardContent>
           </Card>
 
-          {/* CRM origin */}
+          {/* Registro - upstream lineage */}
           {anteproject.originCrmOpportunityId && (
             <Card className="order-3 lg:order-3">
               <CardHeader>
-                <CardTitle>CRM de origem</CardTitle>
+                <CardTitle>Registro</CardTitle>
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild>

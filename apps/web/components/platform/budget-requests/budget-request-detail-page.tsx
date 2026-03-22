@@ -13,7 +13,7 @@ import { BudgetRequestStatusTimeline } from "./budget-request-status-timeline"
 import { BudgetRequestStatusDialog } from "./budget-request-status-dialog"
 import { BUDGET_REQUEST_STATUS_META } from "@/lib/budget-requests-data"
 import Link from "next/link"
-import { FileText } from "lucide-react"
+import { ArrowLeftIcon, FileText } from "lucide-react"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
 
@@ -52,6 +52,14 @@ export function BudgetRequestDetailPage({
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/orcamentos">
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Link>
+            </Button>
+          </div>
           <h1 className="text-2xl font-semibold">Solicitacao {request.id}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
@@ -150,8 +158,10 @@ export function BudgetRequestDetailPage({
                   Editar solicitacao
                 </Link>
               </Button>
-              <Button variant="outline" asChild>
-                <Link href="/propostas">Criar proposta</Link>
+              <Button asChild>
+                <Link href={`/crm?sourceRequestId=${request.id}`}>
+                  Criar oportunidade
+                </Link>
               </Button>
             </CardContent>
           </Card>
