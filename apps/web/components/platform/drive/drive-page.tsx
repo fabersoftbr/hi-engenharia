@@ -61,6 +61,156 @@ function getVisibleTabsForProfile(profile: string): DriveSection[] {
   return ["oportunidades", "obras"]
 }
 
+// Render search results with folders and files
+function renderSearchResults(
+  searchResults: NonNullable<ReturnType<typeof searchDrive>>,
+  onFolderClick: (folderId: string) => void,
+  onFolderAction: (folderId: string, action: string) => void
+): React.ReactNode {
+  if (
+    searchResults.folders.length === 0 &&
+    searchResults.filesWithFolder.length === 0
+  ) {
+    return (
+      <EmptyState
+        title="Nenhum resultado para sua busca"
+        description="Tente ajustar os termos de busca."
+      />
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {searchResults.folders.length > 0 && (
+        <DriveFolderList
+          folders={searchResults.folders}
+          onFolderClick={onFolderClick}
+          onFolderAction={onFolderAction}
+        />
+      )}
+      {searchResults.filesWithFolder.map(({ file, folder }) => (
+        <div
+          key={file.id}
+          className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 hover:bg-secondary/50"
+        >
+          <span className="truncate text-sm">{file.name}</span>
+          <span className="text-xs text-muted-foreground">
+            em {folder.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Render subfolder cards within a folder
+function renderSubfolderCards(
+  subfolders: DriveFolder["subfolders"],
+  onSubfolderClick: (subfolderId: string) => void
+): React.ReactNode {
+  if (subfolders.length === 0) return null
+
+  return (
+    <div className="flex flex-wrap gap-3">
+      {subfolders.map((sf) => (
+        <Card
+          key={sf.id}
+          className="cursor-pointer hover:bg-secondary/50"
+          size="sm"
+          onClick={() => onSubfolderClick(sf.id)}
+        >
+          <CardContent className="flex items-center gap-3 py-3">
+            <FolderIcon className="size-5 text-muted-foreground" />
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">{sf.name}</span>
+              <span className="text-xs text-muted-foreground">
+                {sf.fileCount} arquivos
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}
+
+// Render tabs view with folder lists per section
+function renderTabsView(
+  currentSection: DriveSection,
+  visibleTabs: DriveSection[],
+  onTabChange: (value: string) => void,
+  onFolderClick: (folderId: string) => void,
+  onFolderAction: (folderId: string, action: string) => void,
+  onUpload: () => void
+): React.ReactNode {
+  return (
+    <Tabs value={currentSection} onValueChange={onTabChange}>
+      <TabsList className="mb-4">
+        {visibleTabs.includes("oportunidades") && (
+          <TabsTrigger value="oportunidades">Oportunidades</TabsTrigger>
+        )}
+        {visibleTabs.includes("obras") && (
+          <TabsTrigger value="obras">Obras</TabsTrigger>
+        )}
+      </TabsList>
+
+      {visibleTabs.includes("oportunidades") && (
+        <TabsContent value="oportunidades">
+          {getDriveFolders("oportunidades").length === 0 ? (
+            <DriveEmptyState variant="section" onUpload={onUpload} />
+          ) : (
+            <DriveFolderList
+              folders={getDriveFolders("oportunidades")}
+              onFolderClick={onFolderClick}
+              onFolderAction={onFolderAction}
+            />
+          )}
+        </TabsContent>
+      )}
+
+      {visibleTabs.includes("obras") && (
+        <TabsContent value="obras">
+          {getDriveFolders("obras").length === 0 ? (
+            <DriveEmptyState variant="section" onUpload={onUpload} />
+          ) : (
+            <DriveFolderList
+              folders={getDriveFolders("obras")}
+              onFolderClick={onFolderClick}
+              onFolderAction={onFolderAction}
+            />
+          )}
+        </TabsContent>
+      )}
+    </Tabs>
+  )
+}
+
+// Props type for file table handlers
+type FileTableHandlers = {
+  onFileClick: (file: DriveFile) => void
+  onSelectionChange: (ids: string[]) => void
+  onDeleteFile: (file: DriveFile) => void
+  onDownload: (file: DriveFile) => void
+  onRename: (file: DriveFile) => void
+}
+
+// Render file table with consistent handlers
+function renderFileTable(
+  files: DriveFile[],
+  handlers: FileTableHandlers
+): React.ReactNode {
+  return (
+    <DriveFileTable
+      files={files}
+      onFileClick={handlers.onFileClick}
+      onSelectionChange={handlers.onSelectionChange}
+      onDeleteFile={handlers.onDeleteFile}
+      onDownload={handlers.onDownload}
+      onRename={handlers.onRename}
+    />
+  )
+}
+
 export function DrivePage() {
   const isLoading = useSimulatedLoading()
   const { activeProfile } = useActiveProfile()
@@ -189,50 +339,18 @@ export function DrivePage() {
 
   // Render content based on state
   const renderContent = () => {
-    // Loading state
     if (isLoading) {
       return <TableSkeleton rows={8} />
     }
 
-    // Search mode
     if (searchResults) {
-      if (
-        searchResults.folders.length === 0 &&
-        searchResults.filesWithFolder.length === 0
-      ) {
-        return (
-          <EmptyState
-            title="Nenhum resultado para sua busca"
-            description="Tente ajustar os termos de busca."
-          />
-        )
-      }
-
-      return (
-        <div className="flex flex-col gap-4">
-          {searchResults.folders.length > 0 && (
-            <DriveFolderList
-              folders={searchResults.folders}
-              onFolderClick={handleFolderClick}
-              onFolderAction={handleFolderAction}
-            />
-          )}
-          {searchResults.filesWithFolder.map(({ file, folder }) => (
-            <div
-              key={file.id}
-              className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 hover:bg-secondary/50"
-            >
-              <span className="truncate text-sm">{file.name}</span>
-              <span className="text-xs text-muted-foreground">
-                em {folder.name}
-              </span>
-            </div>
-          ))}
-        </div>
+      return renderSearchResults(
+        searchResults,
+        handleFolderClick,
+        handleFolderAction
       )
     }
 
-    // Inside a folder with subfolder selected - show file table
     if (currentFolderId && currentSubfolderId) {
       return (
         <DriveFileTable
@@ -246,34 +364,10 @@ export function DrivePage() {
       )
     }
 
-    // Inside a folder (show subfolders + files)
     if (currentFolderId && currentFolder) {
-      const subfolders = currentFolder.subfolders
-
       return (
         <div className="flex flex-col gap-6">
-          {subfolders.length > 0 && (
-            <div className="flex flex-wrap gap-3">
-              {subfolders.map((sf) => (
-                <Card
-                  key={sf.id}
-                  className="cursor-pointer hover:bg-secondary/50"
-                  size="sm"
-                  onClick={() => handleSubfolderClick(sf.id)}
-                >
-                  <CardContent className="flex items-center gap-3 py-3">
-                    <FolderIcon className="size-5 text-muted-foreground" />
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">{sf.name}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {sf.fileCount} arquivos
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+          {renderSubfolderCards(currentFolder.subfolders, handleSubfolderClick)}
           <DriveFileTable
             files={currentFiles}
             onFileClick={handleFileClick}
@@ -286,46 +380,13 @@ export function DrivePage() {
       )
     }
 
-    // Root view - show tabs with folder lists
-    return (
-      <Tabs value={currentSection} onValueChange={handleTabChange}>
-        <TabsList className="mb-4">
-          {visibleTabs.includes("oportunidades") && (
-            <TabsTrigger value="oportunidades">Oportunidades</TabsTrigger>
-          )}
-          {visibleTabs.includes("obras") && (
-            <TabsTrigger value="obras">Obras</TabsTrigger>
-          )}
-        </TabsList>
-
-        {visibleTabs.includes("oportunidades") && (
-          <TabsContent value="oportunidades">
-            {getDriveFolders("oportunidades").length === 0 ? (
-              <DriveEmptyState variant="section" onUpload={handleUpload} />
-            ) : (
-              <DriveFolderList
-                folders={getDriveFolders("oportunidades")}
-                onFolderClick={handleFolderClick}
-                onFolderAction={handleFolderAction}
-              />
-            )}
-          </TabsContent>
-        )}
-
-        {visibleTabs.includes("obras") && (
-          <TabsContent value="obras">
-            {getDriveFolders("obras").length === 0 ? (
-              <DriveEmptyState variant="section" onUpload={handleUpload} />
-            ) : (
-              <DriveFolderList
-                folders={getDriveFolders("obras")}
-                onFolderClick={handleFolderClick}
-                onFolderAction={handleFolderAction}
-              />
-            )}
-          </TabsContent>
-        )}
-      </Tabs>
+    return renderTabsView(
+      currentSection,
+      visibleTabs,
+      handleTabChange,
+      handleFolderClick,
+      handleFolderAction,
+      handleUpload
     )
   }
 
