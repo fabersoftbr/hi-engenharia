@@ -15,20 +15,27 @@ import {
   type IconName,
 } from "@/lib/platform-config"
 
-// Check if the active profile has access to a module
+/** Checks if the active profile has access to a module. */
 function hasAccessToModule(moduleId: string, profile: ProfileKey): boolean {
   const mod = MODULES.find((m) => m.id === moduleId)
   return mod ? mod.visibleTo.includes(profile) : false
 }
 
+/** Props for the ModulePlaceholderPage component. */
 interface ModulePlaceholderPageProps {
+  /** Unique identifier for the module. */
   moduleId: string
+  /** Display title for the module. */
   title: string
+  /** Section category the module belongs to. */
   section: string
+  /** Description text for the placeholder. */
   description: string
+  /** Name of the icon to render for this module. */
   iconName: IconName
 }
 
+/** Renders a placeholder page for modules not yet fully implemented. */
 export function ModulePlaceholderPage({
   moduleId,
   title,

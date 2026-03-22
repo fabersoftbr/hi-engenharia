@@ -22,19 +22,28 @@ import {
 } from "@/lib/platform-config"
 import { useActiveProfile } from "./platform-shell-provider"
 
-// Helper component to render module link with icon
-function ModuleLink({
-  mod,
-  isActive,
-}: {
-  mod: {
-    id: string
-    route: string
-    label: string
-    iconName: keyof typeof ICON_MAP
-  }
+/** Module configuration for sidebar navigation. */
+interface ModuleConfig {
+  /** Unique identifier for the module. */
+  id: string
+  /** Route path for the module. */
+  route: string
+  /** Display label for the module. */
+  label: string
+  /** Name of the icon to render for this module. */
+  iconName: keyof typeof ICON_MAP
+}
+
+/** Props for the ModuleLink helper component. */
+interface ModuleLinkProps {
+  /** Module configuration object. */
+  mod: ModuleConfig
+  /** Whether this module link is currently active. */
   isActive: boolean
-}) {
+}
+
+/** Renders a clickable module link with an icon and label. */
+function ModuleLink({ mod, isActive }: ModuleLinkProps) {
   const Icon = ICON_MAP[mod.iconName]
   return (
     <SidebarMenuButton asChild isActive={isActive} tooltip={mod.label}>
@@ -46,6 +55,7 @@ function ModuleLink({
   )
 }
 
+/** Renders the main application sidebar with grouped module navigation. */
 export function AppSidebar() {
   const pathname = usePathname()
   const { activeProfile } = useActiveProfile()

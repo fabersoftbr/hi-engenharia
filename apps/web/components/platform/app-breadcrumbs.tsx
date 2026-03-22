@@ -12,6 +12,7 @@ import {
 import { getModuleByRoute } from "@/lib/platform-config"
 import { getProjectById } from "@/lib/projects-data"
 
+/** Renders breadcrumb navigation based on the current route path. */
 export function AppBreadcrumbs() {
   const pathname = usePathname()
 

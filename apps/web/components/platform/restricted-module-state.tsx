@@ -11,11 +11,15 @@ import {
 import { LockIcon } from "lucide-react"
 import { PROFILE_LABELS, type ProfileKey } from "@/lib/platform-config"
 
+/** Props for the RestrictedModuleState component. */
 interface RestrictedModuleStateProps {
+  /** Name of the module that is restricted. */
   moduleName: string
+  /** The active user profile attempting to access the module. */
   activeProfile: ProfileKey
 }
 
+/** Renders a restricted access state when a profile lacks permission for a module. */
 export function RestrictedModuleState({
   moduleName,
   activeProfile,

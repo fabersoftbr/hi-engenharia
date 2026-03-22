@@ -10,10 +10,10 @@ import {
 } from "react"
 import { type ProfileKey, PROFILE_LABELS } from "@/lib/platform-config"
 
-// Storage key for active profile persistence
+/** Storage key for active profile persistence in localStorage. */
 const ACTIVE_PROFILE_STORAGE_KEY = "hi-active-profile"
 
-// Valid profile keys for validation
+/** Valid profile keys for validation. */
 const VALID_PROFILES: ProfileKey[] = [
   "admin",
   "commercial",
@@ -22,34 +22,43 @@ const VALID_PROFILES: ProfileKey[] = [
   "cliente",
 ]
 
-// Context type definition
+/** Context type for the platform shell state. */
 interface PlatformShellContextType {
+  /** Currently active user profile. */
   activeProfile: ProfileKey
+  /** Updates the active profile. */
   setActiveProfile: (profile: ProfileKey) => void
+  /** Whether the sidebar is collapsed. */
   sidebarCollapsed: boolean
+  /** Toggles the sidebar collapsed state. */
   toggleSidebar: () => void
+  /** Whether mobile navigation is open. */
   mobileNavOpen: boolean
+  /** Sets the mobile navigation open state. */
   setMobileNavOpen: (open: boolean) => void
+  /** Display label for the active profile. */
   profileLabel: string
 }
 
-// Create context with undefined default for proper error handling
+/** Create context with undefined default for proper error handling. */
 const PlatformShellContext = createContext<
   PlatformShellContextType | undefined
 >(undefined)
 
-// Provider props
+/** Props for the PlatformShellProvider component. */
 interface PlatformShellProviderProps {
+  /** Child components to wrap with the provider. */
   children: ReactNode
+  /** Initial profile to use if none is stored. */
   initialProfile?: ProfileKey
 }
 
-// Validate profile key
+/** Validates whether a string is a valid ProfileKey. */
 function isValidProfile(profile: string): profile is ProfileKey {
   return VALID_PROFILES.includes(profile as ProfileKey)
 }
 
-// Get initial profile from localStorage or use default
+/** Gets the initial profile from localStorage or returns the fallback. */
 function getInitialProfile(fallback: ProfileKey): ProfileKey {
   if (typeof window === "undefined") return fallback
 
@@ -60,6 +69,7 @@ function getInitialProfile(fallback: ProfileKey): ProfileKey {
   return fallback
 }
 
+/** Provides platform shell state management via React Context. */
 export function PlatformShellProvider({
   children,
   initialProfile = "admin",
@@ -120,7 +130,7 @@ export function PlatformShellProvider({
   )
 }
 
-// Custom hook to use the shell context
+/** Custom hook to access the full platform shell context. */
 export function usePlatformShell(): PlatformShellContextType {
   const context = useContext(PlatformShellContext)
   if (context === undefined) {
@@ -131,7 +141,7 @@ export function usePlatformShell(): PlatformShellContextType {
   return context
 }
 
-// Hook for accessing just the active profile (lighter dependency)
+/** Hook for accessing just the active profile (lighter dependency). */
 export function useActiveProfile(): {
   activeProfile: ProfileKey
   setActiveProfile: (profile: ProfileKey) => void
@@ -141,7 +151,7 @@ export function useActiveProfile(): {
   return { activeProfile, setActiveProfile, profileLabel }
 }
 
-// Hook for accessing just sidebar state
+/** Hook for accessing just sidebar state. */
 export function useSidebarState(): {
   sidebarCollapsed: boolean
   toggleSidebar: () => void
@@ -150,7 +160,7 @@ export function useSidebarState(): {
   return { sidebarCollapsed, toggleSidebar }
 }
 
-// Hook for accessing just mobile nav state
+/** Hook for accessing just mobile nav state. */
 export function useMobileNav(): {
   mobileNavOpen: boolean
   setMobileNavOpen: (open: boolean) => void

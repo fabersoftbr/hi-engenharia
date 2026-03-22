@@ -14,8 +14,26 @@ import { useTheme } from "next-themes"
 import { useActiveProfile } from "./platform-shell-provider"
 import { type ProfileKey } from "@/lib/platform-config"
 
-// Profile labels in Portuguese (exact copy from plan requirement)
-const PROFILE_OPTIONS: { key: ProfileKey; label: string }[] = [
+/** Profile option for the dropdown menu. */
+interface ProfileOption {
+  /** Unique profile key. */
+  key: ProfileKey
+  /** Display label for the profile. */
+  label: string
+}
+
+/** Theme option for the dropdown menu. */
+interface ThemeOption {
+  /** Theme value (light, dark, system). */
+  value: "light" | "dark" | "system"
+  /** Display label for the theme. */
+  label: string
+  /** Icon component for the theme. */
+  icon: typeof SunIcon
+}
+
+/** Profile labels in Portuguese for the dropdown menu. */
+const PROFILE_OPTIONS: ProfileOption[] = [
   { key: "admin", label: "Administrador" },
   { key: "commercial", label: "Comercial interno" },
   { key: "partner", label: "Afiliado/Parceiro externo" },
@@ -23,12 +41,14 @@ const PROFILE_OPTIONS: { key: ProfileKey; label: string }[] = [
   { key: "cliente", label: "Cliente" },
 ]
 
-const THEME_OPTIONS = [
+/** Theme options for the appearance section. */
+const THEME_OPTIONS: ThemeOption[] = [
   { value: "light", label: "Tema claro", icon: SunIcon },
   { value: "dark", label: "Tema escuro", icon: MoonIcon },
   { value: "system", label: "Seguir sistema", icon: MonitorIcon },
-] as const
+]
 
+/** Renders a dropdown menu for switching profiles and theme appearance. */
 export function ProfileSwitcher() {
   const { activeProfile, setActiveProfile, profileLabel } = useActiveProfile()
   const { theme, setTheme } = useTheme()

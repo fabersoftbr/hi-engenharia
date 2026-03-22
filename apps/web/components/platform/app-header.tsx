@@ -6,6 +6,7 @@ import { AppBreadcrumbs } from "./app-breadcrumbs"
 import { ProfileSwitcher } from "./profile-switcher"
 import { useActiveProfile } from "./platform-shell-provider"
 
+/** Renders the main application header with breadcrumbs and profile switcher. */
 export function AppHeader() {
   const { profileLabel } = useActiveProfile()
 

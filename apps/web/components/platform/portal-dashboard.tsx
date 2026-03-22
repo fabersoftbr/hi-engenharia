@@ -18,6 +18,7 @@ import { DashboardAnnouncements } from "@/components/platform/dashboard/dashboar
 import { DashboardUrgentHighlights } from "@/components/platform/dashboard/dashboard-urgent-highlights"
 import { DashboardJourneyPendencies } from "@/components/platform/dashboard/dashboard-journey-pendencies"
 
+/** Renders the main portal dashboard with summary cards, quick actions, and announcements. */
 export function PortalDashboard() {
   const { activeProfile, profileLabel } = useActiveProfile()
   const isLoading = useSimulatedLoading()
