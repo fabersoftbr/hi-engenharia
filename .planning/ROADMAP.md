@@ -171,9 +171,9 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 09-01-PLAN.md -- Audit naming conventions and add JSDoc comments in lib data files
+- [x] 09-01-PLAN.md -- Audit naming conventions and add JSDoc comments in lib data files
 - [x] 09-02-PLAN.md -- Remove console.log debug statements and handle TODO comments
-- [ ] 09-03-PLAN.md -- Refactor oversized functions by extracting helpers
+- [x] 09-03-PLAN.md -- Refactor oversized functions by extracting helpers
 - [ ] 09-04-PLAN.md -- Audit shell components for structure and pattern compliance
 
 ## Progress
