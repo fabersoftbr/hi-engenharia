@@ -41,9 +41,6 @@ export function BudgetRequestStatusDialog({
   const handleApplyStatus = () => {
     if (selectedStatus !== currentStatus) {
       onStatusChange?.(selectedStatus)
-      console.log(
-        `Status changed for request ${requestId}: ${currentStatus} -> ${selectedStatus}`
-      )
     }
     setIsOpen(false)
   }

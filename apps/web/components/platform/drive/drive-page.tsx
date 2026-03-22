@@ -142,8 +142,7 @@ export function DrivePage() {
   }
 
   const handleFolderAction = (folderId: string, action: string) => {
-    // Placeholder for folder actions
-    console.log(`Folder ${folderId} action: ${action}`)
+    // Placeholder for folder actions - simulated functionality
   }
 
   const handleFileClick = (file: DriveFile) => {

@@ -138,7 +138,6 @@ export function ProposalBuilderPage() {
 
   const onSubmit = async (data: ProposalFormValues) => {
     // Simulated submit - no real persistence
-    console.log("Proposal saved:", data)
     // Show success and redirect
     router.push("/propostas")
   }

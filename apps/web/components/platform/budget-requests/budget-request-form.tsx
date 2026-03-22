@@ -16,7 +16,6 @@ import {
 } from "@/lib/budget-request-form"
 import { BudgetRequestAttachmentsField } from "./budget-request-attachments-field"
 import { BudgetRequestSubmissionDialog } from "./budget-request-submission-dialog"
-import { PREVIEW_SUBMITTED_REQUEST_ID } from "@/lib/budget-requests-data"
 
 export function BudgetRequestForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -36,8 +35,6 @@ export function BudgetRequestForm() {
 
   const onSubmit = async (data: BudgetRequestFormValues) => {
     // Simulated submit - no real persistence
-    console.log("Form submitted:", data)
-    console.log("Preview request ID:", PREVIEW_SUBMITTED_REQUEST_ID)
     // Store submitted data for the confirmation dialog
     setSubmittedFormData(data)
     setIsSubmitted(true)

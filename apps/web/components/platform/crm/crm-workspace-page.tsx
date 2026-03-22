@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useMemo, useCallback } from "react"
+import { useState, useMemo, useCallback, useEffect } from "react"
 import { PlusIcon } from "lucide-react"
+import { useSearchParams, useRouter } from "next/navigation"
 import { DropResult } from "@hello-pangea/dnd"
 import {
   CrmOpportunityRecord,
@@ -9,6 +10,7 @@ import {
   getCrmOpportunities,
   filterCrmOpportunities,
 } from "@/lib/crm-data"
+import { getBudgetRequestById } from "@/lib/budget-requests-data"
 import { Button } from "@workspace/ui/components/button"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import {
@@ -23,6 +25,9 @@ import { NewOpportunityDialog } from "./new-opportunity-dialog"
 type ViewMode = "kanban" | "lista"
 
 export function CrmWorkspacePage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const sourceRequestId = searchParams.get("sourceRequestId")
   const isLoading = useSimulatedLoading()
   const [viewMode, setViewMode] = useState<ViewMode>("kanban")
   const [responsibleFilter, setResponsibleFilter] = useState<string>("all")
@@ -32,6 +37,26 @@ export function CrmWorkspacePage() {
     () => getCrmOpportunities()
   )
   const [isNewOpportunityOpen, setIsNewOpportunityOpen] = useState(false)
+  const [prefillData, setPrefillData] = useState<{
+    title: string
+    company: string
+    originBudgetRequestId: string
+  } | null>(null)
+
+  // Handle budget-request handoff: open dialog with prefilled data when sourceRequestId is present
+  useEffect(() => {
+    if (sourceRequestId) {
+      const request = getBudgetRequestById(sourceRequestId)
+      if (request) {
+        setPrefillData({
+          title: `Oportunidade - ${request.clientName}`,
+          company: request.clientName,
+          originBudgetRequestId: sourceRequestId,
+        })
+        setIsNewOpportunityOpen(true)
+      }
+    }
+  }, [sourceRequestId])
 
   const filteredOpportunities = useMemo(() => {
     return filterCrmOpportunities({
@@ -82,10 +107,27 @@ export function CrmWorkspacePage() {
     [opportunities]
   )
 
-  const handleNewOpportunity = useCallback((newOpp: CrmOpportunityRecord) => {
-    setOpportunities((prev) => [newOpp, ...prev])
+  const handleNewOpportunity = useCallback(
+    (newOpp: CrmOpportunityRecord) => {
+      setOpportunities((prev) => [newOpp, ...prev])
+      setIsNewOpportunityOpen(false)
+      setPrefillData(null)
+      // Clear the query param after successful creation
+      if (sourceRequestId) {
+        router.replace("/crm")
+      }
+    },
+    [sourceRequestId, router]
+  )
+
+  const handleCloseDialog = useCallback(() => {
     setIsNewOpportunityOpen(false)
-  }, [])
+    setPrefillData(null)
+    // Clear the query param when closing without creating
+    if (sourceRequestId) {
+      router.replace("/crm")
+    }
+  }, [sourceRequestId, router])
 
   return (
     <div className="space-y-6">
@@ -151,8 +193,9 @@ export function CrmWorkspacePage() {
 
       <NewOpportunityDialog
         isOpen={isNewOpportunityOpen}
-        onClose={() => setIsNewOpportunityOpen(false)}
+        onClose={handleCloseDialog}
         onSubmit={handleNewOpportunity}
+        prefill={prefillData}
       />
     </div>
   )

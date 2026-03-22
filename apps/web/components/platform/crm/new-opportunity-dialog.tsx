@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Dialog,
   DialogContent,
@@ -36,12 +36,18 @@ interface NewOpportunityDialogProps {
   isOpen: boolean
   onClose: () => void
   onSubmit: (opportunity: CrmOpportunityRecord) => void
+  prefill?: {
+    title: string
+    company: string
+    originBudgetRequestId: string
+  } | null
 }
 
 export function NewOpportunityDialog({
   isOpen,
   onClose,
   onSubmit,
+  prefill,
 }: NewOpportunityDialogProps) {
   const isMobile = useIsMobile()
   const [title, setTitle] = useState("")
@@ -49,6 +55,18 @@ export function NewOpportunityDialog({
   const [ownerId, setOwnerId] = useState(CRM_OWNERS[0]?.id ?? "")
   const [priority, setPriority] = useState<CrmPriority>("media")
   const [estimatedValue, setEstimatedValue] = useState("")
+  const [originBudgetRequestId, setOriginBudgetRequestId] = useState<
+    string | null
+  >(null)
+
+  // Handle prefill when dialog opens with budget-request data
+  useEffect(() => {
+    if (prefill && isOpen) {
+      setTitle(prefill.title)
+      setCompany(prefill.company)
+      setOriginBudgetRequestId(prefill.originBudgetRequestId)
+    }
+  }, [prefill, isOpen])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -67,7 +85,7 @@ export function NewOpportunityDialog({
         Number.parseInt(estimatedValue.replace(/\D/g, ""), 10) || 0,
       createdAt: now,
       lastContactAt: now,
-      originBudgetRequestId: "orc-2026-9001",
+      originBudgetRequestId: prefill?.originBudgetRequestId ?? null,
       history: [
         {
           stage: "lead",
@@ -85,6 +103,7 @@ export function NewOpportunityDialog({
     setOwnerId(CRM_OWNERS[0]?.id ?? "")
     setPriority("media")
     setEstimatedValue("")
+    setOriginBudgetRequestId(null)
   }
 
   const responsibleOptions = getCrmResponsibleOptions().filter(

@@ -7,6 +7,8 @@ import {
   DownloadIcon,
   FileBarChartIcon,
   HammerIcon,
+  ArrowLeftIcon,
+  FolderIcon,
 } from "lucide-react"
 import type { ProjectRecord, WorkStageId } from "@/lib/projects-data"
 import {
@@ -30,6 +32,11 @@ import { ProjectStageHistory } from "./project-stage-history"
 import { ProjectStageChangeSelect } from "./project-stage-change-select"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
+import {
+  getProjectLineage,
+  getVoltarRoute,
+  getDriveDeepLink,
+} from "@/lib/journey-lineage"
 
 interface ProjectDetailPageProps {
   project: ProjectRecord
@@ -58,6 +65,11 @@ export function ProjectDetailPage({
   const [project, setProject] = React.useState<ProjectRecord>(initialProject)
 
   const owner = getProjectOwnerById(project.ownerId)
+
+  // Resolve lineage for Registro section and Voltar navigation
+  const lineage = getProjectLineage(project.id)
+  const voltarRoute = getVoltarRoute(lineage)
+  const driveDeepLink = getDriveDeepLink(project.id)
 
   const currentStageIndex = WORK_STAGE_ORDER.indexOf(project.stage)
   const nextStageIndex = currentStageIndex + 1
@@ -92,6 +104,14 @@ export function ProjectDetailPage({
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href={voltarRoute}>
+                <ArrowLeftIcon className="size-4" />
+                Voltar
+              </Link>
+            </Button>
+          </div>
           <h1 className="text-2xl font-semibold">{project.title}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
