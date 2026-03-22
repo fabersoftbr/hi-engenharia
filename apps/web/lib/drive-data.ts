@@ -94,7 +94,10 @@ export const DRIVE_AUTHORS: DriveAuthor[] = [
   { id: "author-3", name: "Bruno Lima", initials: "BL" },
 ]
 
-// Helper to get author by index (type-safe)
+/**
+ * Helper to get an author by index from the seeded authors array.
+ * Throws an error if the index is out of bounds.
+ */
 function getDriveAuthor(index: number): DriveAuthor {
   const author = DRIVE_AUTHORS.at(index)
   if (!author) {

@@ -18,7 +18,10 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
-// Icon name to component mapping for Client Component resolution
+/**
+ * Icon name to component mapping for Client Component resolution.
+ * Used to serialize icon references in Server Components and resolve them in Client Components.
+ */
 export const ICON_MAP = {
   "layout-dashboard": LayoutDashboardIcon,
   "file-text": FileTextIcon,
@@ -34,7 +37,10 @@ export const ICON_MAP = {
 
 export type IconName = keyof typeof ICON_MAP
 
-// Profile types
+/**
+ * Profile keys for user access control.
+ * Each profile has different module visibility.
+ */
 export type ProfileKey =
   | "admin"
   | "commercial"
@@ -42,7 +48,9 @@ export type ProfileKey =
   | "operations"
   | "cliente"
 
-// Module definition
+/**
+ * Configuration for a single module in the platform.
+ */
 export interface ModuleConfig {
   id: string
   route: string
@@ -53,16 +61,23 @@ export interface ModuleConfig {
   visibleTo: ProfileKey[]
 }
 
-// Module groups
+/**
+ * Module group identifiers for organizing the sidebar.
+ */
 export type ModuleGroup = "operation" | "projects" | "content" | "tools"
 
+/**
+ * Configuration for a module group in the sidebar.
+ */
 export interface GroupConfig {
   id: ModuleGroup
   label: string
   order: number
 }
 
-// Group definitions
+/**
+ * Module group definitions with labels and ordering.
+ */
 export const MODULE_GROUPS: Record<ModuleGroup, GroupConfig> = {
   operation: { id: "operation", label: "OPERACAO", order: 1 },
   projects: { id: "projects", label: "PROJETOS", order: 2 },
@@ -70,7 +85,10 @@ export const MODULE_GROUPS: Record<ModuleGroup, GroupConfig> = {
   tools: { id: "tools", label: "FERRAMENTAS", order: 4 },
 }
 
-// Module definitions with profile visibility
+/**
+ * Module definitions with profile visibility.
+ * Each module specifies which profiles can see and access it.
+ */
 export const MODULES: ModuleConfig[] = [
   // OPERACAO
   {
@@ -177,12 +195,19 @@ export const MODULES: ModuleConfig[] = [
   },
 ]
 
-// Helper to get modules visible to a profile
+/**
+ * Get all modules visible to a specific profile.
+ * Filters the MODULES list by the profile's access permissions.
+ */
 export function getModulesForProfile(profile: ProfileKey): ModuleConfig[] {
   return MODULES.filter((mod) => mod.visibleTo.includes(profile))
 }
 
-// Helper to get modules grouped for sidebar
+/**
+ * Get modules grouped by sidebar section for a specific profile.
+ * Returns a record mapping group IDs to their visible modules.
+ * Empty groups are removed from the result.
+ */
 export function getGroupedModulesForProfile(
   profile: ProfileKey
 ): Record<ModuleGroup, ModuleConfig[]> {
@@ -208,12 +233,18 @@ export function getGroupedModulesForProfile(
   return grouped
 }
 
-// Helper to get module by route
+/**
+ * Get a module configuration by its route path.
+ * Returns undefined if no module matches the route.
+ */
 export function getModuleByRoute(route: string): ModuleConfig | undefined {
   return MODULES.find((mod) => mod.route === route)
 }
 
-// Profile labels for display
+/**
+ * Human-readable labels for each profile key.
+ * Used in the profile switcher and user display.
+ */
 export const PROFILE_LABELS: Record<ProfileKey, string> = {
   admin: "Administrador",
   commercial: "Comercial interno",

@@ -1,23 +1,40 @@
+/**
+ * Mock Session Management
+ * Handles mock authentication state for the frontend-only prototype.
+ * Uses cookies to persist session data across requests.
+ */
+
 import { cookies } from "next/headers"
 import { ProfileKey } from "./platform-config"
 
-// Cookie name for mock session
+/**
+ * Cookie name for the mock session.
+ */
 export const SESSION_COOKIE_NAME = "hi_portal_session"
 
-// Available mock profiles - must match ProfileKey from platform-config
+/**
+ * Available mock profiles - must match ProfileKey from platform-config.
+ */
 export type MockProfile = ProfileKey
 
-// Default profile when no session exists
+/**
+ * Default profile when no session exists.
+ */
 export const DEFAULT_PROFILE: MockProfile = "admin"
 
-// Session data structure
+/**
+ * Session data structure stored in the cookie.
+ */
 export interface MockSession {
   authenticated: boolean
   email: string
   activeProfile: MockProfile
 }
 
-// Parse session from cookie value
+/**
+ * Parse session from cookie value.
+ * Returns null if the cookie is missing or malformed.
+ */
 export function parseSession(
   cookieValue: string | undefined
 ): MockSession | null {
@@ -28,7 +45,7 @@ export function parseSession(
   try {
     const session = JSON.parse(cookieValue) as MockSession
 
-    // Validate session structure
+    // Validate session has required fields with correct types
     if (
       typeof session.authenticated === "boolean" &&
       typeof session.email === "string" &&
@@ -43,12 +60,16 @@ export function parseSession(
   }
 }
 
-// Serialize session to cookie value
+/**
+ * Serialize session to cookie value.
+ */
 export function serializeSession(session: MockSession): string {
   return JSON.stringify(session)
 }
 
-// Create a default mock session
+/**
+ * Create a default mock session with the given email and profile.
+ */
 export function createMockSession(
   email: string = "usuario@hiengenharia.com",
   profile: MockProfile = DEFAULT_PROFILE
@@ -60,26 +81,37 @@ export function createMockSession(
   }
 }
 
-// Get current session from cookies (server component helper)
+/**
+ * Get current session from cookies.
+ * Server component helper for reading session state.
+ */
 export async function getMockSession(): Promise<MockSession | null> {
   const cookieStore = await cookies()
   const cookieValue = cookieStore.get(SESSION_COOKIE_NAME)?.value
   return parseSession(cookieValue)
 }
 
-// Check if user is authenticated (server component helper)
+/**
+ * Check if user is authenticated.
+ * Server component helper for authentication check.
+ */
 export async function isAuthenticated(): Promise<boolean> {
   const session = await getMockSession()
   return session?.authenticated ?? false
 }
 
-// Get current profile (server component helper)
+/**
+ * Get current profile from session.
+ * Server component helper for reading active profile.
+ */
 export async function getCurrentProfile(): Promise<MockProfile | null> {
   const session = await getMockSession()
   return session?.activeProfile ?? null
 }
 
-// Validate profile key
+/**
+ * Validate if a string is a valid profile key.
+ */
 export function isValidProfile(profile: string): profile is MockProfile {
   const validProfiles: MockProfile[] = [
     "admin",
