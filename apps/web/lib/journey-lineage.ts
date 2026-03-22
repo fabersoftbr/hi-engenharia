@@ -172,7 +172,7 @@ export function getProposalLineage(proposalId: string): JourneyLineage {
 
   // Upstream: Anteproject or CRM opportunity based on origin
   let upstream: JourneyLink | null = null
-  if (proposal.origin.type === "anteproject" && proposal.origin.id) {
+  if (proposal.origin.type === "anteprojeto" && proposal.origin.id) {
     upstream = {
       label: `Anteprojeto ${proposal.origin.id}`,
       href: `/anteprojetos/${proposal.origin.id}`,

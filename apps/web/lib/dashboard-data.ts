@@ -21,7 +21,7 @@ import {
   EyeIcon,
   type LucideIcon,
 } from "lucide-react"
-import { getJourneyPendencies, type JourneyPendency } from "@/lib/journey-data"
+import { type JourneyPendency } from "@/lib/journey-data"
 
 // Types for dashboard data structures
 

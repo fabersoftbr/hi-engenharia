@@ -7,8 +7,8 @@ import {
   getDashboardAnnouncements,
   getDashboardHighlightsForProfile,
   getTotalPendingCount,
-  getJourneyPendencies,
 } from "@/lib/dashboard-data"
+import { getJourneyPendencies } from "@/lib/journey-data"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { CardGridSkeleton } from "@/components/platform/states/skeletons"
 import { DashboardWelcome } from "@/components/platform/dashboard/dashboard-welcome"
