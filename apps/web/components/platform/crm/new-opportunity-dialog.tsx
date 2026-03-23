@@ -202,7 +202,7 @@ export function NewOpportunityDialog({
           <SheetHeader>
             <SheetTitle>Nova oportunidade</SheetTitle>
           </SheetHeader>
-          <div className="py-4">{formContent}</div>
+          <div className="px-6 py-4">{formContent}</div>
         </SheetContent>
       </Sheet>
     )
