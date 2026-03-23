@@ -75,24 +75,23 @@ export function ProjectWorkTrackerPage({
   const isMobile = useIsMobile()
   const isLoading = useSimulatedLoading()
   const [project, setProject] = React.useState<ProjectRecord>(initialProject)
-  const owner = getProjectOwnerById(project.ownerId)
-
-  if (isLoading) {
-    return <DetailSkeleton />
-  }
-
   const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
   const [editingMilestone, setEditingMilestone] =
     React.useState<ProjectMilestone | null>(null)
-
   const [formData, setFormData] = React.useState<Partial<ProjectMilestone>>({
     name: "",
     startDate: "",
     endDate: "",
     status: "pendente",
-    responsibleId: owner?.id ?? "",
+    responsibleId: "",
     notes: "",
   })
+
+  const owner = getProjectOwnerById(project.ownerId)
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   const sortedMilestones = React.useMemo(
     () =>
