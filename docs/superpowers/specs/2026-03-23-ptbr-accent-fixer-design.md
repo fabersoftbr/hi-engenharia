@@ -3,6 +3,7 @@
 **Data:** 2026-03-23
 **Status:** Draft
 **Autor:** Claude
+**Versão Python:** 3.9+
 
 ## Problema
 
@@ -30,7 +31,7 @@ git commit
     ▼
 scripts/fix-ptbr-accents.py
     │
-    ├── Detecta arquivos staged (.tsx, .ts, .md, .json)
+    ├── Detecta arquivos staged (.tsx, .ts, .md)
     ├── Extrai texto e verifica ortografia com pyenchant
     ├── Substitui palavras incorretas
     └── Re-add arquivos modificados ao staging
@@ -49,45 +50,61 @@ Script principal que realiza a correção de acentuação.
 
 ```python
 def load_whitelist() -> set[str]:
-    """Carrega palavras que não devem ser alteradas."""
+    """Carrega palavras que não devem ser alteradas do arquivo .accent-whitelist.txt."""
 
 def get_staged_files() -> list[Path]:
-    """Retorna arquivos staged via git diff --cached."""
+    """
+    Retorna arquivos staged via 'git diff --cached --name-only --diff-filter=ACM'.
+    Filtra internamente por extensões suportadas (.tsx, .ts, .md).
+    """
 
 def extract_text_content(file_path: Path) -> str:
-    """Lê conteúdo do arquivo."""
+    """Lê conteúdo do arquivo com encoding UTF-8."""
 
-def find_portuguese_words(text: str) -> list[tuple[str, int]]:
-    """Encontra palavras que parecem português."""
+def find_words_to_check(text: str) -> list[tuple[str, int, int]]:
+    """
+    Encontra palavras candidatas para verificação.
+    Retorna: [(palavra, inicio, fim), ...]
+    Ignora: URLs, emails, paths, código inline, blocos de código.
+    """
 
-def check_and_correct(word: str, dictionary: enchant.Dict) -> str | None:
-    """Verifica se palavra está correta e retorna correção se aplicável."""
+def check_and_correct(word: str, dictionary: enchant.Dict, whitelist: set[str]) -> str | None:
+    """
+    Verifica se palavra precisa de correção.
+    Retorna correção ou None se não for necessária.
+    """
 
 def apply_corrections(text: str, corrections: list[tuple[int, int, str]]) -> str:
-    """Aplica correções no texto mantendo posições."""
+    """Aplica correções no texto por posição (inicio, fim, nova_palavra)."""
 
 def process_file(file_path: Path, dictionary: enchant.Dict, whitelist: set[str]) -> bool:
-    """Processa um arquivo, retorna True se houve modificações."""
+    """Processa um arquivo. Retorna True se houve modificações."""
 
 def main():
-    """Orquestra todo o processo."""
+    """Orquestra: carrega whitelist, detecta staged files, processa, re-add ao staging."""
 ```
 
 **Lógica de correção:**
 
-1. Palavra sem acento é verificada no dicionário pt-BR
-2. Se não encontrada, busca sugestões via `dictionary.suggest()`
-3. Filtra sugestões que são a versão acentuada da palavra original
-4. Só aceita se for única sugestão válida (evita ambiguidade)
+1. Palavra é normalizada (remove acentos) e verificada no dicionário pt-BR
+2. Se a palavra original JÁ existe no dicionário → não altera (está correta)
+3. Se não existe, busca sugestões via `dictionary.suggest()`
+4. Filtra sugestões cuja versão sem acentos bate com a palavra original
+5. Se houver exatamente UMA sugestão válida → aplica correção
+6. Se houver múltiplas sugestões ou nenhuma → mantém original (evita ambiguidade)
+
+**Exemplo de ambiguidade não tratada:**
+- "pelo" pode ser "pelo" (correto como está) ou ser confundido
+- Por isso, primeiro verificamos se a palavra JÁ está correta no dicionário
 
 **Critério de match:**
-- Ignora acentos na comparação (normalização Unicode)
-- Compara case-insensitive
-- Requer match exato desconsiderando acentos
+- Normalização Unicode (NFD + remove combining marks)
+- Comparação case-insensitive
+- Match exato após normalização
 
 ### 2. Whitelist (`.accent-whitelist.txt`)
 
-Lista de palavras que não devem ser alteradas.
+Lista de palavras que não devem ser alteradas, mesmo que pareçam incorretas.
 
 ```
 # Nomes de tecnologias e produtos
@@ -117,6 +134,12 @@ CLI
 CSS
 HTML
 JSON
+
+# Comandos e identificadores comuns
+npm
+pnpm
+eslint
+prettier
 ```
 
 ### 3. Pre-commit Hook (`.pre-commit-config.yaml`)
@@ -130,101 +153,192 @@ repos:
         entry: python scripts/fix-ptbr-accents.py
         language: system
         types: [file]
-        files: \.(tsx?|md|json)$
+        files: \.(tsx?|md)$
         pass_filenames: false
 ```
 
+**Nota sobre `pass_filenames: false`:**
+O script detecta arquivos staged internamente via `git diff --cached` para ter controle total sobre quais arquivos processar e como filtrá-los. Isso permite:
+- Filtrar por extensão de forma consistente
+- Aplicar lógica de ignore (blocos de código, etc.) antes de processar
+- Garantir que apenas arquivos staged sejam modificados
+
 ### 4. Dependências
 
-**Python (`requirements-dev.txt`):**
+**Python (`requirements-dev.txt` na raiz do projeto):**
 ```
 pyenchant>=3.2.0
 ```
 
+**Requisitos:**
+- Python 3.9+ (para type hints modernos como `set[str]`, `list[str]`)
+- pyenchant 3.2+
+- enchant library instalada no sistema
+
 **Sistema (enchant):**
 - Windows: `choco install enchant`
 - macOS: `brew install enchant`
-- Linux: `apt install libenchant-2-dev`
+- Linux: `apt install libenchant-2-dev` ou equivalente
 
 ## Casos Especiais
 
-### Strings dentro de código
+### Strings dentro de código TypeScript/TSX
 
 ```tsx
 const msg = "Voce tem pendencias"  // → "Você tem pendências"
+const path = `/api/users/${id}`     // Não altera (contém variáveis)
 ```
 
 ### Comentários
 
 ```tsx
-// comentario simples  →  // comentário simples
+// comentario simples      →  // comentário simples
 /* bloco de comentario */  →  /* bloco de comentário */
 ```
-
-### Arquivos JSON
-
-- Processa apenas valores de strings
-- Não altera chaves
-- Preserva estrutura JSON válida
 
 ### Markdown
 
 - Processa texto normal
-- Preserva blocos de código (` ``` `)
+- **Preserva blocos de código:** linhas entre ` ``` ` e ` ``` `
+- **Preserva código inline:** texto entre backticks `` ` ``
 
-### Ignorados automaticamente
+Exemplo:
+```markdown
+Este texto sera corrigido.
 
-- URLs (`https://...`)
-- Emails (`usuario@dominio.com`)
-- Paths de arquivos (`/src/components/...`)
-- Palavras mistas com caracteres especiais
+```typescript
+// Este comentario NAO e alterado
+const msg = "Voce" // Tambem NAO alterado
+```
+
+Mas `codigo inline` tambem nao e alterado.
+```
+
+### Padrões ignorados automaticamente
+
+| Padrão | Regex | Exemplo |
+|--------|-------|---------|
+| URLs | `https?://[^\s]+` | `https://exemplo.com` |
+| Emails | `[^\s@]+@[^\s@]+\.[^\s@]+` | `user@domain.com` |
+| Paths Unix | `/[\w/.-]+` | `/src/components/Button.tsx` |
+| Paths Windows | `[A-Za-z]:\\[\w\\.-]+` | `C:\Users\name\file.txt` |
+| Código inline | `` `[^`]+` `` | `` `codigo` `` |
+| Palavras com números | `\w*\d+\w*` | `user123`, `proto3` |
+| CamelCase/PascalCase | `[A-Z][a-z]+[A-Z]` | `TypeScript`, `Fabersoft` |
+
+**Nota:** Palavras com hífens como `café-da-manhã` são processadas palavra por palavra.
+
+### Arquivos JSON (escopo futuro)
+
+Arquivos JSON **não são processados** na implementação inicial devido à complexidade de:
+- Preservar formatação exata (indentação, vírgulas)
+- Lidar com caracteres escapados em strings
+- Manter rastreamento de posição
+
+Podem ser adicionados em versão futura se necessário.
 
 ## Tratamento de Erros
 
 | Cenário | Ação |
 |---------|------|
-| pyenchant não instalado | Aviso + skip do hook |
-| Dicionário pt-BR ausente | Erro claro com instruções de instalação |
-| Arquivo binário | Skip silencioso |
-| Encoding inválido | Log + skip do arquivo |
-| Nenhuma sugestão válida | Mantém palavra original |
+| pyenchant não instalado | **Falha** com erro claro + instruções de instalação |
+| Dicionário pt-BR ausente | **Falha** com instruções para instalar dicionário |
+| Arquivo binário | Skip silencioso (detectado por content-type) |
+| Encoding inválido | Log + skip do arquivo específico |
+| Nenhuma sugestão válida | Mantém palavra original (não altera) |
+| Múltiplas sugestões | Mantém palavra original (ambiguidade) |
+
+**Por que falhar em vez de avisar?**
+Se as dependências estiverem faltando, o hook não pode fazer seu trabalho. Avisos são facilmente ignorados e permitiriam código com erros de acentuação ser commitado. Falhar força a resolução do problema.
 
 ## Testes
 
 ### Testes Unitários (`tests/test_fix_ptbr_accents.py`)
 
 ```python
-def test_simple_correction():
-    assert correct_word("voce") == "você"
+import pytest
+from fix_ptbr_accents import check_and_correct, apply_corrections, load_whitelist
+import enchant
 
-def test_already_correct():
-    assert correct_word("você") is None
+@pytest.fixture
+def dictionary():
+    return enchant.Dict("pt_BR")
 
-def test_whitelist():
-    assert correct_word("TypeScript") is None
+@pytest.fixture
+def whitelist():
+    return load_whitelist()
 
-def test_technical_term():
-    assert correct_word("API") is None
+class TestCheckAndCorrect:
+    def test_simple_correction(self, dictionary, whitelist):
+        result = check_and_correct("voce", dictionary, whitelist)
+        assert result == "você"
 
-def test_context_preservation():
-    text = "O usuario acessou o sistema"
-    result = apply_corrections(text)
-    assert result == "O usuário acessou o sistema"
+    def test_already_correct(self, dictionary, whitelist):
+        result = check_and_correct("você", dictionary, whitelist)
+        assert result is None
+
+    def test_whitelist_word(self, dictionary, whitelist):
+        result = check_and_correct("TypeScript", dictionary, whitelist)
+        assert result is None
+
+    def test_technical_acronym(self, dictionary, whitelist):
+        result = check_and_correct("API", dictionary, whitelist)
+        assert result is None
+
+    def test_multiple_suggestions_ambiguous(self, dictionary, whitelist):
+        # Palavras com múltiplas correções possíveis não são alteradas
+        result = check_and_correct("para", dictionary, whitelist)
+        # "para" já está correto no dicionário
+        assert result is None
+
+class TestApplyCorrections:
+    def test_single_correction(self):
+        text = "O usuario acessou o sistema"
+        corrections = [(2, 10, "usuário")]
+        result = apply_corrections(text, corrections)
+        assert result == "O usuário acessou o sistema"
+
+    def test_multiple_corrections(self):
+        text = "Voce tem pendencias"
+        corrections = [(0, 5, "Você"), (9, 18, "pendências")]
+        result = apply_corrections(text, corrections)
+        assert result == "Você tem pendências"
+
+    def test_no_corrections(self):
+        text = "Texto correto"
+        corrections = []
+        result = apply_corrections(text, corrections)
+        assert result == "Texto correto"
 ```
 
 ### Arquivo de Teste (`tests/fixtures/sample-broken.tsx`)
 
 ```tsx
-// Arquivo com erros conhecidos para validação
+// Arquivo com erros conhecidos para validação do script
 export const msg = "Voce tem pendencias abertas"
-// Comentario sem acento
+const titulo = "Modulo de administracao"
+// Comentario sem acento deve ser corrigido
+/* Bloco de comentario tambem */
 ```
 
-### Validação Manual
+**Resultado esperado:**
+```tsx
+// Arquivo com erros conhecidos para validação do script
+export const msg = "Você tem pendências abertas"
+const titulo = "Módulo de administração"
+// Comentário sem acento deve ser corrigido
+/* Bloco de comentário também */
+```
 
-1. Executar script sobre todo o codebase
-2. Revisar diff gerado antes de commitar
-3. Ajustar whitelist conforme necessário
+### Validação Manual Inicial
+
+Antes de confiar totalmente no hook:
+
+1. `python scripts/fix-ptbr-accents.py` (roda em todos os arquivos)
+2. Revisar diff gerado com atenção
+3. Adicionar falsos positivos à whitelist
+4. Commitar correções iniciais
+5. Testar hook com novo commit
 
 ## Critérios de Sucesso
 
@@ -232,6 +346,7 @@ export const msg = "Voce tem pendencias abertas"
 - [ ] Nenhum falso positivo em nomes técnicos
 - [ ] Pre-commit integrado e funcionando
 - [ ] Documentação de instalação clara
+- [ ] Testes unitários passando
 
 ## Estrutura de Arquivos
 
@@ -239,17 +354,45 @@ export const msg = "Voce tem pendencias abertas"
 code/
 ├── .pre-commit-config.yaml     # Hook configuration
 ├── .accent-whitelist.txt       # Protected words
+├── requirements-dev.txt        # Python dependencies
 ├── scripts/
 │   └── fix-ptbr-accents.py     # Main script
-├── tests/
-│   ├── test_fix_ptbr_accents.py
-│   └── fixtures/
-│       └── sample-broken.tsx
-└── requirements-dev.txt        # Python dependencies
+└── tests/
+    ├── test_fix_ptbr_accents.py
+    └── fixtures/
+        └── sample-broken.tsx
+```
+
+## Instalação
+
+```bash
+# 1. Instalar enchant no sistema
+# Windows:
+choco install enchant
+# macOS:
+brew install enchant
+# Linux (Ubuntu/Debian):
+sudo apt install libenchant-2-dev
+
+# 2. Instalar dependências Python
+pip install -r requirements-dev.txt
+
+# 3. Instalar pre-commit (se ainda não tiver)
+pip install pre-commit
+
+# 4. Instalar hooks
+pre-commit install
+
+# 5. Testar
+echo "Teste de acentuacao" > test.txt
+git add test.txt
+git commit -m "test"
+# Deve corrigir para "Teste de acentuação"
 ```
 
 ## Considerações Futuras
 
-- Estender para arquivos `.css` se necessário
-- Adicionar modo interativo para casos ambíguos
-- Integrar com editor (LSP) para correção em tempo real
+- **Fase 2:** Adicionar suporte a arquivos JSON
+- **Fase 2:** Adicionar suporte a arquivos `.css` se necessário
+- **Opcional:** Modo interativo para casos ambíguos (`--interactive`)
+- **Opcional:** Integrar com editor (LSP) para correção em tempo real
