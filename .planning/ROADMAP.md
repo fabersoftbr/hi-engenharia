@@ -118,9 +118,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: Construir listagem de projetos e navegação contextual
-- [ ] 06-02: Entregar detalhe do projeto com status e arquivos relacionados
-- [ ] 06-03: Montar acompanhamento de obra e pipeline visual de execução
+- [x] 06-01: Construir listagem de projetos e navegação contextual
+- [x] 06-02: Entregar detalhe do projeto com status e arquivos relacionados
+- [x] 06-03: Montar acompanhamento de obra e pipeline visual de execução
 
 ### Phase 7: Drive e Comunicação
 **Goal**: Estruturar a camada visual de arquivos e comunicados que conecta oportunidades, obras e operação interna

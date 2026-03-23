@@ -57,9 +57,9 @@
 
 ### Projetos e Obras
 
-- [ ] **PROJ-01**: Usuario pode listar projetos com filtros por tipo, status e responsavel simulados
+- [x] **PROJ-01**: Usuario pode listar projetos com filtros por tipo, status e responsavel simulados
 - [ ] **PROJ-02**: Usuario pode abrir o detalhe de um projeto com resumo, status, arquivos relacionados e blocos operacionais mockados
-- [ ] **PROJ-03**: Usuario pode visualizar uma tela de acompanhamento de obra com marcos, status e proximas etapas simuladas
+- [x] **PROJ-03**: Usuario pode visualizar uma tela de acompanhamento de obra com marcos, status e proximas etapas simuladas
 
 ### Drive
 
@@ -142,9 +142,9 @@
 | PREC-01 | Phase 5 | Pending |
 | PREC-02 | Phase 5 | Pending |
 | PREC-03 | Phase 5 | Pending |
-| PROJ-01 | Phase 6 | Pending |
+| PROJ-01 | Phase 6 | Complete |
 | PROJ-02 | Phase 6 | Pending |
-| PROJ-03 | Phase 6 | Pending |
+| PROJ-03 | Phase 6 | Complete |
 | DRIV-01 | Phase 7 | Pending |
 | DRIV-02 | Phase 7 | Complete |
 | DRIV-03 | Phase 7 | Complete |
