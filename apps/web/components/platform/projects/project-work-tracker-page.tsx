@@ -386,7 +386,7 @@ export function ProjectWorkTrackerPage({
               <SheetTitle>{dialogTitle}</SheetTitle>
               <SheetDescription>{dialogDescription}</SheetDescription>
             </SheetHeader>
-            <div className="py-4">{formContent}</div>
+            <div className="px-6 py-4">{formContent}</div>
             <SheetFooter>{footerContent}</SheetFooter>
           </SheetContent>
         </Sheet>

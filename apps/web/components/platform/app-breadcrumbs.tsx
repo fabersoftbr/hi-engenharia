@@ -86,13 +86,17 @@ export function AppBreadcrumbs() {
     pageLabel = "Jornada"
   }
 
+  // Only show page label if we're on a sub-page (more than one segment)
+  // or if the page label differs from the module name
+  const showPageLabel = segments.length > 1 || pageLabel !== moduleName
+
   return (
     <Breadcrumb className="min-w-0">
       <BreadcrumbList className="flex-wrap">
         <BreadcrumbItem className="truncate">
           <BreadcrumbPage className="truncate">{moduleName}</BreadcrumbPage>
         </BreadcrumbItem>
-        {segments.length > 0 && (
+        {showPageLabel && (
           <>
             <BreadcrumbSeparator />
             <BreadcrumbItem className="truncate">

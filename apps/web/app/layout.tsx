@@ -27,7 +27,7 @@ export default function RootLayout({
         raleway.variable
       )}
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

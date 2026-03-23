@@ -82,7 +82,7 @@ export function DriveFilePreview({
           <Separator />
 
           {/* Metadata section */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 px-4">
             <div className="flex flex-col gap-1">
               <span className="text-xs font-medium text-muted-foreground">
                 Nome

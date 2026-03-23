@@ -30,8 +30,8 @@ export function JourneyCard({
   isLast = false,
 }: JourneyCardProps) {
   return (
-    <div className="flex items-center gap-4">
-      <Card className="w-full min-w-[200px] flex-1 basis-0">
+    <div className="flex items-stretch gap-4">
+      <Card className="h-full w-full min-w-[200px] flex-1 basis-0">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2">
             <Icon className="size-5 text-muted-foreground" />
@@ -39,7 +39,7 @@ export function JourneyCard({
           </div>
         </CardHeader>
         <CardContent className="pb-2">
-          <p className="text-2xl font-semibold">
+          <p className="text-2xl font-semibold tabular-nums">
             {activeCount} {activeCount === 1 ? "item ativo" : "itens ativos"}
           </p>
         </CardContent>
