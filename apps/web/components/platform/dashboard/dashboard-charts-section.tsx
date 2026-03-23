@@ -64,7 +64,7 @@ export function DashboardChartsSection({
       .map((mod, index) => ({
         module: mod.label,
         value: mod.activeCount,
-        fill: chartColors[index % chartColors.length],
+        fill: chartColors[index % chartColors.length] ?? "hsl(var(--primary))",
       }))
   }, [modules])
 

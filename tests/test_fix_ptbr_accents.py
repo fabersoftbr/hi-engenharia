@@ -108,6 +108,7 @@ class TestPreserveCase:
 
 
 # ============ TESTES: check_and_correct ============
+# Nota: Estes testes requerem o dicionário pt-BR instalado no sistema
 
 class TestCheckAndCorrect:
     def test_simple_correction_returns_correction(self, dictionary, whitelist):
@@ -147,6 +148,9 @@ class TestCheckAndCorrect:
 class TestApplyCorrections:
     def test_single_correction_applies_correctly(self):
         """Uma correção aplicada na posição correta."""
+        # "O usuario acessou o sistema"
+        # Posição 0: 'O', 1: ' ', 2-9: 'usuario' (8 chars), 10: ' '
+        # text[2:10] = "usuario" (sem o espaço)
         text = "O usuario acessou o sistema"
         corrections = [(2, 10, "usuário")]
         result = apply_corrections(text, corrections)
@@ -154,8 +158,10 @@ class TestApplyCorrections:
 
     def test_multiple_corrections_applied_in_reverse(self):
         """Múltiplas correções aplicadas do fim para início."""
+        # "Voce tem pendencias"
+        # Posição 0-4: 'Voce', 5: ' ', 6-8: 'tem', 9: ' ', 10-18: 'pendencias'
         text = "Voce tem pendencias"
-        corrections = [(0, 5, "Você"), (9, 18, "pendências")]
+        corrections = [(0, 5, "Você"), (10, 19, "pendências")]
         result = apply_corrections(text, corrections)
         assert result == "Você tem pendências"
 
@@ -168,8 +174,10 @@ class TestApplyCorrections:
 
     def test_preserves_surrounding_text(self):
         """Correções não afetam texto ao redor."""
+        # 'const msg = "Voce tem pendencias"'
+        # Posições: const(0-5) space(5) msg(6-9) =(10) "(11) Voce(12-17) tem(18-21) pendencias(22-31)"(32)
         text = 'const msg = "Voce tem pendencias"'
-        corrections = [(14, 19, "Você"), (23, 32, "pendências")]
+        corrections = [(12, 17, "Você"), (22, 31, "pendências")]
         result = apply_corrections(text, corrections)
         assert result == 'const msg = "Você tem pendências"'
 
@@ -214,6 +222,7 @@ class TestFindWordsToCheck:
 
 
 # ============ TESTES DE INTEGRAÇÃO ============
+# Nota: Este teste requer o dicionário pt-BR instalado no sistema
 
 class TestIntegration:
     def test_sample_file_transformation(self, sample_broken, sample_fixed, dictionary, whitelist):
