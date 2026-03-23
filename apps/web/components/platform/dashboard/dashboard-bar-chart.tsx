@@ -34,8 +34,8 @@ export function DashboardBarChart({ data }: DashboardBarChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Ranking por Modulo</CardTitle>
-        <CardDescription>Quantidade de itens ativos por modulo</CardDescription>
+        <CardTitle>Ranking por Módulo</CardTitle>
+        <CardDescription>Quantidade de itens ativos por módulo</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[300px] w-full">
