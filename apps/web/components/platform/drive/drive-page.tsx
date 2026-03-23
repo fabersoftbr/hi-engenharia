@@ -67,7 +67,8 @@ function getVisibleTabsForProfile(profile: string): DriveSection[] {
 function renderSearchResults(
   searchResults: NonNullable<ReturnType<typeof searchDrive>>,
   onFolderClick: (folderId: string) => void,
-  onFolderAction: (folderId: string, action: string) => void
+  onFolderAction: (folderId: string, action: string) => void,
+  onClearSearch: () => void
 ): React.ReactNode {
   if (
     searchResults.folders.length === 0 &&
@@ -77,6 +78,11 @@ function renderSearchResults(
       <EmptyState
         title="Nenhum resultado para sua busca"
         description="Tente ajustar os termos de busca."
+        action={
+          <Button variant="outline" onClick={() => onClearSearch()}>
+            Limpar filtros
+          </Button>
+        }
       />
     )
   }
@@ -362,7 +368,8 @@ export function DrivePage() {
       return renderSearchResults(
         searchResults,
         handleFolderClick,
-        handleFolderAction
+        handleFolderAction,
+        () => setSearchQuery("")
       )
     }
 
