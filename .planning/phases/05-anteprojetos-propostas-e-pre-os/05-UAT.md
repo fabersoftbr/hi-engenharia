@@ -1,9 +1,9 @@
 ---
-status: partial
+status: resolved
 phase: 05-anteprojetos-propostas-e-pre-os
-source: [05-01-SUMMARY.md, 05-02-SUMMARY.md, 05-03-SUMMARY.md, 05-04-SUMMARY.md, 05-05-SUMMARY.md]
+source: [05-01-SUMMARY.md, 05-02-SUMMARY.md, 05-03-SUMMARY.md, 05-04-SUMMARY.md, 05-05-SUMMARY.md, 05-06-SUMMARY.md]
 started: 2026-03-23T10:00:00Z
-updated: 2026-03-23T10:15:00Z
+updated: 2026-03-23T13:30:00Z
 ---
 
 ## Current Test
@@ -30,9 +30,8 @@ result: pass
 
 ### 5. Kanban/Lista Toggle Preserves Filters
 expected: Apply a filter (e.g., select a Responsável). Toggle between Kanban and Lista views. Filter selection persists across view changes.
-result: issue
-reported: "nao tem filtro: selecione um Responsável"
-severity: major
+result: pass
+resolved_by: 05-06
 
 ### 6. CRM-to-Anteprojeto Handoff
 expected: Navigate to a CRM opportunity detail page. Click "Criar anteprojeto" link. New anteproject dialog opens with fields pre-filled from the opportunity data.
@@ -56,9 +55,8 @@ result: pass
 
 ### 11. Price Table Catalog
 expected: Navigate to /tabela-de-precos. Catalog shows columns: Código, Item, Região, Faixa, Valor unitário, Condições. Filters for Região and Faixa de consumo work. Search functions. Click an item to see detail dialog.
-result: issue
-reported: "modal de detalhes do item esta abrindo muito grande verticalmente, precisa ajustar"
-severity: cosmetic
+result: pass
+resolved_by: 05-06
 
 ### 12. Proposal Detail - Export and Send
 expected: Navigate to a proposal with status "Pronta para envio". "Exportar PDF" button shows success toast. "Enviar proposta" button shows success toast and status changes to "Enviada". Actions are disabled for non-"pronta" statuses.
@@ -81,30 +79,12 @@ result: pass
 ## Summary
 
 total: 15
-passed: 12
-issues: 2
+passed: 14
+issues: 0
 pending: 0
 skipped: 0
 blocked: 1
 
 ## Gaps
 
-- truth: "Filter selection persists across Kanban/Lista view changes"
-  status: failed
-  reason: "User reported: nao tem filtro: selecione um Responsável"
-  severity: major
-  test: 5
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
-
-- truth: "Price item detail dialog has appropriate height"
-  status: failed
-  reason: "User reported: modal de detalhes do item esta abrindo muito grande verticalmente, precisa ajustar"
-  severity: cosmetic
-  test: 11
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+All gaps resolved by plan 05-06.
