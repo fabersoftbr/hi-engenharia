@@ -1,9 +1,9 @@
 ---
-status: complete
+status: resolved
 phase: 08-estados-responsividade-e-jornada-completa
-source: [08-00-SUMMARY.md, 08-01-SUMMARY.md, 08-02-SUMMARY.md, 08-03-SUMMARY.md, 08-04-SUMMARY.md, 08-05-SUMMARY.md, 08-06-SUMMARY.md, 08-07-SUMMARY.md]
+source: [08-00-SUMMARY.md, 08-01-SUMMARY.md, 08-02-SUMMARY.md, 08-03-SUMMARY.md, 08-04-SUMMARY.md, 08-05-SUMMARY.md, 08-06-SUMMARY.md, 08-07-SUMMARY.md, 08-08-SUMMARY.md]
 started: 2026-03-23T10:00:00Z
-updated: 2026-03-23T10:30:00Z
+updated: 2026-03-23T14:30:00Z
 ---
 
 ## Current Test
@@ -18,9 +18,8 @@ result: pass
 
 ### 2. Empty state for no results
 expected: Navigate to Drive page and use search/filters that produce no matches. An empty state component displays with icon, title, description, and optionally a "Limpar filtros" action.
-result: issue
-reported: "Limpar filtros nao aparece"
-severity: major
+result: pass
+fixed_in: 08-08 (commit 752f22d)
 
 ### 3. Pipeline empty state
 expected: Navigate to Obras pipeline board and apply filters that produce zero results. An empty state displays indicating no items match the current filters.
@@ -44,9 +43,8 @@ result: pass
 
 ### 8. Mobile bottom sheets
 expected: On mobile viewport, open a dialog (e.g., New Opportunity, New Anteproject, Proposal Origin). The overlay appears as a bottom sheet sliding up from the bottom, not a centered dialog.
-result: issue
-reported: "O componente aparece mas o conteudo esta muito no limite do elemento pai horizontalmente - form container (py-4) falta padding horizontal para combinar com header (p-6)"
-severity: minor
+result: pass
+fixed_in: 08-08 (commit 9971bb9)
 
 ### 9. CRM Fechado confirmation
 expected: On CRM opportunity detail, change stage to "Fechado". An AlertDialog appears asking for confirmation before proceeding.
@@ -62,9 +60,8 @@ result: pass
 
 ### 12. Journey page timeline
 expected: Navigate to /jornada. A horizontal timeline displays active modules in operational order (Orcamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra). Each module shows icon, label, and active count.
-result: issue
-reported: "Cards com contagens de 2 digitos (ex: '10 itens ativos') ficam maiores que cards com 1 digito. Precisa padronizar tamanho independente da quantidade de digitos no elemento <p class='text-2xl font-semibold'>"
-severity: minor
+result: pass
+fixed_in: 08-08 (commit 5d47af0)
 
 ### 13. Journey filters zero-count modules
 expected: On Journey page, modules with zero active items are hidden from the timeline (not displayed).
@@ -93,40 +90,12 @@ result: pass
 ## Summary
 
 total: 18
-passed: 15
-issues: 3
+passed: 18
+issues: 0
 pending: 0
 skipped: 0
 blocked: 0
 
 ## Gaps
 
-- truth: "Empty state component displays with icon, title, description, and optionally a Limpar filtros action"
-  status: failed
-  reason: "User reported: Limpar filtros nao aparece"
-  severity: major
-  test: 2
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
-
-- truth: "Bottom sheet content has proper horizontal padding matching header"
-  status: failed
-  reason: "User reported: O conteudo esta muito no limite do elemento pai horizontalmente - form container (py-4) falta padding horizontal para combinar com header (p-6)"
-  severity: minor
-  test: 8
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
-
-- truth: "Journey cards have consistent width regardless of count digit length"
-  status: failed
-  reason: "User reported: Cards com contagens de 2 digitos (ex: '10 itens ativos') ficam maiores que cards com 1 digito. Precisa padronizar tamanho independente da quantidade de digitos"
-  severity: minor
-  test: 12
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+All gaps resolved in 08-08 gap closure plan.
