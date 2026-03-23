@@ -1,7 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { PlusIcon, FolderOpenIcon, FilterXIcon } from "lucide-react"
+import Link from "next/link"
+import {
+  PlusIcon,
+  FolderOpenIcon,
+  FilterXIcon,
+  LayoutGridIcon,
+} from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import {
@@ -107,6 +113,12 @@ export function ProjectsListPage() {
             ))}
           </SelectContent>
         </Select>
+        <Button variant="outline" asChild>
+          <Link href="/obras">
+            <LayoutGridIcon data-icon="inline-start" />
+            Ver pipeline de obras
+          </Link>
+        </Button>
         <Button className="md:ml-auto">
           <PlusIcon data-icon="inline-start" />
           Novo projeto
