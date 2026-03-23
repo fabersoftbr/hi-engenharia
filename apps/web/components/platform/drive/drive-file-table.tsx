@@ -75,6 +75,7 @@ interface DriveFileTableProps {
   onDownload: (file: DriveFile) => void
   onRename?: (file: DriveFile) => void
   onBulkDelete?: (fileIds: string[]) => void
+  clearSelectionKey?: number
 }
 
 export function DriveFileTable({
@@ -85,6 +86,7 @@ export function DriveFileTable({
   onDownload,
   onRename,
   onBulkDelete,
+  clearSelectionKey,
 }: DriveFileTableProps) {
   const isMobile = useIsMobile()
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({})
@@ -108,6 +110,13 @@ export function DriveFileTable({
     )
     onSelectionChange(selectedIds)
   }, [rowSelection, onSelectionChange])
+
+  // Clear selection when parent changes clearSelectionKey
+  React.useEffect(() => {
+    if (clearSelectionKey !== undefined && clearSelectionKey > 0) {
+      setRowSelection({})
+    }
+  }, [clearSelectionKey])
 
   // Handle single file delete confirmation
   const handleDeleteClick = (file: DriveFile) => {

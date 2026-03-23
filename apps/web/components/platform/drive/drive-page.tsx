@@ -199,7 +199,8 @@ type FileTableHandlers = {
 // Render file table with consistent handlers
 function renderFileTable(
   files: DriveFile[],
-  handlers: FileTableHandlers
+  handlers: FileTableHandlers,
+  clearSelectionKey?: number
 ): React.ReactNode {
   return (
     <DriveFileTable
@@ -209,6 +210,7 @@ function renderFileTable(
       onDeleteFile={handlers.onDeleteFile}
       onDownload={handlers.onDownload}
       onRename={handlers.onRename}
+      clearSelectionKey={clearSelectionKey}
     />
   )
 }
@@ -232,6 +234,7 @@ export function DrivePage() {
   const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = useState(false)
   const [newFolderDialogOpen, setNewFolderDialogOpen] = useState(false)
   const [newFolderName, setNewFolderName] = useState("")
+  const [clearSelectionKey, setClearSelectionKey] = useState(0)
 
   // Get current folder data
   const currentFolder: DriveFolder | undefined = currentFolderId
@@ -348,6 +351,7 @@ export function DrivePage() {
     setBulkDeleteDialogOpen(false)
     showSuccessToast(`${selectedFileIds.length} arquivos excluidos`)
     setSelectedFileIds([])
+    setClearSelectionKey((k) => k + 1)
   }
 
   // Render content based on state
@@ -371,7 +375,7 @@ export function DrivePage() {
     }
 
     if (currentFolderId && currentSubfolderId) {
-      return renderFileTable(currentFiles, fileTableHandlers)
+      return renderFileTable(currentFiles, fileTableHandlers, clearSelectionKey)
     }
 
     if (currentFolderId && currentFolder) {
