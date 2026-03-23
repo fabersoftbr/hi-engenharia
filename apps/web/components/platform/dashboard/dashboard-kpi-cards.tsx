@@ -42,7 +42,7 @@ export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
         </CardContent>
       </Card>
 
-      {/* Pendencias */}
+      {/* Pendências */}
       <Card>
         <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
           <AlertCircleIcon
@@ -51,7 +51,7 @@ export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
               totalPending > 0 ? "text-destructive" : "text-muted-foreground"
             )}
           />
-          <CardTitle className="text-sm font-medium">Pendencias</CardTitle>
+          <CardTitle className="text-sm font-medium">Pendências</CardTitle>
         </CardHeader>
         <CardContent>
           <span
@@ -65,7 +65,7 @@ export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
         </CardContent>
       </Card>
 
-      {/* Nao lidos */}
+      {/* Não lidos */}
       <Card>
         <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-2">
           <MailIcon
@@ -74,7 +74,7 @@ export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
               unreadAnnouncements > 0 ? "text-primary" : "text-muted-foreground"
             )}
           />
-          <CardTitle className="text-sm font-medium">Nao lidos</CardTitle>
+          <CardTitle className="text-sm font-medium">Não lidos</CardTitle>
         </CardHeader>
         <CardContent>
           <span
