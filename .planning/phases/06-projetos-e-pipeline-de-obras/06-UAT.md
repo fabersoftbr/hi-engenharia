@@ -1,9 +1,9 @@
 ---
-status: testing
+status: complete
 phase: 06-projetos-e-pipeline-de-obras
 source: [06-01-SUMMARY.md, 06-02-SUMMARY.md, 06-03-SUMMARY.md, 06-04-SUMMARY.md]
 started: 2026-03-23T12:00:00Z
-updated: 2026-03-23T14:00:00Z
+updated: 2026-03-23T14:05:00Z
 ---
 
 ## Current Test
@@ -59,15 +59,12 @@ result: pass
 
 ### 12. Work Tracker Page
 expected: Navigate to /projetos/{projectId}/obra and see sections: "Marcos da obra" with timeline, "Cronograma" with Gantt visualization, and "Proximos passos". Button "Voltar para projeto" returns to detail page.
-result: issue
-reported: "Pagina nao abre: Error: Rendered more hooks than during the previous render. useMemo hooks ainda apos early return."
-severity: blocker
+result: pass
 fixed_by: "commit 88de1d4 - moved useMemo before early return"
 
 ### 13. Milestone Add/Edit
 expected: On work tracker page, click "Adicionar marco" to open a dialog. Fill in milestone details and save. New milestone appears in the timeline. Click "Editar" on a milestone to modify it.
-result: pending
-note: "Unblocked by 06-04 fix - now testable"
+result: pass
 
 ### 14. Ver Obra CTA
 expected: On project detail page, see "Ver obra" button/link. Clicking it navigates to /projetos/{projectId}/obra.
@@ -80,9 +77,9 @@ result: pass
 ## Summary
 
 total: 15
-passed: 11
-issues: 1
-pending: 1
+passed: 13
+issues: 0
+pending: 0
 skipped: 0
 blocked: 0
 
