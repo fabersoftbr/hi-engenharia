@@ -1,9 +1,9 @@
 ---
-status: complete
+status: diagnosed
 phase: 07-drive-e-comunica-o
 source: [07-01-SUMMARY.md, 07-02-SUMMARY.md, 07-03-SUMMARY.md, 07-04-SUMMARY.md]
 started: 2026-03-23T12:00:00Z
-updated: 2026-03-23T12:30:00Z
+updated: 2026-03-23T12:45:00Z
 ---
 
 ## Current Test
@@ -116,9 +116,13 @@ blocked: 0
   reason: "User reported: Nova Pasta aparece: Funcionalidade Simulada"
   severity: minor
   test: 3
-  root_cause: ""
-  artifacts: []
-  missing: []
+  root_cause: "Feature não implementada - handleNewFolder em drive-page.tsx apenas mostra toast informativo em vez de abrir diálogo de criação de pasta"
+  artifacts:
+    - path: "apps/web/components/platform/drive/drive-page.tsx"
+      issue: "Linha 290-292: handleNewFolder apenas dispara showInfoToast('Funcionalidade simulada')"
+  missing:
+    - "Implementar diálogo de criação de pasta com input para nome"
+    - "Adicionar lógica para criar pasta na estrutura de dados"
   debug_session: ""
 
 - truth: "Múltiplos arquivos mostram toasts individuais durante upload"
@@ -126,9 +130,12 @@ blocked: 0
   reason: "User reported: Em multiplos arquivos mostra um unico toast com contagem interna de quantidade de arquivos"
   severity: minor
   test: 8
-  root_cause: ""
-  artifacts: []
-  missing: []
+  root_cause: "Design decision - implementação atual usa toast único com contador interno em vez de toasts individuais por arquivo. Este é o comportamento intencional do código atual."
+  artifacts:
+    - path: "apps/web/components/platform/drive/drive-upload-handler.tsx"
+      issue: "Linhas 23-44: múltiplos arquivos atualizam mesmo toast com contador progressivo"
+  missing:
+    - "Se desejado, modificar para criar toasts separados para cada arquivo"
   debug_session: ""
 
 - truth: "Estado de seleção é removido após exclusão em lote"
@@ -136,9 +143,15 @@ blocked: 0
   reason: "User reported: Nao esta removendo o estado de selecao"
   severity: major
   test: 10
-  root_cause: ""
-  artifacts: []
-  missing: []
+  root_cause: "Estado duplicado - DrivePage rastreia selectedFileIds e DriveFileTable rastreia rowSelection internamente. O diálogo de bulk delete do DrivePage (linhas 417-437) limpa selectedFileIds mas não sincroniza com o estado interno rowSelection da tabela"
+  artifacts:
+    - path: "apps/web/components/platform/drive/drive-page.tsx"
+      issue: "handleBulkDeleteConfirm (linha 334-338) limpa selectedFileIds mas não notifica DriveFileTable"
+    - path: "apps/web/components/platform/drive/drive-file-table.tsx"
+      issue: "Estado rowSelection (linha 90) é independente e não é sincronizado com o pai"
+  missing:
+    - "Adicionar prop onClearSelection ao DriveFileTable para que o pai possa limpar seleção"
+    - "Ou usar estado controlado de rowSelection vindo do pai"
   debug_session: ""
 
 - truth: "Campos inválidos exibem estilização de erro (data-invalid, aria-invalid)"
@@ -146,7 +159,12 @@ blocked: 0
   reason: "User reported: nao exibem estilização de erro"
   severity: minor
   test: 20
-  root_cause: ""
-  artifacts: []
-  missing: []
+  root_cause: "Estilização incompleta - Field component usa data-[invalid=true]:text-destructive que muda apenas cor do texto, mas não aplica estilização visual nos inputs (borda vermelha, fundo, etc.)"
+  artifacts:
+    - path: "packages/ui/src/components/field.tsx"
+      issue: "Linha 55: apenas text-destructive é aplicado, sem estilização de borda/input"
+    - path: "apps/web/components/platform/comunicacao/comunicacao-publish-dialog.tsx"
+      issue: "Usa data-invalid e aria-invalid corretamente mas CSS não tem efeito visual no input"
+  missing:
+    - "Adicionar CSS para estilizar inputs filhos quando Field tem data-invalid=true (ex: border-destructive, focus-visible:ring-destructive)"
   debug_session: ""
