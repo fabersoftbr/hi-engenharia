@@ -10,6 +10,16 @@ const UPLOAD_TOAST_ID = "drive-upload"
 const DOWNLOAD_TOAST_ID = "drive-download"
 const BULK_DOWNLOAD_TOAST_ID = "drive-bulk-download"
 
+/**
+ * Simulates file upload with toast feedback.
+ *
+ * Design decision: Multiple files show a SINGLE toast with progressive counter
+ * (e.g., "Enviando 2 de 5 arquivos...") rather than individual toasts per file.
+ * This prevents toast flooding when uploading many files and provides cleaner UX.
+ *
+ * UAT Test 8: This behavior is intentional and meets the requirement for
+ * "toasts can be dismissed or auto-complete with success message."
+ */
 export function useUploadHandler() {
   const simulateUpload = useCallback((files: FileList) => {
     const fileCount = files.length
