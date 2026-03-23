@@ -1,0 +1,33 @@
+# Nomes de tecnologias e produtos
+TypeScript
+JavaScript
+Next.js
+React
+Node.js
+GitHub
+GitLab
+
+# Nomes da empresa/produto
+Fabersoft
+HI Engenharia
+
+# Termos técnicos comuns
+README
+Changelog
+LICENSE
+TODO
+FIXME
+
+# Siglas e acrônimos
+API
+SDK
+CLI
+CSS
+HTML
+JSON
+
+# Comandos e identificadores comuns
+npm
+pnpm
+eslint
+prettier
