@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { FolderIcon } from "lucide-react"
+
+import { Input } from "@workspace/ui/components/input"
 
 import type { DriveSection, DriveFolder, DriveFile } from "@/lib/drive-data"
 import {
@@ -228,6 +230,8 @@ export function DrivePage() {
   const [previewFile, setPreviewFile] = useState<DriveFile | null>(null)
   const [selectedFileIds, setSelectedFileIds] = useState<string[]>([])
   const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = useState(false)
+  const [newFolderDialogOpen, setNewFolderDialogOpen] = useState(false)
+  const [newFolderName, setNewFolderName] = useState("")
 
   // Get current folder data
   const currentFolder: DriveFolder | undefined = currentFolderId
@@ -288,7 +292,16 @@ export function DrivePage() {
   }
 
   const handleNewFolder = () => {
-    showInfoToast("Funcionalidade simulada")
+    setNewFolderName("")
+    setNewFolderDialogOpen(true)
+  }
+
+  const handleNewFolderConfirm = () => {
+    if (newFolderName.trim()) {
+      showSuccessToast(`Pasta "${newFolderName.trim()}" criada`)
+      setNewFolderDialogOpen(false)
+      setNewFolderName("")
+    }
   }
 
   const handleFolderAction = (folderId: string, action: string) => {
@@ -319,9 +332,9 @@ export function DrivePage() {
     showInfoToast("Funcionalidade simulada")
   }
 
-  const handleSelectionChange = (selectedIds: string[]) => {
+  const handleSelectionChange = useCallback((selectedIds: string[]) => {
     setSelectedFileIds(selectedIds)
-  }
+  }, [])
 
   const handleBulkDownload = () => {
     triggerBulkDownload(selectedFileIds.length)
@@ -431,6 +444,43 @@ export function DrivePage() {
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleBulkDeleteConfirm}>
               Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* New Folder Dialog */}
+      <AlertDialog
+        open={newFolderDialogOpen}
+        onOpenChange={setNewFolderDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Nova pasta</AlertDialogTitle>
+            <AlertDialogDescription>
+              Digite o nome da nova pasta.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <Input
+              placeholder="Nome da pasta"
+              value={newFolderName}
+              onChange={(e) => setNewFolderName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && newFolderName.trim()) {
+                  handleNewFolderConfirm()
+                }
+              }}
+              autoFocus
+            />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleNewFolderConfirm}
+              disabled={!newFolderName.trim()}
+            >
+              Criar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
