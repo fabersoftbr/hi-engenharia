@@ -12,7 +12,7 @@ import { getJourneyPendencies } from "@/lib/journey-data"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { CardGridSkeleton } from "@/components/platform/states/skeletons"
 import { DashboardWelcome } from "@/components/platform/dashboard/dashboard-welcome"
-import { DashboardSummaryGrid } from "@/components/platform/dashboard/dashboard-summary-grid"
+import { DashboardChartsSection } from "@/components/platform/dashboard/dashboard-charts-section"
 import { DashboardQuickActions } from "@/components/platform/dashboard/dashboard-quick-actions"
 import { DashboardAnnouncements } from "@/components/platform/dashboard/dashboard-announcements"
 import { DashboardUrgentHighlights } from "@/components/platform/dashboard/dashboard-urgent-highlights"
@@ -47,8 +47,8 @@ export function PortalDashboard() {
         totalPendingCount={totalPendingCount}
       />
 
-      {/* Summary-card grid */}
-      <DashboardSummaryGrid modules={modules} />
+      {/* Charts section */}
+      <DashboardChartsSection modules={modules} />
 
       {/* Quick-actions row */}
       <DashboardQuickActions actions={quickActions} />
