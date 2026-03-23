@@ -155,9 +155,9 @@ Plans:
 - [x] 08-02-PLAN.md -- Adopt loading, empty, and no-results states on dashboard, list, and pipeline screens
 - [x] 08-03-PLAN.md -- Normalize shell, header, theme, navigation, and responsive table behavior
 - [x] 08-04-PLAN.md -- Add mobile pipeline tabs, bottom-sheet overlays, and destructive confirmations
-- [ ] 08-05-PLAN.md -- Polish detail and form responsiveness, feedback adoption, and accessibility
+- [x] 08-05-PLAN.md -- Polish detail and form responsiveness, feedback adoption, and accessibility
 - [x] 08-06-PLAN.md -- Build `/jornada`, the sidebar entry, and dashboard pendencies across the full chain
-- [ ] 08-07-PLAN.md -- Wire lineage, back navigation, and next-step handoffs through Drive and Obra
+- [x] 08-07-PLAN.md -- Wire lineage, back navigation, and next-step handoffs through Drive and Obra
 
 ### Phase 9: Clean Code Audit
 **Goal**: Apply clean code principles (Robert C. Martin) to audit all code files on this branch and apply best practices
