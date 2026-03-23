@@ -89,10 +89,7 @@ export function ProjectWorkTrackerPage({
 
   const owner = getProjectOwnerById(project.ownerId)
 
-  if (isLoading) {
-    return <DetailSkeleton />
-  }
-
+  // All hooks MUST be called before any conditional return (React Rules of Hooks)
   const sortedMilestones = React.useMemo(
     () =>
       [...project.milestones].sort(
@@ -106,6 +103,10 @@ export function ProjectWorkTrackerPage({
     () => sortedMilestones.filter((m) => m.status === "pendente").slice(0, 3),
     [sortedMilestones]
   )
+
+  if (isLoading) {
+    return <DetailSkeleton />
+  }
 
   const handleOpenAddDialog = () => {
     setEditingMilestone(null)
