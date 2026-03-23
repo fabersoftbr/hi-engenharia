@@ -31,7 +31,7 @@ export function JourneyCard({
 }: JourneyCardProps) {
   return (
     <div className="flex items-center gap-4">
-      <Card className="w-full min-w-[200px] flex-1">
+      <Card className="w-full min-w-[200px] flex-1 basis-0">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2">
             <Icon className="size-5 text-muted-foreground" />

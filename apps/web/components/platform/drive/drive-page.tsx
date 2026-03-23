@@ -4,6 +4,7 @@ import { useCallback, useState } from "react"
 import { FolderIcon } from "lucide-react"
 
 import { Input } from "@workspace/ui/components/input"
+import { Button } from "@workspace/ui/components/button"
 
 import type { DriveSection, DriveFolder, DriveFile } from "@/lib/drive-data"
 import {
