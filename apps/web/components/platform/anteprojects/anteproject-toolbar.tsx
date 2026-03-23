@@ -61,7 +61,7 @@ export function AnteprojectToolbar({
           onValueChange={onResponsibleFilterChange}
         >
           <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Responsavel" />
+            <SelectValue placeholder="Selecione um responsavel..." />
           </SelectTrigger>
           <SelectContent>
             {responsibleOptions.map((option) => (
@@ -75,7 +75,7 @@ export function AnteprojectToolbar({
         {/* Priority filter */}
         <Select value={priorityFilter} onValueChange={onPriorityFilterChange}>
           <SelectTrigger className="w-full sm:w-[160px]">
-            <SelectValue placeholder="Prioridade" />
+            <SelectValue placeholder="Selecione a prioridade..." />
           </SelectTrigger>
           <SelectContent>
             {priorityOptions.map((option) => (

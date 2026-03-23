@@ -451,7 +451,7 @@ export function getAnteprojectResponsibleOptions(): Array<{
   label: string
 }> {
   return [
-    { value: "all", label: "Todos os responsaveis" },
+    { value: "all", label: "Selecione um responsavel..." },
     ...ANTEPROJECT_OWNERS.map((owner) => ({
       value: owner.id,
       label: owner.name,
@@ -467,7 +467,7 @@ export function getAnteprojectPriorityOptions(): Array<{
   label: string
 }> {
   return [
-    { value: "all", label: "Todas as prioridades" },
+    { value: "all", label: "Selecione a prioridade..." },
     { value: "alta", label: "Alta" },
     { value: "media", label: "Media" },
     { value: "baixa", label: "Baixa" },

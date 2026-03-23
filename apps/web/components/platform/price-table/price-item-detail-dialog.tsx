@@ -121,11 +121,11 @@ export function PriceItemDetailDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="flex max-h-[85vh] flex-col sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Detalhes do item</DialogTitle>
         </DialogHeader>
-        {content}
+        <div className="flex-1 overflow-y-auto">{content}</div>
       </DialogContent>
     </Dialog>
   )
