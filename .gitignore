@@ -37,6 +37,7 @@ npm-debug.log*
 
 # AI Tools
 .agent
+.agents
 .claude
 .codex
 .gemini
