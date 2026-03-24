@@ -1,0 +1,33 @@
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[[plugins]]
+origin = "default"
+package = "@netlify/plugin-nextjs"
+
+[plugins.inputs]
+
+[build]
+publish = "D:\\Development\\Fabersoft\\hi-engenharia\\code\\apps\\web\\apps\\web\\.next"
+publishOrigin = "ui"
+commandOrigin = "ui"
+base = "D:\\Development\\Fabersoft\\hi-engenharia\\code\\apps\\web"
+command = "turbo run build --filter web"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
