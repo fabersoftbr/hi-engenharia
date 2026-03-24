@@ -13,6 +13,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@workspace/ui/components/sidebar"
 import { BrandLogo } from "@/components/brand-logo"
 import {
@@ -45,9 +46,11 @@ interface ModuleLinkProps {
 /** Renders a clickable module link with an icon and label. */
 function ModuleLink({ mod, isActive }: ModuleLinkProps) {
   const Icon = ICON_MAP[mod.iconName]
+  const { setOpenMobile } = useSidebar()
+
   return (
     <SidebarMenuButton asChild isActive={isActive} tooltip={mod.label}>
-      <Link href={mod.route}>
+      <Link href={mod.route} onClick={() => setOpenMobile(false)}>
         <Icon />
         <span>{mod.label}</span>
       </Link>
@@ -60,6 +63,7 @@ export function AppSidebar() {
   const pathname = usePathname()
   const { activeProfile } = useActiveProfile()
   const groupedModules = getGroupedModulesForProfile(activeProfile)
+  const { setOpenMobile } = useSidebar()
 
   return (
     <Sidebar collapsible="icon">
@@ -67,6 +71,7 @@ export function AppSidebar() {
         <Link
           href="/portal"
           className="flex items-center gap-2 group-data-[collapsible=icon]:hidden"
+          onClick={() => setOpenMobile(false)}
         >
           <BrandLogo
             variant="full"
@@ -79,6 +84,7 @@ export function AppSidebar() {
         <Link
           href="/portal"
           className="hidden items-center justify-center group-data-[collapsible=icon]:flex"
+          onClick={() => setOpenMobile(false)}
         >
           <BrandLogo variant="mark" tone="auto" imageClassName="w-9" />
         </Link>
