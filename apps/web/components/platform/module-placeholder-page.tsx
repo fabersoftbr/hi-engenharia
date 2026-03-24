@@ -69,7 +69,7 @@ export function ModulePlaceholderPage({
         <CardContent className="text-center">
           <p className="text-muted-foreground">{description}</p>
           <p className="mt-4 text-sm text-muted-foreground">
-            O conteudo deste modulo sera implementado nas proximas fases do
+            O conteúdo deste módulo será implementado nas próximas fases do
             projeto.
           </p>
           <div className="mt-4 flex justify-center gap-2">

@@ -22,7 +22,7 @@ export function DashboardUrgentHighlights({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Destaques e pendencias</CardTitle>
+        <CardTitle></CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {items.length === 0 ? (

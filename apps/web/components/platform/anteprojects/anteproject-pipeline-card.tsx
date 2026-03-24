@@ -8,7 +8,6 @@ import {
 } from "@/lib/anteprojects-data"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { Badge } from "@workspace/ui/components/badge"
-import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 
 interface AnteprojectPipelineCardProps {
   anteproject: AnteprojectRecord
@@ -51,9 +50,7 @@ export function AnteprojectPipelineCard({
 
             {/* Awaiting information badge */}
             {anteproject.isAwaitingInformation && (
-              <Badge variant="destructive" className="w-fit text-xs">
-                Aguardando informacoes
-              </Badge>
+              <Badge variant="destructive" className="w-fit text-xs"></Badge>
             )}
 
             {/* Proposal generated badge */}
@@ -69,7 +66,7 @@ export function AnteprojectPipelineCard({
                   <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
                 </Avatar>
                 <span className="truncate">
-                  {owner?.name ?? "Nao atribuido"}
+                  {owner?.name ?? "Não atribuído"}
                 </span>
               </div>
               <span>{formattedDate}</span>

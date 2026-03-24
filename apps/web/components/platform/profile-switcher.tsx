@@ -37,7 +37,7 @@ const PROFILE_OPTIONS: ProfileOption[] = [
   { key: "admin", label: "Administrador" },
   { key: "commercial", label: "Comercial interno" },
   { key: "partner", label: "Afiliado/Parceiro externo" },
-  { key: "operations", label: "Engenharia/Operacao" },
+  { key: "operations", label: "Engenharia/Operação" },
   { key: "cliente", label: "Cliente" },
 ]
 

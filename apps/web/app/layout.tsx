@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono, Raleway } from "next/font/google"
+import type { Metadata } from "next"
+import { Geist_Mono, Raleway } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -10,6 +11,26 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: {
+    default: "HI Engenharia",
+    template: "%s | HI Engenharia",
+  },
+  description: "Soluções inteligentes em engenharia para seu projeto.",
+  icons: {
+    icon: [
+      {
+        url: "/brand/hi-logo-mark-dark.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/brand/hi-logo-mark.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
+}
 
 export default function RootLayout({
   children,

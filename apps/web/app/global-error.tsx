@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { AlertTriangle } from "lucide-react"
 
 export default function GlobalError({
@@ -9,6 +10,8 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  void error
+
   return (
     <html lang="pt-BR">
       <body className="flex min-h-screen items-center justify-center bg-background font-sans text-foreground antialiased">
@@ -19,7 +22,7 @@ export default function GlobalError({
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">Algo deu errado</h1>
             <p className="text-sm text-muted-foreground">
-              Ocorreu um erro inesperado. Tente novamente ou volte para a pagina
+              Ocorreu um erro inesperado. Tente novamente ou volte para a
               inicial.
             </p>
           </div>
@@ -30,12 +33,12 @@ export default function GlobalError({
             >
               Tentar novamente
             </button>
-            <a
+            <Link
               href="/"
               className="inline-flex h-10 items-center justify-center rounded-lg border px-6 text-sm font-medium transition-colors hover:bg-accent"
             >
               Voltar ao inicio
-            </a>
+            </Link>
           </div>
         </div>
       </body>

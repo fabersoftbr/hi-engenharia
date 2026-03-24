@@ -15,7 +15,6 @@ import {
   MessageSquareIcon,
   FileChartLineIcon,
   TableIcon,
-  type LucideIcon,
 } from "lucide-react"
 
 /**
@@ -79,9 +78,9 @@ export interface GroupConfig {
  * Module group definitions with labels and ordering.
  */
 export const MODULE_GROUPS: Record<ModuleGroup, GroupConfig> = {
-  operation: { id: "operation", label: "OPERACAO", order: 1 },
+  operation: { id: "operation", label: "OPERAÇÃO", order: 1 },
   projects: { id: "projects", label: "PROJETOS", order: 2 },
-  content: { id: "content", label: "CONTEUDO", order: 3 },
+  content: { id: "content", label: "CONTEÚDO", order: 3 },
   tools: { id: "tools", label: "FERRAMENTAS", order: 4 },
 }
 
@@ -90,12 +89,12 @@ export const MODULE_GROUPS: Record<ModuleGroup, GroupConfig> = {
  * Each module specifies which profiles can see and access it.
  */
 export const MODULES: ModuleConfig[] = [
-  // OPERACAO
+  // OPERAÇÃO
   {
     id: "portal",
     route: "/portal",
     label: "Portal",
-    breadcrumb: "Inicio",
+    breadcrumb: "Início",
     iconName: "layout-dashboard",
     group: "operation",
     visibleTo: ["admin", "commercial", "partner", "operations", "cliente"],
@@ -103,8 +102,8 @@ export const MODULES: ModuleConfig[] = [
   {
     id: "orcamentos",
     route: "/orcamentos",
-    label: "Orcamentos",
-    breadcrumb: "Orcamentos",
+    label: "Orçamentos",
+    breadcrumb: "Orçamentos",
     iconName: "file-text",
     group: "operation",
     visibleTo: ["admin", "commercial", "partner", "cliente"],
@@ -155,7 +154,7 @@ export const MODULES: ModuleConfig[] = [
     group: "projects",
     visibleTo: ["admin", "operations", "cliente"],
   },
-  // CONTEUDO
+  // CONTEÚDO
   {
     id: "drive",
     route: "/drive",
@@ -168,8 +167,8 @@ export const MODULES: ModuleConfig[] = [
   {
     id: "comunicacao",
     route: "/comunicacao",
-    label: "Comunicacao",
-    breadcrumb: "Comunicacao",
+    label: "Comunicação",
+    breadcrumb: "Comunicação",
     iconName: "message-square",
     group: "content",
     visibleTo: ["admin"],
@@ -187,8 +186,8 @@ export const MODULES: ModuleConfig[] = [
   {
     id: "tabela-de-precos",
     route: "/tabela-de-precos",
-    label: "Tabela de Precos",
-    breadcrumb: "Tabela de Precos",
+    label: "Tabela de Preços",
+    breadcrumb: "Tabela de Preços",
     iconName: "table",
     group: "tools",
     visibleTo: ["admin", "commercial"],
@@ -249,6 +248,6 @@ export const PROFILE_LABELS: Record<ProfileKey, string> = {
   admin: "Administrador",
   commercial: "Comercial interno",
   partner: "Afiliado/Parceiro externo",
-  operations: "Engenharia/Operacao",
+  operations: "Engenharia/Operação",
   cliente: "Cliente",
 }

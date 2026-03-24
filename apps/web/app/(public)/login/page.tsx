@@ -12,7 +12,12 @@ export default function LoginPage() {
       {/* Left panel - Form */}
       <div className="flex flex-1 items-center justify-center p-6 lg:p-12">
         <div className="flex flex-col items-center gap-8">
-          <BrandLogo variant="full" className="text-2xl" />
+          <BrandLogo
+            variant="full"
+            tone="auto"
+            imageClassName="w-52 sm:w-56"
+            priority
+          />
           <LoginForm />
         </div>
       </div>
@@ -22,11 +27,11 @@ export default function LoginPage() {
         <div className="max-w-md text-center">
           <BrandLogo
             variant="full"
-            className="mb-6 text-4xl text-primary-foreground"
+            tone="light"
+            className="mb-6"
+            imageClassName="w-72"
+            priority
           />
-          <h1 className="mb-4 text-3xl font-bold text-primary-foreground">
-            Hi Engenharia
-          </h1>
           <p className="text-lg text-primary-foreground/80">
             Soluções inteligentes em engenharia para seu projeto.
           </p>

@@ -25,12 +25,12 @@ export function BudgetRequestForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    watch,
+    formState: { errors, isSubmitting, isValid },
     reset,
   } = useForm<BudgetRequestFormValues>({
     resolver: zodResolver(budgetRequestFormSchema),
     defaultValues: budgetRequestFormDefaultValues,
+    mode: "onChange",
   })
 
   const onSubmit = async (data: BudgetRequestFormValues) => {
@@ -44,10 +44,6 @@ export function BudgetRequestForm() {
     reset()
     // Also reset attachments via ref or callback pattern
   }
-
-  const clientName = watch("clientName")
-  const phone = watch("phone")
-  const city = watch("city")
 
   return (
     <>
@@ -121,7 +117,7 @@ export function BudgetRequestForm() {
               <div className="grid gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="monthlyConsumption">
-                    Consumo medio mensal (kWh){" "}
+                    Consumo médio mensal (kWh){" "}
                     <span className="text-destructive">*</span>
                   </Label>
                   <Input
@@ -139,7 +135,7 @@ export function BudgetRequestForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="notes">Observacoes</Label>
+                  <Label htmlFor="notes">Observações</Label>
                   <Textarea
                     id="notes"
                     placeholder="Detalhes adicionais sobre o pedido..."
@@ -170,10 +166,7 @@ export function BudgetRequestForm() {
               <Button variant="ghost" asChild>
                 <Link href="/orcamentos">Voltar para a listagem</Link>
               </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting || !clientName || !phone || !city}
-              >
+              <Button type="submit" disabled={isSubmitting || !isValid}>
                 Enviar solicitacao
               </Button>
             </div>

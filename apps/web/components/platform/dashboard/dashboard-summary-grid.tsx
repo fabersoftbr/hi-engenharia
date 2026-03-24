@@ -17,7 +17,7 @@ export interface DashboardSummaryGridProps {
 export function DashboardSummaryGrid({ modules }: DashboardSummaryGridProps) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-base font-medium">Resumo por modulo</h2>
+      <h2 className="text-base font-medium"></h2>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {modules.map((mod) => (
           <Link key={mod.id} href={mod.route} className="block">

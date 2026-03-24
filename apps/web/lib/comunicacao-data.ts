@@ -99,23 +99,23 @@ function getAuthor(index: number): ComunicadoAuthor {
 export const COMUNICADOS: Comunicado[] = [
   {
     id: "com-2026-001",
-    title: "Novos procedimentos de seguranca",
+    title: "Novos procedimentos de segurança",
     summary:
-      "Implementamos novos procedimentos de seguranca para todas as obras. Todos os colaboradores devem seguir as orientacoes atualizadas para garantir a seguranca nos canteiros de obra.",
+      "Implementamos novos procedimentos de segurança para todas as obras. Todos os colaboradores devem seguir as orientações atualizadas para garantir a segurança nos canteiros de obra.",
     content: `Prezados colaboradores,
 
-Implementamos novos procedimentos de seguranca para todas as obras da Hi Engenharia. As mudancas entram em vigor a partir da proxima segunda-feira e devem ser seguidas por todos os colaboradores em campo.
+Implementamos novos procedimentos de segurança para todas as obras da HI Engenharia. As mudanças entram em vigor a partir da próxima segunda-feira e devem ser seguidas por todos os colaboradores em campo.
 
-Principais atualizacoes:
-- Uso obrigatorio de EPI em todas as obras
-- Novo checklist de seguranca diario
-- Capacitacao sobre manuseio de equipamentos
-- Procedimentos de emergencia atualizados
+Principais atualizações:
+- Uso obrigatório de EPI em todas as obras
+- Novo checklist de segurança diario
+- Capacitação sobre manuseio de equipamentos
+- Procedimentos de emergência atualizados
 
-Contamos com a colaboracao de todos para manter um ambiente de trabalho seguro e saudavel.
+Contamos com a colaboração de todos para manter um ambiente de trabalho seguro e saudável.
 
-Atenciosamente,
-Equipe de Seguranca`,
+Aténciosamente,
+Equipe de Segurança`,
     category: "operacional",
     author: getAuthor(0),
     publishedAt: "2026-03-20T10:00:00Z",
@@ -126,10 +126,10 @@ Equipe de Seguranca`,
     id: "com-2026-002",
     title: "Resultados do primeiro trimestre",
     summary:
-      "Confira os metas alcancadas no primeiro trimestre de 2026. Superamos as expectativas em vendas e novos projetos, com destaque para a expansao da equipe comercial.",
+      "Confira os metas alcançadas no primeiro trimestre de 2026. Superamos as expectativas em vendas e novos projetos, com destaque para a expansão da equipe comercial.",
     content: `Caros colaboradores,
 
-Temos o orgulho de compartilhar os resultados do primeiro trimestre de 2026. A Hi Engenharia alcancou metas significativas em todas as areas:
+Temos o orgulho de compartilhar os resultados do primeiro trimestre de 2026. A HI Engenharia alcançou metas significativas em todas as áreas:
 
 Vendas:
 - 45% acima da meta estabelecida
@@ -141,9 +141,9 @@ Projetos:
 - 15 novos projetos em andamento
 - NPS (Net Promoter Score) de 92
 
-Esses resultados so possiveis gracas ao dedicacao e esforco de toda a equipe. Vamos continuar trabalhando juntos para manter esse crescimento!
+Esses resultados so possiveis graças ao dedicação e esforço de toda a equipe. Vamos continuar trabalhando juntos para manter esse crescimento!
 
-Parabens a todos pelo excelente trabalho.
+Parabéns a todos pelo excelente trabalho.
 
 Diretoria Comercial`,
     category: "comercial",
@@ -154,22 +154,22 @@ Diretoria Comercial`,
   },
   {
     id: "com-2026-003",
-    title: "Atualizacao do sistema de gestao",
+    title: "Atualização do sistema de gestão",
     summary:
-      "Informamos que realizaremos uma atualizacao no sistema de gestao no proximo fim de semana. O sistema ficara indisponivel por algumas horas durante a madrugada.",
-    content: `Prezados usuarios,
+      "Informamos que realizaremos uma atualização no sistema de gestão no próximo fim de semana. O sistema ficará indisponível por algumas horas durante a madrugada.",
+    content: `Prezados usuários,
 
-Informamos que realizaremos uma atualizacao importante no nosso sistema de gestao no proximo sábado, dia 22/03.
+Informamos que realizaremos uma atualização importante no nosso sistema de gestão no próximo sábado, dia 22/03.
 
-O sistema ficara indisponivel das 02:00 as 06:00 da manhca para realizacao da manutencao programada. Recomendamos que salvem qualquer trabalho em andamento antes desse horario.
+O sistema ficará indisponível das 02:00 às 06:00 da manhã para realização da manutenção programada. Recomendamos que salvem qualquer trabalho em andamento antes desse horário.
 
-Novidades da atualizacao:
+Novidades da atualização:
 - Melhoria na performance do sistema
 - Correcao de bugs reportados
-- Nova interface de relatorios
-- Funcionalidades de exportacao de dados
+- Nova interface de relatórios
+- Funcionalidades de exportação de dados
 
-Pedimos desculpas pelo inconveniente e agradecemos a compreensao.
+Pedimos desculpas pelo inconveniente e agradecemos a compreensão.
 
 Equipe de TI`,
     category: "ti",
@@ -180,25 +180,25 @@ Equipe de TI`,
   },
   {
     id: "com-2026-004",
-    title: "Politica de ferias 2026",
+    title: "Política de férias 2026",
     summary:
-      "Divulgamos a nova politica de ferias para 2026. Confiram o calendario e os procedimentos para solicitacao de ferias.",
+      "Divulgamos a nova política de férias para 2026. Confiram o calendário e os procedimentos para solicitação de férias.",
     content: `Caros colaboradores,
 
-Seguem as orientacoes para a politica de ferias de 2026:
+Seguem as orientações para a política de férias de 2026:
 
 Calendario:
-- Ferias devem ser solicitadas com antecedencia minima de 30 dias
-- Limite maximo de 15 dias consecutivos
-- Preferencia para ferias em janeiro e julho
+- Férias devem ser solicitadas com antecedência mínima de 30 dias
+- Limite máximo de 15 dias consecutivos
+- Preferência para férias em janeiro e julho
 
 Procedimentos:
 1. Acesse o portal do colaborador
-2. Selecione "Solicitar Ferias"
+2. Selecione "Solicitar Férias"
 3. Escolha as datas desejadas
-4. Aguarde aprovacao do gestor
+4. Aguarde aprovação do gestor
 
-Qualquer duvida, entrem em contato com o RH.
+Qualquer dúvida, entrem em contato com o RH.
 
 Departamento de Recursos Humanos`,
     category: "rh",
@@ -209,16 +209,16 @@ Departamento de Recursos Humanos`,
   },
   {
     id: "com-2026-005",
-    title: "Treinamento de seguranca do trabalho",
+    title: "Treinamento de segurança do trabalho",
     summary:
-      "Lembramos que todos os colaboradores devem completar o treinamento de seguranca do trabalho ate o final do mes. O curso esta disponivel no portal.",
+      "Lembramos que todos os colaboradores devem completar o treinamento de segurança do trabalho até o final do mês. O curso está disponível no portal.",
     content: `Prezados colaboradores,
 
-Este e um lembrete de que todos os colaboradores devem completar o treinamento obrigatorio de seguranca do trabalho ate o dia 31/03.
+Este e um lembrete de que todos os colaboradores devem completar o treinamento obrigatório de segurança do trabalho ate o dia 31/03.
 
-O treinamento esta disponivel no Portal do Colaborador, na secao "Treinamentos". A duracao e de aproximadamente 2 horas e pode ser feito em etapas.
+O treinamento esta disponível no Portal do Colaborador, na seção "Treinamentos". A duração e de apróximadamente 2 horas e pode ser feito em etapas.
 
-Apos a conclusao, o certificado estara disponivel para download. A nao conclusao do treinamento pode resultar em restricoes de acesso as obras.
+Após a conclusão, o certificado estará disponível para download. A não conclusão do treinamento pode resultar em restrições de acesso às obras.
 
 Equipe de RH`,
     category: "rh",
@@ -231,19 +231,19 @@ Equipe de RH`,
     id: "com-2026-006",
     title: "Novo parceiro de equipamentos",
     summary:
-      "Anunciamos nossa nova parceria com SolarTech. Agora oferecemos equipamentos de ultima geracao com condicoes especiais de financiamento.",
+      "Anunciamos nossa nova parceria com SolarTech. Agora oferecemos equipamentos de última geração com condições especiais de financiamento.",
     content: `Caros colaboradores,
 
-Temos o prazer de anunciar nossa nova parceria estrategica com a SolarTech, lider no mercado de equipamentos fotovoltaicos.
+Temos o prazer de anunciar nossa nova parceria estratégica com a SolarTech, líder no mercado de equipamentos fotovoltaicos.
 
 Beneficios da parceria:
-- Acesso a equipamentos de ultima geracao
-- Precos competitivos
+- Acesso a equipamentos de última geração
+- Preços competitivos
 - Condicoes especiais de financiamento para clientes
-- Suporte tecnico dedicado
+- Suporte técnico dedicado
 - Garantia estendida de 5 anos
 
-Essa parceria nos permite oferecer solucoes ainda mais completas para nossos clientes. A equipe comercial ja recebeu o material de apresentacao atualizado.
+Essa parceria nos permite oferecer soluções ainda mais completas para nossos clientes. 
 
 Diretoria Comercial`,
     category: "comercial",
@@ -254,12 +254,12 @@ Diretoria Comercial`,
   },
   {
     id: "com-2026-007",
-    title: "Manutencao preventiva dos veiculos",
+    title: "Manutenção preventiva dos veículos",
     summary:
-      "Comunicamos o cronograma de manutencao preventiva dos veiculos da frota para o proximo mes. Confiram quando seu veiculo esta agendado.",
+      "Comunicamos o cronograma de manutenção preventiva dos veículos da frota para o próximo mês. Confiram quando seu veículo está agendado.",
     content: `Prezados colaboradores,
 
-Segue o cronograma de manutencao preventiva dos veiculos da frota para abril/2026:
+Segue o cronograma de manutenção preventiva dos veículos da frota para abril/2026:
 
 Semana 1 (01-07/04):
 - Veiculo 1 (Placa ABC-1234)
@@ -272,7 +272,7 @@ Semana 2 (08-14/04):
 Semana 3 (15-21/04):
 - Veiculo 4 (Placa MNO-7890)
 
-Os colaboradores responsaveis pelos veiculos devem confirma a disponibilidade para a manutencao. Qualquer duvida, entrem em contato com a coordenacao.
+Os colaboradores responsáveis pelos veículos devem confirmar a disponibilidade para a manutenção. Qualquer dúvida, entrem em contato com a coordenação.
 
 Coordenacao Operacional`,
     category: "operacional",
@@ -285,18 +285,18 @@ Coordenacao Operacional`,
     id: "com-2026-008",
     title: "Boas-vindas aos novos colaboradores",
     summary:
-      "Damos as boas-vindas aos novos colaboradores que se juntaram a equipe da Hi Engenharia neste mes. Bem-vindos ao time!",
+      "Damos as boas-vindas aos novos colaboradores que se juntaram à equipe da HI Engenharia neste mês. Bem-vindos ao time!",
     content: `Caros colaboradores,
 
-Temos o prazer de dar as boas-vindas aos novos membros que se juntaram ao time da Hi Engenharia em marco de 2026:
+Temos o prazer de dar as boas-vindas aos novos membros que se juntaram ao time da HI Engenharia em março de 2026:
 
 Equipe Comercial:
 - Fernanda Costa - Gerente Comercial Regional
 - Ricardo Almeida - Executivo de Contas
 
-Equipe Tecnica:
+Equipe Técnica:
 - Juliana Santos - Engenheira de Projetos
-- Pedro Henrique - Tecnico de Instalacao
+- Pedro Henrique - Técnico de Instalação
 
 Equipe Operacional:
 - Mariana Lima - Coordenadora de Obras
@@ -360,7 +360,7 @@ export function getComunicadoPeriodOptions(): Array<{
     { value: "all", label: "Qualquer periodo" },
     { value: "today", label: "Hoje" },
     { value: "week", label: "Ultima semana" },
-    { value: "month", label: "Ultimo mes" },
+    { value: "month", label: "Último mês" },
   ]
 }
 

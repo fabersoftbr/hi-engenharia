@@ -17,7 +17,7 @@ export function DriveEmptyState({ variant, onUpload }: DriveEmptyStateProps) {
           Nenhum arquivo encontrado
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Faca upload do primeiro arquivo para iniciar.
+          Faça upload do primeiro arquivo para iniciar.
         </p>
         <Button onClick={onUpload} className="mt-4">
           <UploadIcon data-icon="inline-start" />
@@ -30,10 +30,10 @@ export function DriveEmptyState({ variant, onUpload }: DriveEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       <p className="text-base font-medium text-foreground">
-        Esta pasta esta vazia
+        Esta pasta está vazia
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
-        Faca upload de um arquivo para comecar.
+        Faça upload de um arquivo para começar.
       </p>
       <Button onClick={onUpload} className="mt-4">
         <UploadIcon data-icon="inline-start" />

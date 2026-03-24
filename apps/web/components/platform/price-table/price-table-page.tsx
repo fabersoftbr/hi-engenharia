@@ -47,7 +47,7 @@ const columns: ColumnDef<PriceTableRow>[] = [
   },
   {
     accessorKey: "unitPrice",
-    header: "Valor unitario",
+    header: "Valor unitário",
     cell: ({ row }) => (
       <span className="font-mono text-sm">
         {formatPrice(row.original.unitPrice)}
@@ -122,8 +122,8 @@ export function PriceTablePage() {
   const emptyState = (
     <EmptyState
       icon={TableIcon}
-      title="Nenhum item na tabela de precos"
-      description="Envie uma tabela de precos para comecar."
+      title="Nenhum item na tabela de preços"
+      description="Envie uma tabela de preços para começar."
       action={
         <Button variant="secondary" asChild>
           <Link href="/tabela-de-precos/upload">Enviar tabela</Link>
@@ -137,9 +137,9 @@ export function PriceTablePage() {
       {/* Page header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold">Tabela de precos</h1>
+          <h1 className="text-2xl font-semibold">Tabela de preços</h1>
           <p className="text-sm text-muted-foreground">
-            Consulte os precos por regiao e faixa de consumo
+            Consulte os preços por região e faixa de consumo
           </p>
         </div>
         <Button variant="secondary" asChild>

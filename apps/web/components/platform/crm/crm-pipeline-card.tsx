@@ -62,7 +62,7 @@ export function CrmPipelineCard({ opportunity, index }: CrmPipelineCardProps) {
                   <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
                 </Avatar>
                 <span className="truncate">
-                  {owner?.name ?? "Nao atribuido"}
+                  {owner?.name ?? "Não atribuído"}
                 </span>
               </div>
               <span>Ultimo contato: {formattedLastContact}</span>

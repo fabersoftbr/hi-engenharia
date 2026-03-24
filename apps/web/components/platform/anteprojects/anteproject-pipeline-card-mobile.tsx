@@ -7,7 +7,6 @@ import {
 } from "@/lib/anteprojects-data"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
 import { Badge } from "@workspace/ui/components/badge"
-import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 
 interface AnteprojectPipelineCardMobileProps {
   anteproject: AnteprojectRecord
@@ -39,9 +38,7 @@ export function AnteprojectPipelineCardMobile({
         </div>
 
         {anteproject.isAwaitingInformation && (
-          <Badge variant="destructive" className="w-fit text-xs">
-            Aguardando informacoes
-          </Badge>
+          <Badge variant="destructive" className="w-fit text-xs"></Badge>
         )}
 
         {anteproject.proposalId && (
@@ -55,7 +52,7 @@ export function AnteprojectPipelineCardMobile({
             <Avatar size="sm">
               <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
             </Avatar>
-            <span className="truncate">{owner?.name ?? "Nao atribuido"}</span>
+            <span className="truncate">{owner?.name ?? "Não atribuído"}</span>
           </div>
           <span>{formattedDate}</span>
         </div>

@@ -16,13 +16,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
-import { Input } from "@workspace/ui/components/input"
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldDescription,
-} from "@workspace/ui/components/field"
 import { showSuccessToast, showErrorToast } from "@/lib/toast-helpers"
 
 // Mock version history
@@ -38,7 +31,7 @@ const VERSION_HISTORY = [
     id: "v-002",
     filename: "tabela-precos-fev-2026.xlsx",
     uploadedAt: "2026-02-10T14:20:00Z",
-    uploadedBy: "Joao Santos",
+    uploadedBy: "João Santos",
     status: "success" as const,
   },
   {
@@ -90,7 +83,7 @@ export function PriceTableUploadPage() {
       showSuccessToast("Tabela enviada com sucesso")
     } else {
       setUploadStatus("error")
-      showErrorToast("Nao foi possivel enviar a tabela")
+      showErrorToast("Não foi possível enviar a tabela")
     }
   }
 
@@ -109,7 +102,7 @@ export function PriceTableUploadPage() {
           </div>
           <h1 className="text-2xl font-semibold">Enviar nova tabela</h1>
           <p className="text-sm text-muted-foreground">
-            Faca o upload da nova tabela de precos para atualizar os valores
+            Faça o upload da nova tabela de preços para atualizar os valores
           </p>
         </div>
       </div>
@@ -151,7 +144,7 @@ export function PriceTableUploadPage() {
           {uploadStatus === "error" && (
             <div className="flex items-center gap-2 text-sm text-destructive">
               <XCircleIcon className="size-4" />
-              Nao foi possivel enviar a tabela
+              Não foi possível enviar a tabela
             </div>
           )}
 
@@ -173,7 +166,7 @@ export function PriceTableUploadPage() {
       {/* Version history */}
       <Card>
         <CardHeader>
-          <CardTitle>Historico de versoes</CardTitle>
+          <CardTitle>Histórico de versões</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="flex flex-col gap-3">

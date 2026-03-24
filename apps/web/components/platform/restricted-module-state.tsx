@@ -37,7 +37,7 @@ export function RestrictedModuleState({
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-muted-foreground">
-            O perfil <strong>{profileLabel}</strong> nao possui acesso ao modulo{" "}
+            O perfil <strong>{profileLabel}</strong>{" "}
             <strong>{moduleName}</strong>.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">

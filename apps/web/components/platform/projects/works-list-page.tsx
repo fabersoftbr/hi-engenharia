@@ -58,7 +58,7 @@ export function WorksListPage({ projects }: WorksListPageProps) {
       },
       {
         accessorKey: "ownerId",
-        header: "Responsavel",
+        header: "",
         cell: ({ row }) => {
           const owner = getProjectOwnerById(row.original.ownerId)
           return (

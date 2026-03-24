@@ -8,7 +8,6 @@ import {
   FileBarChartIcon,
   HammerIcon,
   ArrowLeftIcon,
-  FolderIcon,
 } from "lucide-react"
 import type { ProjectRecord, WorkStageId } from "@/lib/projects-data"
 import {
@@ -32,22 +31,11 @@ import { ProjectStageHistory } from "./project-stage-history"
 import { ProjectStageChangeSelect } from "./project-stage-change-select"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
-import {
-  getProjectLineage,
-  getVoltarRoute,
-  getDriveDeepLink,
-} from "@/lib/journey-lineage"
+import { getProjectLineage, getVoltarRoute } from "@/lib/journey-lineage"
+import { formatFileSize } from "@/lib/utils/format"
 
 interface ProjectDetailPageProps {
   project: ProjectRecord
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 Bytes"
-  const k = 1024
-  const sizes = ["Bytes", "KB", "MB", "GB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`
 }
 
 function formatDate(isoString: string): string {
@@ -69,7 +57,6 @@ export function ProjectDetailPage({
   // Resolve lineage for Registro section and Voltar navigation
   const lineage = getProjectLineage(project.id)
   const voltarRoute = getVoltarRoute(lineage)
-  const driveDeepLink = getDriveDeepLink(project.id)
 
   const currentStageIndex = WORK_STAGE_ORDER.indexOf(project.stage)
   const nextStageIndex = currentStageIndex + 1
@@ -164,7 +151,7 @@ export function ProjectDetailPage({
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Responsavel</p>
+                  <p className="text-sm text-muted-foreground">Responsável</p>
                   <div className="flex items-center gap-2">
                     <Avatar className="size-6">
                       <AvatarFallback className="text-xs">
@@ -202,7 +189,7 @@ export function ProjectDetailPage({
                             {attachment.name}
                           </span>
                           <span className="text-xs text-muted-foreground">
-                            {formatBytes(attachment.size)}
+                            {formatFileSize(attachment.size)}
                           </span>
                         </div>
                       </div>
@@ -242,7 +229,7 @@ export function ProjectDetailPage({
                 </div>
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-sm text-muted-foreground">Proxima etapa</p>
+                <p className="text-sm text-muted-foreground">Próxima etapa</p>
                 <p className="text-sm font-medium">
                   {nextStageLabel ?? "Ultima etapa"}
                 </p>
@@ -301,7 +288,7 @@ export function ProjectDetailPage({
               <div className="flex flex-col gap-2">
                 <Button variant="outline" size="sm">
                   <FileBarChartIcon className="size-4" />
-                  Gerar relatorio
+                  Gerar relatório
                 </Button>
               </div>
             </CardContent>
@@ -310,7 +297,7 @@ export function ProjectDetailPage({
           {/* Historico de etapas */}
           <Card>
             <CardHeader>
-              <CardTitle>Historico de etapas</CardTitle>
+              <CardTitle>Histórico de etapas</CardTitle>
             </CardHeader>
             <CardContent>
               <ProjectStageHistory history={project.history} />

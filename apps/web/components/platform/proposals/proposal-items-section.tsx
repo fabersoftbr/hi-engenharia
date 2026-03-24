@@ -1,12 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import type {
-  UseFormRegister,
-  UseFormWatch,
-  FieldErrors,
-} from "react-hook-form"
-import { PlusIcon, SearchIcon } from "lucide-react"
+import type { Control, UseFormRegister } from "react-hook-form"
+import { useWatch } from "react-hook-form"
+import { PlusIcon, SearchIcon, Trash2Icon } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
@@ -16,9 +13,8 @@ import { ProposalPriceLookupDialog } from "./proposal-price-lookup-dialog"
 
 interface ProposalItemsSectionProps {
   itemFields: Array<{ id: string }>
+  control: Control<ProposalFormValues>
   register: UseFormRegister<ProposalFormValues>
-  watch: UseFormWatch<ProposalFormValues>
-  errors: FieldErrors<ProposalFormValues>
   onAddItem: () => void
   onRemoveItem: (index: number) => void
   onUpdateItemTotal: (
@@ -36,9 +32,8 @@ interface ProposalItemsSectionProps {
 
 export function ProposalItemsSection({
   itemFields,
+  control,
   register,
-  watch,
-  errors,
   onAddItem,
   onRemoveItem,
   onUpdateItemTotal,
@@ -46,6 +41,7 @@ export function ProposalItemsSection({
 }: ProposalItemsSectionProps) {
   const [priceLookupOpen, setPriceLookupOpen] = useState(false)
   const [activeItemIndex, setActiveItemIndex] = useState<number | null>(null)
+  const watchedItems = useWatch({ control, name: "items" }) ?? []
 
   const handlePriceSelect = (
     itemCode: string,
@@ -93,9 +89,10 @@ export function ProposalItemsSection({
       ) : (
         <div className="flex flex-col gap-4">
           {itemFields.map((field, index) => {
-            const quantity = watch(`items.${index}.quantity`) || 0
-            const unitPrice = watch(`items.${index}.unitPrice`) || 0
-            const totalPrice = watch(`items.${index}.totalPrice`) || 0
+            const item = watchedItems[index]
+            const quantity = item?.quantity || 0
+            const unitPrice = item?.unitPrice || 0
+            const totalPrice = item?.totalPrice || 0
 
             return (
               <div
@@ -136,9 +133,9 @@ export function ProposalItemsSection({
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Descricao</Label>
+                    <Label>Descrição</Label>
                     <Input
-                      placeholder="Descricao do item"
+                      placeholder="Descrição do item"
                       {...register(`items.${index}.description`)}
                     />
                   </div>
@@ -162,7 +159,7 @@ export function ProposalItemsSection({
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Valor unitario</Label>
+                    <Label></Label>
                     <Input
                       type="number"
                       min="0"
@@ -217,6 +214,3 @@ export function ProposalItemsSection({
     </div>
   )
 }
-
-// Import missing icon
-import { Trash2Icon } from "lucide-react"

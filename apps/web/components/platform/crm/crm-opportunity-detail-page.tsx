@@ -18,16 +18,10 @@ import { CrmStageHistory } from "./crm-stage-history"
 import { CrmStageChangeSelect } from "./crm-stage-change-select"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
+import { formatCurrency } from "@/lib/utils/format"
 
 interface CrmOpportunityDetailPageProps {
   opportunity: CrmOpportunityRecord
-}
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(value)
 }
 
 export function CrmOpportunityDetailPage({
@@ -88,7 +82,7 @@ export function CrmOpportunityDetailPage({
           {/* Business information */}
           <Card>
             <CardHeader>
-              <CardTitle>Informacoes do negocio</CardTitle>
+              <CardTitle>Informações do negócio</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -100,7 +94,7 @@ export function CrmOpportunityDetailPage({
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Contato</p>
-                  <p className="font-medium">Nao informado</p>
+                  <p className="font-medium">Não informado</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">
@@ -111,8 +105,8 @@ export function CrmOpportunityDetailPage({
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Responsaveis</p>
-                  <p className="font-medium">{owner?.name ?? "Nao definido"}</p>
+                  <p className="text-sm text-muted-foreground">Responsáveis</p>
+                  <p className="font-medium">{owner?.name ?? "Não definido"}</p>
                 </div>
               </div>
             </CardContent>
@@ -152,7 +146,7 @@ export function CrmOpportunityDetailPage({
           {/* History timeline */}
           <Card className="order-2 lg:order-2">
             <CardHeader>
-              <CardTitle>Historico visual</CardTitle>
+              <CardTitle>Histórico visual</CardTitle>
             </CardHeader>
             <CardContent>
               <CrmStageHistory history={opportunity.history} />
@@ -183,7 +177,7 @@ export function CrmOpportunityDetailPage({
           {opportunity.originBudgetRequestId && (
             <Card className="order-3 lg:hidden">
               <CardHeader>
-                <CardTitle>Solicitacao de origem</CardTitle>
+                <CardTitle>Solicitação de origem</CardTitle>
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild>

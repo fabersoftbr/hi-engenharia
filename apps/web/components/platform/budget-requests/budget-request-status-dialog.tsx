@@ -18,7 +18,6 @@ import { cn } from "@workspace/ui/lib/utils"
 
 interface BudgetRequestStatusDialogProps {
   currentStatus: BudgetRequestStatus
-  requestId?: string
   onStatusChange?: (newStatus: BudgetRequestStatus) => void
 }
 
@@ -31,7 +30,6 @@ const STATUS_OPTIONS: BudgetRequestStatus[] = [
 
 export function BudgetRequestStatusDialog({
   currentStatus,
-  requestId,
   onStatusChange,
 }: BudgetRequestStatusDialogProps) {
   const [isOpen, setIsOpen] = useState(false)

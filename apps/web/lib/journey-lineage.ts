@@ -1,15 +1,14 @@
 /**
  * Journey Lineage Helpers
  * Shared functions for resolving upstream/downstream entity links
- * across the operational chain: Orcamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra/Drive.
+ * across the operational chain: Orçamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra/Drive.
  */
 
-import { getBudgetRequestById } from "./budget-requests-data"
 import { getCrmOpportunityById } from "./crm-data"
 import { getAnteprojectById } from "./anteprojects-data"
 import { getProposalById } from "./proposals-data"
 import { getProjectById } from "./projects-data"
-import { getDriveFolderById, DRIVE_FOLDERS } from "./drive-data"
+import { DRIVE_FOLDERS } from "./drive-data"
 
 /**
  * Link to a related entity in the journey chain.
@@ -43,12 +42,10 @@ export interface JourneyLineage {
 }
 
 /**
- * Resolve the lineage for a budget request (Orcamento).
+ * Resolve the lineage for a budget request (Orçamento).
  * Budget requests are the start of the chain - no upstream, downstream is CRM opportunity.
  */
 export function getBudgetRequestLineage(requestId: string): JourneyLineage {
-  const request = getBudgetRequestById(requestId)
-
   // Find CRM opportunity that originated from this request
   const downstream = null // Will be created via CTA, not pre-linked
 
@@ -77,7 +74,7 @@ export function getCrmOpportunityLineage(
   let upstream: JourneyLink | null = null
   if (opportunity?.originBudgetRequestId) {
     upstream = {
-      label: `Solicitacao ${opportunity.originBudgetRequestId}`,
+      label: ``,
       href: `/orcamentos/${opportunity.originBudgetRequestId}`,
       id: opportunity.originBudgetRequestId,
     }

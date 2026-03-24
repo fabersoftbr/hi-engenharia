@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeftIcon, FileDownIcon, SendIcon } from "lucide-react"
-import { toast } from "sonner"
 import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import { Separator } from "@workspace/ui/components/separator"
@@ -33,8 +32,7 @@ export function ProposalDetailPage({ proposal }: ProposalDetailPageProps) {
 
   const handleExportPdf = () => {
     showPdfReadyToast(() => {
-      // Simulated download action
-      console.log("Download triggered")
+      // TODO: Implement actual PDF download
     })
   }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetFooter,
 } from "@workspace/ui/components/sheet"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
@@ -50,23 +49,53 @@ export function NewOpportunityDialog({
   prefill,
 }: NewOpportunityDialogProps) {
   const isMobile = useIsMobile()
-  const [title, setTitle] = useState("")
-  const [company, setCompany] = useState("")
+  if (!isOpen) {
+    return null
+  }
+
+  const formContent = (
+    <NewOpportunityDialogForm
+      onClose={onClose}
+      onSubmit={onSubmit}
+      prefill={prefill}
+    />
+  )
+
+  if (isMobile) {
+    return (
+      <Sheet open onOpenChange={(open) => !open && onClose()}>
+        <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Nova oportunidade</SheetTitle>
+          </SheetHeader>
+          <div className="px-6 py-4">{formContent}</div>
+        </SheetContent>
+      </Sheet>
+    )
+  }
+
+  return (
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Nova oportunidade</DialogTitle>
+        </DialogHeader>
+        {formContent}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function NewOpportunityDialogForm({
+  onClose,
+  onSubmit,
+  prefill,
+}: Omit<NewOpportunityDialogProps, "isOpen">) {
+  const [title, setTitle] = useState(prefill?.title ?? "")
+  const [company, setCompany] = useState(prefill?.company ?? "")
   const [ownerId, setOwnerId] = useState(CRM_OWNERS[0]?.id ?? "")
   const [priority, setPriority] = useState<CrmPriority>("media")
   const [estimatedValue, setEstimatedValue] = useState("")
-  const [originBudgetRequestId, setOriginBudgetRequestId] = useState<
-    string | null
-  >(null)
-
-  // Handle prefill when dialog opens with budget-request data
-  useEffect(() => {
-    if (prefill && isOpen) {
-      setTitle(prefill.title)
-      setCompany(prefill.company)
-      setOriginBudgetRequestId(prefill.originBudgetRequestId)
-    }
-  }, [prefill, isOpen])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -77,7 +106,7 @@ export function NewOpportunityDialog({
     const newOpportunity: CrmOpportunityRecord = {
       id: newId,
       title: title.trim() || "Nova oportunidade",
-      company: company.trim() || "Empresa nao informada",
+      company: company.trim() || "Empresa não informada",
       stage: "lead",
       priority,
       ownerId,
@@ -96,21 +125,13 @@ export function NewOpportunityDialog({
     }
 
     onSubmit(newOpportunity)
-
-    // Reset form
-    setTitle("")
-    setCompany("")
-    setOwnerId(CRM_OWNERS[0]?.id ?? "")
-    setPriority("media")
-    setEstimatedValue("")
-    setOriginBudgetRequestId(null)
   }
 
   const responsibleOptions = getCrmResponsibleOptions().filter(
     (opt) => opt.value !== "all"
   )
 
-  const formContent = (
+  return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <label htmlFor="title" className="text-sm font-medium">
@@ -138,11 +159,11 @@ export function NewOpportunityDialog({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="responsible" className="text-sm font-medium">
-          Responsavel
+          Responsável
         </label>
         <Select value={ownerId} onValueChange={setOwnerId}>
           <SelectTrigger id="responsible">
-            <SelectValue placeholder="Selecione o responsavel" />
+            <SelectValue placeholder="Selecione o responsável" />
           </SelectTrigger>
           <SelectContent>
             {responsibleOptions.map((option) => (
@@ -167,7 +188,7 @@ export function NewOpportunityDialog({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="alta">Alta</SelectItem>
-            <SelectItem value="media">Media</SelectItem>
+            <SelectItem value="media">Média</SelectItem>
             <SelectItem value="baixa">Baixa</SelectItem>
           </SelectContent>
         </Select>
@@ -193,29 +214,5 @@ export function NewOpportunityDialog({
         <Button type="submit">Criar oportunidade</Button>
       </DialogFooter>
     </form>
-  )
-
-  if (isMobile) {
-    return (
-      <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
-          <SheetHeader>
-            <SheetTitle>Nova oportunidade</SheetTitle>
-          </SheetHeader>
-          <div className="px-6 py-4">{formContent}</div>
-        </SheetContent>
-      </Sheet>
-    )
-  }
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Nova oportunidade</DialogTitle>
-        </DialogHeader>
-        {formContent}
-      </DialogContent>
-    </Dialog>
   )
 }

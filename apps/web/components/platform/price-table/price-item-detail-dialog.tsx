@@ -51,31 +51,31 @@ export function PriceItemDetailDialog({
 
       {/* Description */}
       <div className="space-y-2">
-        <h4 className="text-sm font-medium">Descricao</h4>
+        <h4 className="text-sm font-medium">Descrição</h4>
         <p className="text-sm text-muted-foreground">{item.description}</p>
       </div>
 
       {/* Observations */}
       {item.observations && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium">Observacoes</h4>
+          <h4 className="text-sm font-medium">Observações</h4>
           <p className="text-sm text-muted-foreground">{item.observations}</p>
         </div>
       )}
 
       {/* Pricing table */}
       <div className="space-y-2">
-        <h4 className="text-sm font-medium">Precos por regiao e faixa</h4>
+        <h4 className="text-sm font-medium">Preços por região e faixa</h4>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b">
-                <th className="px-2 py-2 text-left font-medium">Regiao</th>
+                <th className="px-2 py-2 text-left font-medium">Região</th>
                 <th className="px-2 py-2 text-left font-medium">Faixa</th>
                 <th className="px-2 py-2 text-right font-medium">
-                  Valor unitario
+                  Valor unitário
                 </th>
-                <th className="px-2 py-2 text-left font-medium">Condicoes</th>
+                <th className="px-2 py-2 text-left font-medium">Condições</th>
               </tr>
             </thead>
             <tbody>

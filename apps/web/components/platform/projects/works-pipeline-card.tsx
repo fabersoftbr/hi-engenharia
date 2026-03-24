@@ -82,7 +82,7 @@ export function WorksPipelineCard({ project, index }: WorksPipelineCardProps) {
                   </AvatarFallback>
                 </Avatar>
                 <span className="truncate">
-                  {owner?.name ?? "Nao atribuido"}
+                  {owner?.name ?? "Não atribuído"}
                 </span>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { PlusIcon } from "lucide-react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { DropResult } from "@hello-pangea/dnd"
@@ -37,26 +37,28 @@ export function CrmWorkspacePage() {
     () => getCrmOpportunities()
   )
   const [isNewOpportunityOpen, setIsNewOpportunityOpen] = useState(false)
-  const [prefillData, setPrefillData] = useState<{
-    title: string
-    company: string
-    originBudgetRequestId: string
-  } | null>(null)
+  const [dismissedSourceRequestId, setDismissedSourceRequestId] = useState<
+    string | null
+  >(null)
 
-  // Handle budget-request handoff: open dialog with prefilled data when sourceRequestId is present
-  useEffect(() => {
-    if (sourceRequestId) {
-      const request = getBudgetRequestById(sourceRequestId)
-      if (request) {
-        setPrefillData({
-          title: `Oportunidade - ${request.clientName}`,
-          company: request.clientName,
-          originBudgetRequestId: sourceRequestId,
-        })
-        setIsNewOpportunityOpen(true)
-      }
+  const handoffPrefill = useMemo(() => {
+    if (!sourceRequestId) return null
+
+    const request = getBudgetRequestById(sourceRequestId)
+    if (!request) return null
+
+    return {
+      title: `Oportunidade - ${request.clientName}`,
+      company: request.clientName,
+      originBudgetRequestId: sourceRequestId,
     }
   }, [sourceRequestId])
+
+  const handoffIsActive =
+    handoffPrefill !== null && dismissedSourceRequestId !== sourceRequestId
+
+  const dialogOpen = isNewOpportunityOpen || handoffIsActive
+  const dialogPrefill = handoffIsActive ? handoffPrefill : null
 
   const filteredOpportunities = useMemo(() => {
     return filterCrmOpportunities({
@@ -111,9 +113,9 @@ export function CrmWorkspacePage() {
     (newOpp: CrmOpportunityRecord) => {
       setOpportunities((prev) => [newOpp, ...prev])
       setIsNewOpportunityOpen(false)
-      setPrefillData(null)
       // Clear the query param after successful creation
       if (sourceRequestId) {
+        setDismissedSourceRequestId(sourceRequestId)
         router.replace("/crm")
       }
     },
@@ -122,9 +124,9 @@ export function CrmWorkspacePage() {
 
   const handleCloseDialog = useCallback(() => {
     setIsNewOpportunityOpen(false)
-    setPrefillData(null)
     // Clear the query param when closing without creating
     if (sourceRequestId) {
+      setDismissedSourceRequestId(sourceRequestId)
       router.replace("/crm")
     }
   }, [sourceRequestId, router])
@@ -192,10 +194,10 @@ export function CrmWorkspacePage() {
       )}
 
       <NewOpportunityDialog
-        isOpen={isNewOpportunityOpen}
+        isOpen={dialogOpen}
         onClose={handleCloseDialog}
         onSubmit={handleNewOpportunity}
-        prefill={prefillData}
+        prefill={dialogPrefill}
       />
     </div>
   )

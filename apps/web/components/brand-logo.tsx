@@ -1,65 +1,92 @@
 import { cn } from "@workspace/ui/lib/utils"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Image from "next/image" // Will be used when logo files are available
+import Image from "next/image"
 
 interface BrandLogoProps {
   variant?: "full" | "mark"
+  tone?: "auto" | "light" | "dark"
   className?: string
+  imageClassName?: string
+  priority?: boolean
 }
 
 /**
- * BrandLogo component for Hi Engenharia.
- * Renders the official logo when available, or a text fallback otherwise.
- *
- * Logo files expected at:
- * - /brand/hi-logo-full.svg (full logo with text)
- * - /brand/hi-logo-mark.svg (icon/symbol only)
+ * Renders the official HI Engenharia logo assets.
+ * Use the light asset on dark surfaces and the dark asset on light surfaces.
+ * `auto` follows the current theme using CSS-only dark mode selectors.
  */
-export function BrandLogo({ variant = "full", className }: BrandLogoProps) {
-  // Check if logo files exist by attempting to load them
-  // For now, render text fallback until logo files are provided
-  // When logo files are available, uncomment the Image components below
-
+export function BrandLogo({
+  variant = "full",
+  tone = "auto",
+  className,
+  imageClassName,
+  priority = false,
+}: BrandLogoProps) {
   const isFullLogo = variant === "full"
+  const dimensions = isFullLogo
+    ? { width: 1001, height: 249 }
+    : { width: 238, height: 249 }
+  const lightSrc = isFullLogo
+    ? "/brand/hi-logo-full.png"
+    : "/brand/hi-logo-mark.png"
+  const darkSrc = isFullLogo
+    ? "/brand/hi-logo-full-dark.png"
+    : "/brand/hi-logo-mark-dark.png"
 
-  // Logo placeholder - text-only fallback until official logo files are provided
-  // When logo files exist at public/brand/, uncomment the Image components below
-  /*
-  if (isFullLogo) {
+  if (tone === "light" || tone === "dark") {
+    const src = tone === "light" ? lightSrc : darkSrc
+
     return (
-      <Image
-        src="/brand/hi-logo-full.svg"
-        alt="HI Engenharia"
-        width={120}
-        height={40}
-        className={cn("object-contain", className)}
-        priority
-      />
+      <span
+        className={cn("inline-flex items-center justify-center", className)}
+        aria-label="HI Engenharia"
+        role="img"
+      >
+        <Image
+          src={src}
+          alt="HI Engenharia"
+          width={dimensions.width}
+          height={dimensions.height}
+          priority={priority}
+          className={cn(
+            "h-auto object-contain",
+            isFullLogo ? "w-44 sm:w-48" : "w-10",
+            imageClassName
+          )}
+        />
+      </span>
     )
   }
 
   return (
-    <Image
-      src="/brand/hi-logo-mark.svg"
-      alt="HI Engenharia"
-      width={32}
-      height={32}
-      className={cn("object-contain", className)}
-      priority
-    />
-  )
-  */
-
-  // Text fallback - rendered while logo files are not available
-  return (
     <span
-      className={cn(
-        "font-sans font-bold tracking-tight text-primary",
-        isFullLogo ? "text-xl" : "text-base",
-        className
-      )}
+      className={cn("inline-flex items-center justify-center", className)}
+      aria-label="HI Engenharia"
+      role="img"
     >
-      {isFullLogo ? "HI Engenharia" : "HI"}
+      <Image
+        src={darkSrc}
+        alt="HI Engenharia"
+        width={dimensions.width}
+        height={dimensions.height}
+        priority={priority}
+        className={cn(
+          "h-auto object-contain dark:hidden",
+          isFullLogo ? "w-44 sm:w-48" : "w-10",
+          imageClassName
+        )}
+      />
+      <Image
+        src={lightSrc}
+        alt="HI Engenharia"
+        width={dimensions.width}
+        height={dimensions.height}
+        priority={priority}
+        className={cn(
+          "hidden h-auto object-contain dark:block",
+          isFullLogo ? "w-44 sm:w-48" : "w-10",
+          imageClassName
+        )}
+      />
     </span>
   )
 }

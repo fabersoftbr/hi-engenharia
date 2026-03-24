@@ -46,7 +46,7 @@ export function CrmListPage({ opportunities }: CrmListPageProps) {
     },
     {
       accessorKey: "ownerId",
-      header: "Responsavel",
+      header: "",
       cell: ({ row }) => {
         const owner = getCrmOwnerById(row.original.ownerId)
         return (

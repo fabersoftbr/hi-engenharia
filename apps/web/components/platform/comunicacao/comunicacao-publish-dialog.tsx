@@ -102,7 +102,7 @@ export function ComunicacaoPublishDialog({
   const validateStep2 = () => {
     const newErrors: Record<string, string> = {}
     if (!content.trim()) {
-      newErrors.content = "Conteudo e obrigatorio"
+      newErrors.content = "Conteúdo é obrigatório"
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -181,7 +181,7 @@ export function ComunicacaoPublishDialog({
           {step === 1 && (
             <>
               <DialogHeader>
-                <DialogTitle>Novo comunicado - Informacoes</DialogTitle>
+                <DialogTitle>Novo comunicado - Informações</DialogTitle>
                 {hasDraft && (
                   <DialogDescription className="text-muted-foreground">
                     Rascunho recuperado
@@ -191,13 +191,13 @@ export function ComunicacaoPublishDialog({
 
               <FieldGroup className="mt-4">
                 <Field data-invalid={!!errors.title}>
-                  <FieldLabel htmlFor="comunicado-title">Titulo</FieldLabel>
+                  <FieldLabel htmlFor="comunicado-title">Título</FieldLabel>
                   <Input
                     id="comunicado-title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     aria-invalid={!!errors.title}
-                    placeholder="Digite o titulo do comunicado"
+                    placeholder="Digite o título do comunicado"
                   />
                   {errors.title && (
                     <FieldDescription className="text-destructive">
@@ -239,7 +239,7 @@ export function ComunicacaoPublishDialog({
               </FieldGroup>
 
               <DialogFooter className="mt-6">
-                <Button onClick={handleNext}>Proximo</Button>
+                <Button onClick={handleNext}>Próximo</Button>
               </DialogFooter>
             </>
           )}
@@ -247,19 +247,19 @@ export function ComunicacaoPublishDialog({
           {step === 2 && (
             <>
               <DialogHeader>
-                <DialogTitle>Novo comunicado - Conteudo</DialogTitle>
+                <DialogTitle>Novo comunicado - Conteúdo</DialogTitle>
               </DialogHeader>
 
               <FieldGroup className="mt-4">
                 <Field data-invalid={!!errors.content}>
-                  <FieldLabel htmlFor="comunicado-content">Conteudo</FieldLabel>
+                  <FieldLabel htmlFor="comunicado-content">Conteúdo</FieldLabel>
                   <Textarea
                     id="comunicado-content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     rows={8}
                     aria-invalid={!!errors.content}
-                    placeholder="Digite o conteudo do comunicado"
+                    placeholder="Digite o conteúdo do comunicado"
                   />
                   {errors.content && (
                     <FieldDescription className="text-destructive">
@@ -311,12 +311,12 @@ export function ComunicacaoPublishDialog({
       <Dialog open={showPreview} onOpenChange={setShowPreview}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Visualizacao do comunicado</DialogTitle>
+            <DialogTitle>Visualização do comunicado</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold">{title || "Sem titulo"}</h3>
+              <h3 className="text-lg font-semibold">{title || "Sem título"}</h3>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 {category && (
                   <Badge variant={COMUNICADO_CATEGORY_META[category].variant}>
@@ -330,7 +330,7 @@ export function ComunicacaoPublishDialog({
             <Separator />
 
             <div className="text-sm leading-relaxed whitespace-pre-wrap">
-              {content || "Sem conteudo"}
+              {content || "Sem conteúdo"}
             </div>
           </div>
 

@@ -3,6 +3,7 @@
 import { useRef } from "react"
 import { useFormStatus } from "react-dom"
 import { Loader2 } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
@@ -72,6 +73,21 @@ export function LoginForm() {
           </div>
 
           <SubmitButton />
+
+          <div className="flex flex-col gap-2 pt-2 text-center text-sm">
+            <Link
+              href="/recuperar-senha"
+              className="text-primary hover:underline"
+            >
+              Esqueceu sua senha?
+            </Link>
+            <p className="text-muted-foreground">
+              Ainda não tem conta?{" "}
+              <Link href="/cadastro" className="text-primary hover:underline">
+                Cadastre-se
+              </Link>
+            </p>
+          </div>
 
           <div className="space-y-2 pt-4 text-center text-sm text-muted-foreground">
             <p className="rounded-md bg-muted/50 px-3 py-2">

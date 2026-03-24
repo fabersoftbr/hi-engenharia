@@ -17,7 +17,6 @@ import {
   SheetDescription,
 } from "@workspace/ui/components/sheet"
 import { Input } from "@workspace/ui/components/input"
-import { Button } from "@workspace/ui/components/button"
 import { DataTable } from "@workspace/ui/components/data-table"
 import {
   Select,
@@ -100,7 +99,7 @@ export function ProposalPriceLookupDialog({
     },
     {
       accessorKey: "unitPrice",
-      header: "Valor unitario",
+      header: "Valor unitário",
       cell: ({ row }) => (
         <span className="font-mono text-sm">
           {formatPrice(row.original.unitPrice)}
@@ -173,7 +172,7 @@ export function ProposalPriceLookupDialog({
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <SheetContent side="bottom" className="max-h-[90vh] overflow-y-auto">
           <SheetHeader>
-            <SheetTitle>Consultar tabela de precos</SheetTitle>
+            <SheetTitle>Consultar tabela de preços</SheetTitle>
             <SheetDescription>
               Selecione um item da tabela para adicionar a proposta
             </SheetDescription>
@@ -188,7 +187,7 @@ export function ProposalPriceLookupDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Consultar tabela de precos</DialogTitle>
+          <DialogTitle>Consultar tabela de preços</DialogTitle>
           <DialogDescription>
             Selecione um item da tabela para adicionar a proposta
           </DialogDescription>

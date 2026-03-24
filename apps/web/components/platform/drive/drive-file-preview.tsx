@@ -75,7 +75,7 @@ export function DriveFilePreview({
               {getFileTypeIcon(file.type, true)}
             </div>
             <p className="text-sm text-muted-foreground">
-              Preview nao disponivel
+              Preview não disponível
             </p>
           </div>
 
@@ -137,7 +137,7 @@ export function DriveFilePreview({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              Preview nao disponivel para este tipo de arquivo
+              Preview não disponível para este tipo de arquivo
             </TooltipContent>
           </Tooltip>
           <Button className="flex-1" onClick={() => onDownload(file)}>

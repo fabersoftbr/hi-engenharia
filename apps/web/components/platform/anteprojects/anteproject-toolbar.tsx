@@ -61,7 +61,7 @@ export function AnteprojectToolbar({
           onValueChange={onResponsibleFilterChange}
         >
           <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Selecione um responsavel..." />
+            <SelectValue placeholder="" />
           </SelectTrigger>
           <SelectContent>
             {responsibleOptions.map((option) => (
@@ -94,7 +94,6 @@ export function AnteprojectToolbar({
           className="w-full sm:w-auto"
         >
           <AlertCircleIcon data-icon="inline-start" />
-          Aguardando informacoes
         </Button>
       </div>
     </div>

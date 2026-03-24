@@ -24,7 +24,7 @@ export const BUDGET_REQUEST_STATUS_META: Record<
   }
 > = {
   novo: { label: "Novo", variant: "default" },
-  "em-analise": { label: "Em analise", variant: "secondary" },
+  "em-analise": { label: "Em análise", variant: "secondary" },
   aprovado: { label: "Aprovado", variant: "outline" },
   recusado: { label: "Recusado", variant: "destructive" },
 }
@@ -62,11 +62,11 @@ export const BUDGET_REQUESTS: BudgetRequestRecord[] = [
     id: "orc-2026-1001",
     clientName: "Maria Silva",
     phone: "(11) 99999-1234",
-    city: "Sao Paulo",
+    city: "São Paulo",
     requestedAt: "2026-03-15T10:30:00Z",
     status: "novo",
     monthlyConsumption: 450,
-    notes: "Cliente interessado em instalacao solar residencial.",
+    notes: "Cliente interessado em instalação solar residencial.",
     attachments: [
       {
         id: "att-001",
@@ -78,14 +78,14 @@ export const BUDGET_REQUESTS: BudgetRequestRecord[] = [
   },
   {
     id: "orc-2026-1002",
-    clientName: "Joao Santos",
+    clientName: "João Santos",
     phone: "(21) 98888-5678",
     city: "Rio de Janeiro",
     requestedAt: "2026-03-14T14:15:00Z",
     status: "em-analise",
     monthlyConsumption: 780,
     notes:
-      "Propriedade comercial com telhado grande. Aguardando visita tecnica.",
+      "Propriedade comercial com telhado grande. Aguardando visita técnica.",
     attachments: [
       {
         id: "att-002",
@@ -132,13 +132,13 @@ export const BUDGET_REQUESTS: BudgetRequestRecord[] = [
   },
   {
     id: "orc-2026-1005",
-    clientName: "Patricia Lima",
+    clientName: "Patrícia Lima",
     phone: "(51) 95555-7890",
     city: "Porto Alegre",
     requestedAt: "2026-03-11T11:00:00Z",
     status: "em-analise",
     monthlyConsumption: 620,
-    notes: "Cliente com interesse em financiamento. Verificar opcoes.",
+    notes: "Cliente com interesse em financiamento. Verificar opções.",
     attachments: [
       {
         id: "att-005",
@@ -162,7 +162,7 @@ export const BUDGET_REQUESTS: BudgetRequestRecord[] = [
     requestedAt: "2026-03-20T00:00:00Z",
     status: "novo",
     monthlyConsumption: null,
-    notes: "Solicitacao recem-enviada pelo formulario.",
+    notes: "Solicitação recém-enviada pelo formulário.",
     attachments: [],
   },
 ]

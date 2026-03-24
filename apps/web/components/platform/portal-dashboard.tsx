@@ -47,11 +47,11 @@ export function PortalDashboard() {
         totalPendingCount={totalPendingCount}
       />
 
-      {/* Charts section */}
-      <DashboardChartsSection modules={modules} />
-
       {/* Quick-actions row */}
       <DashboardQuickActions actions={quickActions} />
+
+      {/* Charts section */}
+      <DashboardChartsSection modules={modules} />
 
       {/* Journey pendencies panel */}
       <DashboardJourneyPendencies items={journeyPendencies} />

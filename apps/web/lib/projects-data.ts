@@ -116,7 +116,7 @@ export const PROJECT_TYPES: Record<
   comercial: { label: "Comercial", variant: "outline" },
   industrial: { label: "Industrial", variant: "default" },
   rural: { label: "Rural", variant: "outline" },
-  condominio: { label: "Condominio", variant: "secondary" },
+  condominio: { label: "Condomínio", variant: "secondary" },
 }
 
 /**
@@ -131,7 +131,7 @@ export const PROJECT_STATUS_META: Record<
 > = {
   contrato: { label: "Contrato", variant: "secondary" },
   "em-andamento": { label: "Em andamento", variant: "default" },
-  concluido: { label: "Concluido", variant: "default" },
+  concluido: { label: "Concluído", variant: "default" },
   pausado: { label: "Pausado", variant: "outline" },
   cancelado: { label: "Cancelado", variant: "destructive" },
 }
@@ -162,13 +162,13 @@ export const WORK_STAGE_META: Record<
 > = {
   contrato: { label: "Contrato", variant: "secondary" },
   engenharia: { label: "Engenharia", variant: "secondary" },
-  aprovacoes: { label: "Aprovacoes", variant: "secondary" },
+  aprovacoes: { label: "Aprovações", variant: "secondary" },
   compras: { label: "Compras", variant: "outline" },
-  mobilizacao: { label: "Mobilizacao", variant: "outline" },
-  execucao: { label: "Execucao", variant: "default" },
+  mobilizacao: { label: "Mobilização", variant: "outline" },
+  execucao: { label: "Execução", variant: "default" },
   testes: { label: "Testes", variant: "outline" },
   aceite: { label: "Aceite", variant: "outline" },
-  documentacao: { label: "Documentacao", variant: "outline" },
+  documentacao: { label: "Documentação", variant: "outline" },
   encerramento: { label: "Encerramento", variant: "outline" },
   entrega: { label: "Entrega", variant: "default" },
 }
@@ -189,15 +189,15 @@ export const PROJECT_OWNERS: ProjectOwner[] = [
 export const PROJECTS: ProjectRecord[] = [
   {
     id: "proj-2026-001",
-    title: "Instalacao residencial - Zona Sul",
-    clientName: "Familia Oliveira",
+    title: "Instalação residencial - Zona Sul",
+    clientName: "Família Oliveira",
     type: "residencial",
     status: "em-andamento",
     ownerId: "owner-1",
     stage: "contrato",
     proposalId: "prop-2026-001",
     anteprojectId: "ant-2026-001",
-    location: "Sao Paulo, SP",
+    location: "São Paulo, SP",
     powerKwp: 8.5,
     startDate: "2026-03-15",
     plannedEndDate: "2026-05-15",
@@ -221,7 +221,7 @@ export const PROJECTS: ProjectRecord[] = [
       },
       {
         id: "ms-001-2",
-        name: "Projeto eletrico",
+        name: "Projeto elétrico",
         startDate: "2026-03-20",
         endDate: "2026-04-05",
         status: "pendente",
@@ -240,7 +240,7 @@ export const PROJECTS: ProjectRecord[] = [
   {
     id: "proj-2026-002",
     title: "Projeto comercial - Centro",
-    clientName: "Comercio XYZ Ltda",
+    clientName: "Comércio XYZ Ltda",
     type: "comercial",
     status: "em-andamento",
     ownerId: "owner-2",
@@ -302,7 +302,7 @@ export const PROJECTS: ProjectRecord[] = [
     stage: "aprovacoes",
     proposalId: "prop-2026-003",
     anteprojectId: "ant-2026-003",
-    location: "Ribeirao Preto, SP",
+    location: "Ribeirão Preto, SP",
     powerKwp: 150.0,
     startDate: "2026-02-15",
     plannedEndDate: "2026-08-15",
@@ -324,7 +324,7 @@ export const PROJECTS: ProjectRecord[] = [
     milestones: [
       {
         id: "ms-003-1",
-        name: "Aprovacao da concessionaria",
+        name: "Aprovação da concessionária",
         startDate: "2026-03-01",
         endDate: "2026-04-15",
         status: "em-andamento",
@@ -346,14 +346,14 @@ export const PROJECTS: ProjectRecord[] = [
         stage: "aprovacoes",
         changedAt: "2026-03-05T09:00:00Z",
         changedBy: "owner-1",
-        notes: "Aguardando aprovacoes",
+        notes: "Aguardando aprovações",
       },
     ],
   },
   {
     id: "proj-2026-004",
-    title: "Condominio residencial",
-    clientName: "Condominio Jardim Verde",
+    title: "Condomínio residencial",
+    clientName: "Condomínio Jardim Verde",
     type: "condominio",
     status: "em-andamento",
     ownerId: "owner-3",
@@ -387,13 +387,13 @@ export const PROJECTS: ProjectRecord[] = [
         stage: "compras",
         changedAt: "2026-03-01T14:00:00Z",
         changedBy: "owner-3",
-        notes: "Equipamentos em processo de aquisicao",
+        notes: "Equipamentos em processo de aquisição",
       },
     ],
   },
   {
     id: "proj-2026-005",
-    title: "Industria de alimentos",
+    title: "Indústria de alimentos",
     clientName: "Alimentos Premium Ltda",
     type: "industrial",
     status: "em-andamento",
@@ -439,7 +439,7 @@ export const PROJECTS: ProjectRecord[] = [
   },
   {
     id: "proj-2026-006",
-    title: "Escritorio corporativo",
+    title: "Escritório corporativo",
     clientName: "Tech Solutions SA",
     type: "comercial",
     status: "em-andamento",
@@ -447,7 +447,7 @@ export const PROJECTS: ProjectRecord[] = [
     stage: "execucao",
     proposalId: "prop-2026-006",
     anteprojectId: "ant-2026-006",
-    location: "Sao Paulo, SP",
+    location: "São Paulo, SP",
     powerKwp: 45.0,
     startDate: "2025-11-01",
     plannedEndDate: "2026-05-01",
@@ -484,14 +484,13 @@ export const PROJECTS: ProjectRecord[] = [
         stage: "execucao",
         changedAt: "2026-01-05T08:00:00Z",
         changedBy: "owner-1",
-        notes: "Inicio da instalacao",
       },
     ],
   },
   {
     id: "proj-2026-007",
     title: "Hospital regional",
-    clientName: "Hospital Saude Total",
+    clientName: "Hospital Saúde Total",
     type: "comercial",
     status: "em-andamento",
     ownerId: "owner-3",
@@ -547,14 +546,14 @@ export const PROJECTS: ProjectRecord[] = [
   {
     id: "proj-2026-008",
     title: "Escola particular",
-    clientName: "Colegio Futuro Brilhante",
+    clientName: "Colégio Futuro Brilhante",
     type: "comercial",
     status: "em-andamento",
     ownerId: "owner-2",
     stage: "aceite",
     proposalId: "prop-2026-008",
     anteprojectId: null,
-    location: "Sao Jose dos Campos, SP",
+    location: "São José dos Campos, SP",
     powerKwp: 35.0,
     startDate: "2025-08-01",
     plannedEndDate: "2026-03-30",
@@ -607,7 +606,7 @@ export const PROJECTS: ProjectRecord[] = [
   },
   {
     id: "proj-2026-009",
-    title: "Shopping center - Area comum",
+    title: "Shopping center - Área comum",
     clientName: "Shopping Center Plaza",
     type: "comercial",
     status: "em-andamento",
@@ -615,7 +614,7 @@ export const PROJECTS: ProjectRecord[] = [
     stage: "documentacao",
     proposalId: "prop-2026-009",
     anteprojectId: null,
-    location: "Sao Paulo, SP",
+    location: "São Paulo, SP",
     powerKwp: 180.0,
     startDate: "2025-06-01",
     plannedEndDate: "2026-04-01",
@@ -673,8 +672,8 @@ export const PROJECTS: ProjectRecord[] = [
   },
   {
     id: "proj-2026-010",
-    title: "Residencia de luxo - Alphaville",
-    clientName: "Residencia Medeiros",
+    title: "Residência de luxo - Alphaville",
+    clientName: "Residência Medeiros",
     type: "residencial",
     status: "em-andamento",
     ownerId: "owner-3",
@@ -874,7 +873,7 @@ export function getProjectResponsibleOptions(): Array<{
   label: string
 }> {
   return [
-    { value: "all", label: "Todos os responsaveis" },
+    { value: "all", label: "Todos os responsáveis" },
     ...PROJECT_OWNERS.map((owner) => ({
       value: owner.id,
       label: owner.name,

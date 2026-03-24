@@ -24,13 +24,16 @@ export function NavigationTransition({
       // Reset scroll position on navigation
       window.scrollTo(0, 0)
 
-      // Short fade-out then swap content and fade-in
-      const timer = setTimeout(() => {
-        setDisplayChildren(children)
-        setIsTransitioning(false)
-      }, 150)
+      // Use requestAnimationFrame for smoother transitions
+      // This avoids blocking the main thread during sidebar animation
+      let rafId = requestAnimationFrame(() => {
+        rafId = requestAnimationFrame(() => {
+          setDisplayChildren(children)
+          setIsTransitioning(false)
+        })
+      })
 
-      return () => clearTimeout(timer)
+      return () => cancelAnimationFrame(rafId)
     } else {
       // Same pathname, update children immediately (e.g. state changes)
       setDisplayChildren(children)

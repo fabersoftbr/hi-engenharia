@@ -90,9 +90,9 @@ export const ANTEPROJECT_STAGE_META: Record<
   AnteprojectStageId,
   { label: string; variant: "default" | "secondary" | "outline" }
 > = {
-  solicitacao: { label: "Solicitacao", variant: "secondary" },
-  "analise-tecnica": { label: "Analise tecnica", variant: "secondary" },
-  "em-revisao": { label: "Em revisao", variant: "outline" },
+  solicitacao: { label: "Solicitação", variant: "secondary" },
+  "analise-tecnica": { label: "Análise técnica", variant: "secondary" },
+  "em-revisao": { label: "Em revisão", variant: "outline" },
   "retorno-comercial": { label: "Retorno comercial", variant: "outline" },
   "aguardando-cliente": { label: "Aguardando cliente", variant: "outline" },
   "aprovado-ou-recusado": { label: "Aprovado/Recusado", variant: "default" },
@@ -109,7 +109,7 @@ export const ANTEPROJECT_PRIORITY_META: Record<
   }
 > = {
   alta: { label: "Alta", variant: "destructive" },
-  media: { label: "Media", variant: "outline" },
+  media: { label: "Média", variant: "outline" },
   baixa: { label: "Baixa", variant: "secondary" },
 }
 
@@ -129,8 +129,8 @@ export const ANTEPROJECT_OWNERS: AnteprojectOwner[] = [
 export const ANTEPROJECTS: AnteprojectRecord[] = [
   {
     id: "ant-2026-001",
-    title: "Instalacao residencial - Zona Sul",
-    clientName: "Familia Oliveira",
+    title: "Instalação residencial - Zona Sul",
+    clientName: "Família Oliveira",
     stage: "solicitacao",
     priority: "media",
     ownerId: "owner-1",
@@ -139,7 +139,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
     installationType: "Residencial",
     monthlyConsumption: 450,
     technicalNotes:
-      "Cliente interessado em instalacao solar residencial com capacidade para gerar cerca de 500 kWh/mes. Telhado com area suficiente para 15 modulos.",
+      "Cliente interessado em instalação solar residencial com capacidade para gerar cerca de 500 kWh/mês. Telhado com área suficiente para 15 módulos.",
     isAwaitingInformation: false,
     attachments: [
       {
@@ -156,14 +156,14 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "solicitacao",
         changedAt: "2026-03-10T09:00:00Z",
         changedBy: "owner-1",
-        notes: "Solicitacao recebida via CRM",
+        notes: "Solicitação recebida via CRM",
       },
     ],
   },
   {
     id: "ant-2026-002",
     title: "Projeto comercial - Centro",
-    clientName: "Comercio XYZ Ltda",
+    clientName: "Comércio XYZ Ltda",
     stage: "analise-tecnica",
     priority: "alta",
     ownerId: "owner-2",
@@ -172,7 +172,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
     installationType: "Comercial",
     monthlyConsumption: 1200,
     technicalNotes:
-      "Propriedade comercial com telhado grande. Necessario verificar estrutura para suportar os modulos. Aguardando visita tecnica para medicoes.",
+      "Propriedade comercial com telhado grande. Necessário verificar estrutura para suportar os módulos. Aguardando visita técnica para medições.",
     isAwaitingInformation: true,
     attachments: [
       {
@@ -200,7 +200,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "analise-tecnica",
         changedAt: "2026-03-09T14:00:00Z",
         changedBy: "owner-2",
-        notes: "Iniciada analise tecnica do projeto",
+        notes: "Iniciada análise técnica do projeto",
       },
     ],
   },
@@ -216,7 +216,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
     installationType: "Rural",
     monthlyConsumption: 3500,
     technicalNotes:
-      "Projeto de grande porte para fazenda. Sistema de bombeamento solar integrado. Estrutura ja aprovada pelo engenheiro responsavel.",
+      "Projeto de grande porte para fazenda. Sistema de bombeamento solar integrado. Estrutura já aprovada pelo engenheiro responsável.",
     isAwaitingInformation: false,
     attachments: [
       {
@@ -243,23 +243,23 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "em-revisao",
         changedAt: "2026-03-10T09:00:00Z",
         changedBy: "owner-1",
-        notes: "Proposta gerada, aguardando revisao comercial",
+        notes: "Proposta gerada, aguardando revisão comercial",
       },
     ],
   },
   {
     id: "ant-2026-004",
-    title: "Condominio residencial",
-    clientName: "Condominio Jardim Verde",
+    title: "Condomínio residencial",
+    clientName: "Condomínio Jardim Verde",
     stage: "retorno-comercial",
     priority: "media",
     ownerId: "owner-3",
     originCrmOpportunityId: "opp-2026-004",
     proposalId: "prop-2026-002",
-    installationType: "Condominio",
+    installationType: "Condomínio",
     monthlyConsumption: 2800,
     technicalNotes:
-      "Condominio com 4 torres. Analise completa realizada. Proposta comercial enviada para sindico. Aguardando retorno da assembleia.",
+      "Condomínio com 4 torres. Análise completa realizada. Proposta comercial enviada para sindico. Aguardando retorno da assembleia.",
     isAwaitingInformation: false,
     attachments: [
       {
@@ -297,13 +297,13 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "retorno-comercial",
         changedAt: "2026-03-08T11:00:00Z",
         changedBy: "owner-3",
-        notes: "Proposta enviada para analise do condominio",
+        notes: "Proposta enviada para análise do condomínio",
       },
     ],
   },
   {
     id: "ant-2026-005",
-    title: "Industria de alimentos",
+    title: "Indústria de alimentos",
     clientName: "Alimentos Premium Ltda",
     stage: "aguardando-cliente",
     priority: "alta",
@@ -313,7 +313,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
     installationType: "Industrial",
     monthlyConsumption: 8500,
     technicalNotes:
-      "Projeto industrial de grande porte. Necessario aguardar aprovacao do conselho administrativo do cliente. Documentacao tecnica completa enviada.",
+      "Projeto industrial de grande porte. Necessário aguardar aprovação do conselho administrativo do cliente. Documentação técnica completa enviada.",
     isAwaitingInformation: true,
     attachments: [
       {
@@ -350,13 +350,13 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "aguardando-cliente",
         changedAt: "2026-03-10T16:00:00Z",
         changedBy: "owner-2",
-        notes: "Proposta apresentada, aguardando decisao do cliente",
+        notes: "Proposta apresentada, aguardando decisão do cliente",
       },
     ],
   },
   {
     id: "ant-2026-006",
-    title: "Escritorio corporativo",
+    title: "Escritório corporativo",
     clientName: "Tech Solutions SA",
     stage: "aprovado-ou-recusado",
     priority: "media",
@@ -366,7 +366,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
     installationType: "Comercial",
     monthlyConsumption: 2200,
     technicalNotes:
-      "Projeto aprovado pelo cliente. Contrato em fase de assinatura. Inicio da instalacao previsto para o proximo mes.",
+      "Projeto aprovado pelo cliente. Contrato em fase de assinatura. Início da instalação previsto para o próximo mês.",
     isAwaitingInformation: false,
     attachments: [
       {
@@ -408,7 +408,7 @@ export const ANTEPROJECTS: AnteprojectRecord[] = [
         stage: "aprovado-ou-recusado",
         changedAt: "2026-03-12T16:00:00Z",
         changedBy: "owner-1",
-        notes: "Projeto aprovado! Iniciar processo de contratacao",
+        notes: "Projeto aprovado! Iniciar processo de contratação",
       },
     ],
   },
@@ -451,7 +451,7 @@ export function getAnteprojectResponsibleOptions(): Array<{
   label: string
 }> {
   return [
-    { value: "all", label: "Selecione um responsavel..." },
+    { value: "all", label: "Selecione um responsável..." },
     ...ANTEPROJECT_OWNERS.map((owner) => ({
       value: owner.id,
       label: owner.name,
@@ -469,7 +469,7 @@ export function getAnteprojectPriorityOptions(): Array<{
   return [
     { value: "all", label: "Selecione a prioridade..." },
     { value: "alta", label: "Alta" },
-    { value: "media", label: "Media" },
+    { value: "media", label: "Média" },
     { value: "baixa", label: "Baixa" },
   ]
 }

@@ -113,7 +113,7 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
   // Oportunidades section (4 folders)
   {
     id: "folder-opp-001",
-    name: "Oportunidade - Residencial Solar",
+    name: "Oportunidade - Residêncial Solar",
     section: "oportunidades",
     entityId: "opp-2026-001",
     entityStatus: "Em andamento",
@@ -144,7 +144,7 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
   },
   {
     id: "folder-opp-002",
-    name: "Oportunidade - Comercio XYZ",
+    name: "Oportunidade - Comércio XYZ",
     section: "oportunidades",
     entityId: "opp-2026-002",
     entityStatus: "Aguardando",
@@ -175,7 +175,7 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
   },
   {
     id: "folder-opp-003",
-    name: "Oportunidade - Condominio Jardim Verde",
+    name: "Oportunidade - Condomínio Jardim Verde",
     section: "oportunidades",
     entityId: "opp-2026-004",
     entityStatus: "Em andamento",
@@ -209,7 +209,7 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
     name: "Oportunidade - Fazenda Solar Interior",
     section: "oportunidades",
     entityId: "opp-2026-003",
-    entityStatus: "Concluido",
+    entityStatus: "Concluído",
     entityResponsible: "Carlos Silva",
     createdAt: "2025-01-08",
     fileCount: 6,
@@ -238,7 +238,7 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
   // Obras section (3 folders)
   {
     id: "folder-obra-001",
-    name: "Obra - Residencia Medeiros",
+    name: "Obra - Residência Medeiros",
     section: "obras",
     entityId: "obra-2026-001",
     entityStatus: "Em andamento",
@@ -300,10 +300,10 @@ export const DRIVE_FOLDERS: DriveFolder[] = [
   },
   {
     id: "folder-obra-003",
-    name: "Obra - Condominio Verde",
+    name: "Obra - Condomínio Verde",
     section: "obras",
     entityId: "obra-2026-003",
-    entityStatus: "Concluido",
+    entityStatus: "Concluído",
     entityResponsible: "Bruno Lima",
     createdAt: "2025-01-20",
     fileCount: 7,

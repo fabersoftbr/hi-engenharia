@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
@@ -84,7 +84,7 @@ describe("responsive-layouts", () => {
       // Contract: shell header must use h-16 (64px)
       render(
         <header data-testid="shell-header" className="flex h-16 items-center">
-          <span>Hi Engenharia</span>
+          <span>HI Engenharia</span>
         </header>
       )
 

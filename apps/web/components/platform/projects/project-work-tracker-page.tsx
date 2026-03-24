@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowLeftIcon, PlusIcon, PencilIcon } from "lucide-react"
+import { ArrowLeftIcon, PlusIcon } from "lucide-react"
 import {
   Card,
   CardContent,
@@ -198,7 +198,7 @@ export function ProjectWorkTrackerPage({
 
   const dialogTitle = editingMilestone ? "Editar marco" : "Adicionar marco"
   const dialogDescription = editingMilestone
-    ? "Atualize as informacoes do marco."
+    ? "Atualize as informações do marco."
     : "Preencha os campos para adicionar um novo marco."
 
   const formContent = (
@@ -239,7 +239,7 @@ export function ProjectWorkTrackerPage({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="responsibleId">Responsavel</Label>
+        <Label htmlFor="responsibleId">Responsável</Label>
         <Input
           id="responsibleId"
           value={formData.responsibleId}
@@ -273,7 +273,7 @@ export function ProjectWorkTrackerPage({
         </Select>
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="notes">Observacoes</Label>
+        <Label htmlFor="notes">Observações</Label>
         <Textarea
           id="notes"
           value={formData.notes}

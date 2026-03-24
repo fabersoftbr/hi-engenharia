@@ -21,23 +21,15 @@ import {
 } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
-import { Separator } from "@workspace/ui/components/separator"
 import { AnteprojectStageBadge } from "./anteproject-stage-badge"
 import { AnteprojectPriorityBadge } from "./anteproject-priority-badge"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
 import { getAnteprojectLineage, getVoltarRoute } from "@/lib/journey-lineage"
+import { formatFileSize } from "@/lib/utils/format"
 
 interface AnteprojectDetailPageProps {
   anteproject: AnteprojectRecord
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 Bytes"
-  const k = 1024
-  const sizes = ["Bytes", "KB", "MB", "GB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`
 }
 
 function formatTimelineDate(isoString: string): string {
@@ -130,7 +122,6 @@ export function AnteprojectDetailPage({
             {anteproject.isAwaitingInformation && (
               <span className="flex items-center gap-1 text-sm text-destructive">
                 <AlertCircleIcon className="size-4" />
-                Aguardando informacoes
               </span>
             )}
           </div>
@@ -144,7 +135,7 @@ export function AnteprojectDetailPage({
           {/* Technical summary */}
           <Card>
             <CardHeader>
-              <CardTitle>Resumo tecnico</CardTitle>
+              <CardTitle>Resumo técnico</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -153,11 +144,11 @@ export function AnteprojectDetailPage({
                   <p className="font-medium">{anteproject.clientName}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Instalacao</p>
+                  <p className="text-sm text-muted-foreground">Instalação</p>
                   <p className="font-medium">{anteproject.installationType}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Consumo medio</p>
+                  <p className="text-sm text-muted-foreground">Consumo médio</p>
                   <p className="font-medium">
                     {anteproject.monthlyConsumption !== null
                       ? `${anteproject.monthlyConsumption} kWh`
@@ -165,7 +156,7 @@ export function AnteprojectDetailPage({
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Responsavel</p>
+                  <p className="text-sm text-muted-foreground">Responsável</p>
                   <div className="flex items-center gap-2">
                     <Avatar className="size-6">
                       <AvatarFallback className="text-xs">
@@ -178,7 +169,7 @@ export function AnteprojectDetailPage({
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">
-                  Observacoes tecnicas
+                  Observações técnicas
                 </p>
                 <p className="text-sm whitespace-pre-wrap">
                   {anteproject.technicalNotes || "-"}
@@ -206,7 +197,7 @@ export function AnteprojectDetailPage({
                           {attachment.name}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          {formatBytes(attachment.size)}
+                          {formatFileSize(attachment.size)}
                         </span>
                       </div>
                     </li>
@@ -311,7 +302,7 @@ export function AnteprojectDetailPage({
                           {attachment.name}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          {formatBytes(attachment.size)}
+                          {formatFileSize(attachment.size)}
                         </span>
                       </div>
                     </li>

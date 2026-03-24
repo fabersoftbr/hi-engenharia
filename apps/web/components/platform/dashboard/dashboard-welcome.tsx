@@ -18,10 +18,10 @@ export function DashboardWelcome({
         <div className="flex flex-col gap-2">
           <p className="text-lg font-medium">
             {getGreeting()}, <Badge variant="default">{profileLabel}</Badge>.
-            Voce tem {totalPendingCount} pendencias abertas.
+            Você tem {totalPendingCount} pendências abertas.
           </p>
           <p className="text-muted-foreground">
-            Acompanhe os modulos mais importantes do dia.
+            Acompanhe os módulos mais importantes do dia.
           </p>
         </div>
       </CardContent>

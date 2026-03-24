@@ -11,9 +11,7 @@ export function JourneyTimeline({ modules }: JourneyTimelineProps) {
   if (modules.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-12 text-center">
-        <p className="text-muted-foreground">
-          Nenhum modulo com itens ativos no momento.
-        </p>
+        <p className="text-muted-foreground"></p>
       </div>
     )
   }
@@ -23,7 +21,6 @@ export function JourneyTimeline({ modules }: JourneyTimelineProps) {
       {modules.map((mod, index) => (
         <JourneyCard
           key={mod.id}
-          id={mod.id}
           label={mod.label}
           route={mod.route}
           icon={mod.icon}

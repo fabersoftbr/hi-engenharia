@@ -54,7 +54,7 @@ export function AnteprojectListPage({
     },
     {
       accessorKey: "isAwaitingInformation",
-      header: "Aguardando informacoes",
+      header: "",
       cell: ({ row }: { row: Row<AnteprojectRecord> }) => {
         if (!row.original.isAwaitingInformation) {
           return <span className="hidden lg:table-cell">-</span>
@@ -68,7 +68,7 @@ export function AnteprojectListPage({
     },
     {
       accessorKey: "ownerId",
-      header: "Responsavel",
+      header: "",
       cell: ({ row }: { row: Row<AnteprojectRecord> }) => {
         const owner = getAnteprojectOwnerById(row.original.ownerId)
         return (

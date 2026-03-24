@@ -61,7 +61,7 @@ export interface DashboardHighlight {
 const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   admin: [
     {
-      label: "Nova solicitacao de orcamento",
+      label: "Nova solicitação de orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
@@ -69,32 +69,32 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
     { label: "Novo anteprojeto", route: "/anteprojetos", icon: PlusIcon },
     { label: "Novo comunicado", route: "/comunicacao", icon: PlusIcon },
     {
-      label: "Abrir tabela de precos",
+      label: "Abrir tabela de preços",
       route: "/tabela-de-precos",
       icon: TableIcon,
     },
   ],
   commercial: [
     {
-      label: "Nova solicitacao de orcamento",
+      label: "Nova solicitação de orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
     { label: "Nova oportunidade", route: "/crm", icon: PlusIcon },
     { label: "Montar proposta", route: "/propostas", icon: FileChartLineIcon },
     {
-      label: "Abrir tabela de precos",
+      label: "Abrir tabela de preços",
       route: "/tabela-de-precos",
       icon: TableIcon,
     },
   ],
   partner: [
     {
-      label: "Nova solicitacao de orcamento",
+      label: "Nova solicitação de orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
-    { label: "Ver meus orcamentos", route: "/orcamentos", icon: EyeIcon },
+    { label: "Ver meus orçamentos", route: "/orcamentos", icon: EyeIcon },
   ],
   operations: [
     { label: "Novo anteprojeto", route: "/anteprojetos", icon: PlusIcon },
@@ -104,7 +104,7 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   ],
   cliente: [
     {
-      label: "Nova solicitacao de orcamento",
+      label: "Nova solicitação de orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
@@ -141,24 +141,24 @@ export const DASHBOARD_ANNOUNCEMENTS: DashboardAnnouncement[] = [
   },
   {
     id: "ann-2",
-    title: "Janela de manutencao do portal",
+    title: "Janela de manutenção do portal",
     date: "2026-03-22",
     preview:
-      "O portal ficara indisponivel no domingo das 6h as 8h para manutencao programada.",
+      "O portal ficará indisponível no domingo das 6h às 8h para manutenção programada.",
   },
   {
     id: "ann-3",
-    title: "Atualizacao da tabela de precos",
+    title: "Atualização da tabela de preços",
     date: "2026-03-19",
     preview:
-      "Novos valores de materiais foram atualizados na tabela de precos oficial.",
+      "Novos valores de materiais foram atualizados na tabela de preços oficial.",
   },
   {
     id: "ann-4",
-    title: "Ritmo de aprovacao das obras",
+    title: "Ritmo de aprovação das obras",
     date: "2026-03-18",
     preview:
-      "Veja o relatorio mensal sobre o ritmo de aprovacao dos projetos em andamento.",
+      "Veja o relatório mensal sobre o ritmo de aprovação dos projetos em andamento.",
   },
 ]
 
@@ -166,28 +166,28 @@ export const DASHBOARD_ANNOUNCEMENTS: DashboardAnnouncement[] = [
 export const DASHBOARD_HIGHLIGHTS: DashboardHighlight[] = [
   {
     id: "high-1",
-    message: "Orcamento #1234 aguarda aprovacao ha 3 dias",
-    moduleLabel: "Orcamentos",
+    message: "Orçamento #1234 aguarda aprovação há 3 dias",
+    moduleLabel: "Orçamentos",
     moduleRoute: "/orcamentos",
     urgent: true,
   },
   {
     id: "high-2",
-    message: "Cliente ABC Ltda. nao responde ha 5 dias",
+    message: "Cliente ABC Ltda. não responde há 5 dias",
     moduleLabel: "CRM",
     moduleRoute: "/crm",
     urgent: true,
   },
   {
     id: "high-3",
-    message: "Anteprojeto #89 com revisao pendente",
+    message: "Anteprojeto #89 com revisão pendente",
     moduleLabel: "Anteprojetos",
     moduleRoute: "/anteprojetos",
     urgent: false,
   },
   {
     id: "high-4",
-    message: "Obra Residencial Park - vistoria agendada",
+    message: "Obra Residêncial Park - vistoria agendada",
     moduleLabel: "Obras",
     moduleRoute: "/obras",
     urgent: false,

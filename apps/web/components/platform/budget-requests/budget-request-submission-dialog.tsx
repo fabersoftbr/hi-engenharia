@@ -34,11 +34,8 @@ export function BudgetRequestSubmissionDialog({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Solicitacao enviada</DialogTitle>
-          <DialogDescription>
-            A solicitacao foi registrada neste fluxo visual e ja pode seguir
-            para acompanhamento.
-          </DialogDescription>
+          <DialogTitle>Solicitação enviada</DialogTitle>
+          <DialogDescription>para acompanhamento.</DialogDescription>
         </DialogHeader>
 
         {submittedData && (

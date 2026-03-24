@@ -107,6 +107,9 @@ export function DataTable<TData, TValue>({
     [columnVisibility, onColumnVisibilityChange]
   )
 
+  // TanStack Table exposes a mutable instance; React Compiler should
+  // skip memoizing this component, which is expected here.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
@@ -192,7 +195,7 @@ export function DataTable<TData, TValue>({
 
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          Pagina {table.getState().pagination.pageIndex + 1} de{" "}
+          Página {table.getState().pagination.pageIndex + 1} de{" "}
           {table.getPageCount()}
         </div>
         <div className="flex gap-2">
@@ -210,7 +213,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Proximo
+            Próximo
           </Button>
         </div>
       </div>

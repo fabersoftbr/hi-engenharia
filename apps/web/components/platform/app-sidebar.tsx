@@ -62,10 +62,25 @@ export function AppSidebar() {
   const groupedModules = getGroupedModulesForProfile(activeProfile)
 
   return (
-    <Sidebar>
-      <SidebarHeader className="border-b border-sidebar-border px-4 py-3">
-        <Link href="/portal" className="flex items-center gap-2">
-          <BrandLogo variant="full" />
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="border-b border-sidebar-border px-4 py-3 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
+        <Link
+          href="/portal"
+          className="flex items-center gap-2 group-data-[collapsible=icon]:hidden"
+        >
+          <BrandLogo
+            variant="full"
+            tone="auto"
+            className="py-1"
+            imageClassName="w-40"
+            priority
+          />
+        </Link>
+        <Link
+          href="/portal"
+          className="hidden items-center justify-center group-data-[collapsible=icon]:flex"
+        >
+          <BrandLogo variant="mark" tone="auto" imageClassName="w-9" />
         </Link>
       </SidebarHeader>
       <SidebarContent>

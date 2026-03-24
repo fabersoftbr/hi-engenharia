@@ -68,8 +68,8 @@ export default function ErrorPage() {
           Ops, algo deu errado
         </h1>
         <p className="text-base text-muted-foreground">
-          Encontramos um problema inesperado. Nao se preocupe, nossa equipe ja
-          foi notificada. Voce pode tentar novamente ou voltar para a pagina
+          Encontramos um problema inesperado. Não se preocupe, nossa equipe já
+          foi notificada. Você pode tentar novamente ou voltar para a página
           inicial.
         </p>
       </div>
@@ -79,7 +79,7 @@ export default function ErrorPage() {
           Tentar novamente
         </Button>
         <Button variant="outline" size="lg" asChild>
-          <Link href="/">Voltar ao inicio</Link>
+          <Link href="/">Voltar ao início</Link>
         </Button>
       </div>
     </div>

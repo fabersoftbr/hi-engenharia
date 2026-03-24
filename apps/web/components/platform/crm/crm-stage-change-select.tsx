@@ -73,7 +73,7 @@ export function CrmStageChangeSelect({
           <AlertDialogHeader>
             <AlertDialogTitle>Confirmar mudanca de etapa</AlertDialogTitle>
             <AlertDialogDescription>
-              Ao mover para Fechado, esta acao nao podera ser revertida.
+              Ao mover para Fechado, esta
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

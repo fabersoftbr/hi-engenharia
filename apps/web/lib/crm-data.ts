@@ -86,11 +86,11 @@ export const CRM_STAGE_META: Record<
   lead: { label: "Lead", variant: "secondary" },
   "em-contato": { label: "Em Contato", variant: "secondary" },
   qualificado: { label: "Qualificado", variant: "secondary" },
-  "visita-tecnica": { label: "Visita Tecnica", variant: "secondary" },
+  "visita-tecnica": { label: "Visita Técnica", variant: "secondary" },
   "proposta-enviada": { label: "Proposta Enviada", variant: "outline" },
-  negociacao: { label: "Negociacao", variant: "outline" },
-  revisao: { label: "Revisao", variant: "outline" },
-  "aguardando-aprovacao": { label: "Aguardando Aprovacao", variant: "outline" },
+  negociacao: { label: "Negociação", variant: "outline" },
+  revisao: { label: "Revisão", variant: "outline" },
+  "aguardando-aprovacao": { label: "Aguardando Aprovação", variant: "outline" },
   "contrato-assinado": { label: "Contrato Assinado", variant: "default" },
   fechado: { label: "Fechado", variant: "default" },
 }
@@ -106,7 +106,7 @@ export const CRM_PRIORITY_META: Record<
   }
 > = {
   alta: { label: "Alta", variant: "destructive" },
-  media: { label: "Media", variant: "outline" },
+  media: { label: "Média", variant: "outline" },
   baixa: { label: "Baixa", variant: "secondary" },
 }
 
@@ -126,8 +126,8 @@ export const CRM_OWNERS: CrmOwner[] = [
 export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   {
     id: "opp-2026-001",
-    title: "Instalacao residencial - Zona Sul",
-    company: "Familia Oliveira",
+    title: "Instalação residencial - Zona Sul",
+    company: "Família Oliveira",
     stage: "lead",
     priority: "media",
     ownerId: "owner-1",
@@ -146,7 +146,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   {
     id: "opp-2026-002",
     title: "Projeto comercial - Centro",
-    company: "Comercio XYZ Ltda",
+    company: "Comércio XYZ Ltda",
     stage: "em-contato",
     priority: "alta",
     ownerId: "owner-2",
@@ -198,8 +198,8 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   },
   {
     id: "opp-2026-004",
-    title: "Condominio residencial",
-    company: "Condominio Jardim Verde",
+    title: "Condomínio residencial",
+    company: "Condomínio Jardim Verde",
     stage: "visita-tecnica",
     priority: "media",
     ownerId: "owner-3",
@@ -232,7 +232,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   },
   {
     id: "opp-2026-005",
-    title: "Industria de alimentos",
+    title: "Indústria de alimentos",
     company: "Alimentos Premium Ltda",
     stage: "proposta-enviada",
     priority: "alta",
@@ -271,7 +271,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   },
   {
     id: "opp-2026-006",
-    title: "Escritorio corporativo",
+    title: "Escritório corporativo",
     company: "Tech Solutions SA",
     stage: "negociacao",
     priority: "media",
@@ -316,7 +316,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   {
     id: "opp-2026-007",
     title: "Hospital regional",
-    company: "Hospital Saude Total",
+    company: "Hospital Saúde Total",
     stage: "revisao",
     priority: "alta",
     ownerId: "owner-3",
@@ -365,7 +365,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   {
     id: "opp-2026-008",
     title: "Escola particular",
-    company: "Colegio Futuro Brilhante",
+    company: "Colégio Futuro Brilhante",
     stage: "aguardando-aprovacao",
     priority: "baixa",
     ownerId: "owner-2",
@@ -418,7 +418,7 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   },
   {
     id: "opp-2026-009",
-    title: "Shopping center - Area comum",
+    title: "Shopping center - Área comum",
     company: "Shopping Center Plaza",
     stage: "contrato-assinado",
     priority: "media",
@@ -477,8 +477,8 @@ export const CRM_OPPORTUNITIES: CrmOpportunityRecord[] = [
   },
   {
     id: "opp-2026-010",
-    title: "Residencia de luxo - Alphaville",
-    company: "Residencia Medeiros",
+    title: "Residência de luxo - Alphaville",
+    company: "Residência Medeiros",
     stage: "fechado",
     priority: "alta",
     ownerId: "owner-3",
@@ -578,7 +578,7 @@ export function getCrmResponsibleOptions(): Array<{
   label: string
 }> {
   return [
-    { value: "all", label: "Todos os responsaveis" },
+    { value: "all", label: "Todos os responsáveis" },
     ...CRM_OWNERS.map((owner) => ({
       value: owner.id,
       label: owner.name,
@@ -596,7 +596,7 @@ export function getCrmPriorityOptions(): Array<{
   return [
     { value: "all", label: "Todas as prioridades" },
     { value: "alta", label: "Alta" },
-    { value: "media", label: "Media" },
+    { value: "media", label: "Média" },
     { value: "baixa", label: "Baixa" },
   ]
 }

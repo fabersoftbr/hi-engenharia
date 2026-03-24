@@ -2,6 +2,12 @@
 
 import Link from "next/link"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card"
 import type { DashboardQuickAction } from "@/lib/dashboard-data"
 
 export interface DashboardQuickActionsProps {
@@ -12,18 +18,31 @@ export function DashboardQuickActions({ actions }: DashboardQuickActionsProps) {
   if (actions.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-3">
-      <h2 className="text-base font-medium">Acoes Rapidas</h2>
-      <div className="flex flex-wrap gap-3">
-        {actions.map((action, index) => (
-          <Button key={index} variant="outline" asChild>
-            <Link href={action.route}>
-              <action.icon data-icon="inline-start" />
-              {action.label}
-            </Link>
-          </Button>
-        ))}
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Acoes Rapidas</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {actions.map((action, index) => (
+            <Button
+              key={index}
+              variant="outline"
+              className="flex h-auto flex-col items-center gap-2 px-2 py-3"
+              asChild
+            >
+              <Link href={action.route}>
+                <div className="flex size-7 items-center justify-center rounded-full bg-primary/10">
+                  <action.icon className="size-3.5 text-primary" />
+                </div>
+                <span className="text-center text-xs leading-tight font-medium">
+                  {action.label}
+                </span>
+              </Link>
+            </Button>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

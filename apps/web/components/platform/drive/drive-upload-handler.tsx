@@ -77,7 +77,7 @@ export function triggerDownload(file: DriveFile) {
   toast.loading("Preparando download...", { id: DOWNLOAD_TOAST_ID })
   setTimeout(() => {
     toast.dismiss(DOWNLOAD_TOAST_ID)
-    showSuccessToast("Download concluido")
+    showSuccessToast(`Download de ${file.name} concluido`)
   }, 1500)
 }
 

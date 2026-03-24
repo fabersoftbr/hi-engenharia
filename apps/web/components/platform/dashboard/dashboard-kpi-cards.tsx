@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   AlertCircleIcon,
   LayersIcon,
@@ -25,7 +26,7 @@ export interface DashboardKpiCardsProps {
   kpis: KpiData
 }
 
-export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
+function DashboardKpiCardsInner({ kpis }: DashboardKpiCardsProps) {
   const { totalItems, totalPending, unreadAnnouncements, mostActiveModule } =
     kpis
 
@@ -103,3 +104,6 @@ export function DashboardKpiCards({ kpis }: DashboardKpiCardsProps) {
     </div>
   )
 }
+
+// Memoize the component to prevent re-renders during sidebar animation
+export const DashboardKpiCards = React.memo(DashboardKpiCardsInner)

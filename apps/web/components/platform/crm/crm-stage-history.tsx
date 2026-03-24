@@ -19,11 +19,7 @@ function formatDate(dateString: string): string {
 
 export function CrmStageHistory({ history }: CrmStageHistoryProps) {
   if (history.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        Nenhum historico disponivel.
-      </p>
-    )
+    return <p className="text-sm text-muted-foreground"></p>
   }
 
   return (

@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useCallback } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useForm, useFieldArray, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { PlusIcon, Trash2Icon, SaveIcon } from "lucide-react"
+import { SaveIcon } from "lucide-react"
 import { Card, CardContent } from "@workspace/ui/components/card"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
@@ -44,7 +44,7 @@ export function ProposalBuilderPage() {
   const opportunityId = searchParams.get("opportunityId")
   const anteprojectId = searchParams.get("anteprojectId")
 
-  const [showOriginDialog, setShowOriginDialog] = useState(false)
+  const [originDialogDismissed, setOriginDialogDismissed] = useState(false)
   const [selectedOrigin, setSelectedOrigin] =
     useState<ProposalOriginType | null>(null)
 
@@ -57,7 +57,7 @@ export function ProposalBuilderPage() {
     register,
     handleSubmit,
     control,
-    watch,
+    getValues,
     setValue,
     formState: { errors, isSubmitting },
   } = form
@@ -71,15 +71,11 @@ export function ProposalBuilderPage() {
     name: "items",
   })
 
-  const items = watch("items")
-  const grandTotal = items ? calculateItemsGrandTotal(items) : 0
-
-  // Check if we have origin params - if not, show origin dialog
-  useEffect(() => {
-    if (!opportunityId && !anteprojectId) {
-      setShowOriginDialog(true)
-    }
-  }, [opportunityId, anteprojectId])
+  const items = useWatch({ control, name: "items" }) ?? []
+  const validityDays = useWatch({ control, name: "validityDays" })
+  const grandTotal = calculateItemsGrandTotal(items)
+  const showOriginDialog =
+    !opportunityId && !anteprojectId && !originDialogDismissed
 
   const handleOriginSelect = useCallback(
     (originType: ProposalOriginType) => {
@@ -130,13 +126,13 @@ export function ProposalBuilderPage() {
       setValue(`items.${itemIndex}.itemCode`, itemCode)
       setValue(`items.${itemIndex}.description`, description)
       setValue(`items.${itemIndex}.unitPrice`, unitPrice)
-      const quantity = watch(`items.${itemIndex}.quantity`) || 1
+      const quantity = getValues(`items.${itemIndex}.quantity`) || 1
       setValue(`items.${itemIndex}.totalPrice`, unitPrice * quantity)
     },
-    [setValue, watch]
+    [getValues, setValue]
   )
 
-  const onSubmit = async (data: ProposalFormValues) => {
+  const onSubmit = async () => {
     // Simulated submit - no real persistence
     // Show success and redirect
     router.push("/propostas")
@@ -209,12 +205,12 @@ export function ProposalBuilderPage() {
           <Card>
             <CardContent className="p-6">
               <h2 className="mb-4 text-lg font-semibold">
-                Descricao do projeto
+                Descrição do projeto
               </h2>
               <FieldGroup>
                 <Field data-invalid={!!errors.projectDescription}>
                   <FieldLabel htmlFor="projectDescription">
-                    Descricao <span className="text-destructive">*</span>
+                    Descrição <span className="text-destructive">*</span>
                   </FieldLabel>
                   <Textarea
                     id="projectDescription"
@@ -238,9 +234,8 @@ export function ProposalBuilderPage() {
             <CardContent className="p-6">
               <ProposalItemsSection
                 itemFields={itemFields}
+                control={control}
                 register={register}
-                watch={watch}
-                errors={errors}
                 onAddItem={addItem}
                 onRemoveItem={removeItem}
                 onUpdateItemTotal={updateItemTotal}
@@ -296,7 +291,7 @@ export function ProposalBuilderPage() {
               <div className="space-y-2">
                 <Label htmlFor="validityDays">Prazo de validade</Label>
                 <Select
-                  value={String(watch("validityDays") || "30")}
+                  value={String(validityDays || "30")}
                   onValueChange={(value) =>
                     setValue("validityDays", Number(value))
                   }
@@ -334,7 +329,7 @@ export function ProposalBuilderPage() {
 
       <ProposalOriginDialog
         isOpen={showOriginDialog}
-        onClose={() => setShowOriginDialog(false)}
+        onClose={() => setOriginDialogDismissed(true)}
         onSelect={handleOriginSelect}
       />
     </>

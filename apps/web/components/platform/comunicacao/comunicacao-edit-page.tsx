@@ -47,13 +47,13 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
   const validate = () => {
     const newErrors: Record<string, string> = {}
     if (!title.trim()) {
-      newErrors.title = "Titulo e obrigatorio"
+      newErrors.title = "Título é obrigatório"
     }
     if (!category) {
-      newErrors.category = "Categoria e obrigatoria"
+      newErrors.category = "Categoria é obrigatória"
     }
     if (!content.trim()) {
-      newErrors.content = "Conteudo e obrigatorio"
+      newErrors.content = "Conteúdo é obrigatório"
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -63,13 +63,6 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
     if (!validate()) {
       return
     }
-
-    // Update the comunicado in the array (mock persistence)
-    const index = comunicado.id
-      ? // Find by ID and update
-        (window as unknown as { __comunicados_index?: number })
-          .__comunicados_index
-      : undefined
 
     // Mock update - in real app this would be an API call
     showSuccessToast("Comunicado atualizado com sucesso")
@@ -99,7 +92,7 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
       {/* Form */}
       <FieldGroup>
         <Field data-invalid={!!errors.title}>
-          <FieldLabel htmlFor="edit-title">Titulo</FieldLabel>
+          <FieldLabel htmlFor="edit-title">Título</FieldLabel>
           <Input
             id="edit-title"
             value={title}
@@ -138,7 +131,7 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
         </Field>
 
         <Field data-invalid={!!errors.content}>
-          <FieldLabel htmlFor="edit-content">Conteudo</FieldLabel>
+          <FieldLabel htmlFor="edit-content">Conteúdo</FieldLabel>
           <Textarea
             id="edit-content"
             value={content}
@@ -170,7 +163,7 @@ export function ComunicacaoEditPage({ comunicado }: ComunicacaoEditPageProps) {
         <Button variant="outline" asChild>
           <Link href={`/comunicacao/${comunicado.id}`}>Cancelar</Link>
         </Button>
-        <Button onClick={handleSave}>Salvar alteracoes</Button>
+        <Button onClick={handleSave}>Salvar alterações</Button>
       </div>
     </div>
   )

@@ -95,13 +95,13 @@ function getActiveWorksCount(): number {
 
 /**
  * Ordered list of journey modules representing the operational chain.
- * Order: Orcamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra
+ * Order: Orçamento -> CRM -> Anteprojeto -> Proposta -> Projeto -> Obra
  */
 export function getJourneyModules(): JourneyModule[] {
   return [
     {
       id: "orcamentos",
-      label: "Orcamento",
+      label: "Orçamento",
       route: "/orcamentos",
       icon: FileTextIcon,
       activeCount: getActiveBudgetRequestsCount(),
@@ -161,6 +161,7 @@ export interface JourneyPendency {
   moduleRoute: string
   message: string
   count: number
+  icon: LucideIcon
 }
 
 /**
@@ -180,6 +181,7 @@ export function getJourneyPendencies(): JourneyPendency[] {
         moduleRoute: mod.route,
         message: `${mod.activeCount} ${mod.activeCount === 1 ? "item ativo" : "itens ativos"}`,
         count: mod.activeCount,
+        icon: mod.icon,
       })
     }
   }

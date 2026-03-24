@@ -41,11 +41,11 @@ export function ProposalPreview({ proposal }: ProposalPreviewProps) {
       {/* Descricao do projeto */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Descricao do projeto</CardTitle>
+          <CardTitle className="text-base">Descrição do projeto</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm whitespace-pre-wrap">
-            {proposal.projectDescription || "Sem descricao"}
+            {proposal.projectDescription || "Sem descrição"}
           </p>
         </CardContent>
       </Card>
@@ -58,7 +58,7 @@ export function ProposalPreview({ proposal }: ProposalPreviewProps) {
         <CardContent>
           <div className="flex flex-col gap-2">
             <div className="grid grid-cols-[1fr_auto_auto] gap-2 text-sm font-medium text-muted-foreground">
-              <span>Descricao</span>
+              <span>Descrição</span>
               <span className="text-right">Qtd</span>
               <span className="text-right">Total</span>
             </div>
@@ -110,7 +110,7 @@ export function ProposalPreview({ proposal }: ProposalPreviewProps) {
         </CardHeader>
         <CardContent>
           <p className="text-sm whitespace-pre-wrap">
-            {proposal.commercialTerms || "Sem condicoes especificadas"}
+            {proposal.commercialTerms || "Sem condições especificadas"}
           </p>
         </CardContent>
       </Card>

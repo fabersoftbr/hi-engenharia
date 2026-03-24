@@ -3,20 +3,12 @@
 import Link from "next/link"
 
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar"
-import { Badge } from "@workspace/ui/components/badge"
 import { Progress } from "@workspace/ui/components/progress"
 
-import {
-  getProjectOwnerById,
-  getProjectProgress,
-  type ProjectRecord,
-  type WorkStageId,
-  WORK_STAGE_META,
-} from "@/lib/projects-data"
+import { getProjectOwnerById, type ProjectRecord } from "@/lib/projects-data"
 
 interface WorksPipelineCardMobileProps {
   project: ProjectRecord
-  index: number
 }
 
 function formatDate(isoString: string): string {
@@ -29,7 +21,6 @@ function formatDate(isoString: string): string {
 
 export function WorksPipelineCardMobile({
   project,
-  index,
 }: WorksPipelineCardMobileProps) {
   const owner = getProjectOwnerById(project.ownerId)
 
@@ -69,7 +60,7 @@ export function WorksPipelineCardMobile({
                 {owner?.initials ?? "??"}
               </AvatarFallback>
             </Avatar>
-            <span>{owner?.name ?? "Nao atribuido"}</span>
+            <span>{owner?.name ?? "Não atribuído"}</span>
           </div>
         </div>
       </div>

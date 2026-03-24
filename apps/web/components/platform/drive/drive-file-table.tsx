@@ -74,7 +74,6 @@ interface DriveFileTableProps {
   onDeleteFile: (file: DriveFile) => void
   onDownload: (file: DriveFile) => void
   onRename?: (file: DriveFile) => void
-  onBulkDelete?: (fileIds: string[]) => void
   clearSelectionKey?: number
 }
 
@@ -85,14 +84,12 @@ export function DriveFileTable({
   onDeleteFile,
   onDownload,
   onRename,
-  onBulkDelete,
   clearSelectionKey,
 }: DriveFileTableProps) {
   const isMobile = useIsMobile()
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({})
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
   const [fileToDelete, setFileToDelete] = React.useState<DriveFile | null>(null)
-  const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = React.useState(false)
 
   // Drive responsive column visibility via shared contract
   const columnVisibility: VisibilityState = React.useMemo(
@@ -130,22 +127,6 @@ export function DriveFileTable({
     }
     setDeleteDialogOpen(false)
     setFileToDelete(null)
-  }
-
-  // Handle bulk delete confirmation
-  const handleBulkDeleteClick = () => {
-    setBulkDeleteDialogOpen(true)
-  }
-
-  const handleBulkDeleteConfirm = () => {
-    const selectedIds = Object.keys(rowSelection).filter(
-      (key) => rowSelection[key]
-    )
-    if (onBulkDelete && selectedIds.length > 0) {
-      onBulkDelete(selectedIds)
-    }
-    setBulkDeleteDialogOpen(false)
-    setRowSelection({})
   }
 
   // Column definitions
@@ -260,6 +241,9 @@ export function DriveFileTable({
     },
   ]
 
+  // TanStack Table manages a mutable instance; React Compiler skipping
+  // memoization here is expected for this local table object.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: files,
     columns,
@@ -338,39 +322,16 @@ export function DriveFileTable({
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir arquivo</AlertDialogTitle>
             <AlertDialogDescription>
-              Tem certeza que deseja excluir este arquivo? Esta acao nao pode
-              ser desfeita.
+              Tem certeza que deseja excluir{" "}
+              <span className="font-medium">
+                {fileToDelete?.name ?? "este arquivo"}
+              </span>
+              ? Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleDeleteConfirm}>
-              Excluir
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      {/* Bulk delete confirmation - exposed via ref for parent */}
-      <AlertDialog
-        open={bulkDeleteDialogOpen}
-        onOpenChange={setBulkDeleteDialogOpen}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Excluir arquivos</AlertDialogTitle>
-            <AlertDialogDescription>
-              Tem certeza que deseja excluir os{" "}
-              {
-                Object.keys(rowSelection).filter((key) => rowSelection[key])
-                  .length
-              }{" "}
-              arquivos selecionados?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleBulkDeleteConfirm}>
               Excluir
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -39,7 +39,7 @@ export function ComunicacaoDetailPage({
 
   const handleDelete = () => {
     setIsDeleteDialogOpen(false)
-    showSuccessToast("Comunicado excluido")
+    showSuccessToast("Comunicado excluído")
     router.push("/comunicacao")
   }
 
@@ -104,7 +104,7 @@ export function ComunicacaoDetailPage({
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir comunicado</AlertDialogTitle>
             <AlertDialogDescription>
-              Tem certeza que deseja excluir este comunicado? Esta acao nao pode
+              Tem certeza que deseja excluir este comunicado? Esta ação não pode
               ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>

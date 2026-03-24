@@ -84,7 +84,7 @@ export function DriveFolderList({
               </div>
             </TooltipTrigger>
             <TooltipContent side="top">
-              {folder.entityStatus} - Responsavel: {folder.entityResponsible}
+              {folder.entityStatus} - {folder.entityResponsible}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

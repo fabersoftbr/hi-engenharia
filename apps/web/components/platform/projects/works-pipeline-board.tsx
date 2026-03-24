@@ -73,12 +73,8 @@ export function WorksPipelineBoard({
         {WORK_STAGE_ORDER.map((stageId) => (
           <TabsContent key={stageId} value={stageId} className="mt-4">
             <div className="flex flex-col gap-3">
-              {projectsByStage[stageId].map((project, index) => (
-                <WorksPipelineCardMobile
-                  key={project.id}
-                  project={project}
-                  index={index}
-                />
+              {projectsByStage[stageId].map((project) => (
+                <WorksPipelineCardMobile key={project.id} project={project} />
               ))}
             </div>
           </TabsContent>

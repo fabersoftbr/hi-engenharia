@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { PlusIcon } from "lucide-react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { DropResult } from "@hello-pangea/dnd"
@@ -40,26 +40,28 @@ export function AnteprojectsWorkspacePage() {
     getAnteprojects()
   )
   const [isNewAnteprojectOpen, setIsNewAnteprojectOpen] = useState(false)
-  const [prefillData, setPrefillData] = useState<{
-    clientName: string
-    technicalNotes: string
-    originCrmOpportunityId: string
-  } | null>(null)
+  const [dismissedSourceOpportunityId, setDismissedSourceOpportunityId] =
+    useState<string | null>(null)
 
-  // Handle CRM handoff: open dialog with prefilled data when sourceOpportunityId is present
-  useEffect(() => {
-    if (sourceOpportunityId) {
-      const opportunity = getCrmOpportunityById(sourceOpportunityId)
-      if (opportunity) {
-        setPrefillData({
-          clientName: opportunity.company,
-          technicalNotes: `Originado de ${opportunity.title}`,
-          originCrmOpportunityId: sourceOpportunityId,
-        })
-        setIsNewAnteprojectOpen(true)
-      }
+  const handoffPrefill = useMemo(() => {
+    if (!sourceOpportunityId) return null
+
+    const opportunity = getCrmOpportunityById(sourceOpportunityId)
+    if (!opportunity) return null
+
+    return {
+      clientName: opportunity.company,
+      technicalNotes: `Originado de ${opportunity.title}`,
+      originCrmOpportunityId: sourceOpportunityId,
     }
   }, [sourceOpportunityId])
+
+  const handoffIsActive =
+    handoffPrefill !== null &&
+    dismissedSourceOpportunityId !== sourceOpportunityId
+
+  const dialogOpen = isNewAnteprojectOpen || handoffIsActive
+  const dialogPrefill = handoffIsActive ? handoffPrefill : null
 
   const filteredAnteprojects = useMemo(() => {
     return filterAnteprojects({
@@ -121,9 +123,9 @@ export function AnteprojectsWorkspacePage() {
     (newAnteproject: AnteprojectRecord) => {
       setAnteprojects((prev) => [newAnteproject, ...prev])
       setIsNewAnteprojectOpen(false)
-      setPrefillData(null)
       // Clear the query param after successful creation
       if (sourceOpportunityId) {
+        setDismissedSourceOpportunityId(sourceOpportunityId)
         router.replace("/anteprojetos")
       }
     },
@@ -132,9 +134,9 @@ export function AnteprojectsWorkspacePage() {
 
   const handleCloseDialog = useCallback(() => {
     setIsNewAnteprojectOpen(false)
-    setPrefillData(null)
     // Clear the query param when closing without creating
     if (sourceOpportunityId) {
+      setDismissedSourceOpportunityId(sourceOpportunityId)
       router.replace("/anteprojetos")
     }
   }, [sourceOpportunityId, router])
@@ -204,10 +206,10 @@ export function AnteprojectsWorkspacePage() {
       )}
 
       <NewAnteprojectDialog
-        isOpen={isNewAnteprojectOpen}
+        isOpen={dialogOpen}
         onClose={handleCloseDialog}
         onSubmit={handleNewAnteproject}
-        prefill={prefillData}
+        prefill={dialogPrefill}
       />
     </div>
   )

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useSimulatedLoading as useSimulatedLoadingHook } from "@/hooks/use-simulated-loading"
 
 const DEV_DELAY_MS = 800
 
@@ -7,23 +7,10 @@ const DEV_DELAY_MS = 800
  * In production builds, it resolves immediately (no delay).
  */
 export function useSimulatedLoading(enabled = true): boolean {
-  const [isLoading, setIsLoading] = useState(enabled)
-
-  useEffect(() => {
-    if (!enabled) {
-      setIsLoading(false)
-      return
-    }
-
-    const isDev = process.env.NODE_ENV === "development"
-    if (!isDev) {
-      setIsLoading(false)
-      return
-    }
-
-    const timer = setTimeout(() => setIsLoading(false), DEV_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [enabled])
-
+  const { isLoading } = useSimulatedLoadingHook({
+    developmentOnly: true,
+    delayMs: DEV_DELAY_MS,
+    autoStart: enabled,
+  })
   return isLoading
 }

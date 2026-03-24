@@ -14,7 +14,7 @@ const TYPE_META: Record<
   comercial: { label: "Comercial", variant: "default" },
   industrial: { label: "Industrial", variant: "outline" },
   rural: { label: "Rural", variant: "secondary" },
-  condominio: { label: "Condominio", variant: "default" },
+  condominio: { label: "Condomínio", variant: "default" },
 }
 
 interface ProjectTypeBadgeProps {

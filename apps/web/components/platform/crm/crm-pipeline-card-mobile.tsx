@@ -52,7 +52,7 @@ export function CrmPipelineCardMobile({
             <Avatar size="sm">
               <AvatarFallback>{owner?.initials ?? "??"}</AvatarFallback>
             </Avatar>
-            <span className="truncate">{owner?.name ?? "Nao atribuido"}</span>
+            <span className="truncate">{owner?.name ?? "Não atribuído"}</span>
           </div>
           <span>Ultimo contato: {formattedLastContact}</span>
         </div>

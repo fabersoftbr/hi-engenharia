@@ -136,7 +136,7 @@ export function WorksWorkspacePage() {
             onValueChange={setResponsibleFilter}
           >
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Responsavel" />
+              <SelectValue placeholder="" />
             </SelectTrigger>
             <SelectContent>
               {responsibleOptions.map((option) => (

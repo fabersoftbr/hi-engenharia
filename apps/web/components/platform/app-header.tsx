@@ -4,6 +4,7 @@ import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 import { Badge } from "@workspace/ui/components/badge"
 import { AppBreadcrumbs } from "./app-breadcrumbs"
 import { ProfileSwitcher } from "./profile-switcher"
+import { ThemeToggle } from "./theme-toggle"
 import { useActiveProfile } from "./platform-shell-provider"
 
 /** Renders the main application header with breadcrumbs and profile switcher. */
@@ -18,8 +19,9 @@ export function AppHeader() {
         <AppBreadcrumbs />
       </div>
 
-      {/* Right side: Profile badge + Profile switcher dropdown */}
+      {/* Right side: Theme toggle + Profile badge + Profile switcher dropdown */}
       <div className="flex items-center gap-3">
+        <ThemeToggle />
         <Badge variant="secondary">{profileLabel}</Badge>
         <ProfileSwitcher />
       </div>

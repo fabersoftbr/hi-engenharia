@@ -16,17 +16,10 @@ import Link from "next/link"
 import { ArrowLeftIcon, FileText } from "lucide-react"
 import { useSimulatedLoading } from "@/lib/use-simulated-loading"
 import { DetailSkeleton } from "@/components/platform/states/skeletons"
+import { formatFileSize } from "@/lib/utils/format"
 
 interface BudgetRequestDetailPageProps {
   request: BudgetRequestRecord
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 Bytes"
-  const k = 1024
-  const sizes = ["Bytes", "KB", "MB", "GB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
 }
 
 function formatDate(dateString: string): string {
@@ -60,7 +53,7 @@ export function BudgetRequestDetailPage({
               </Link>
             </Button>
           </div>
-          <h1 className="text-2xl font-semibold">Solicitacao {request.id}</h1>
+          <h1 className="text-2xl font-semibold">Solicitação {request.id}</h1>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
               {request.clientName}
@@ -113,17 +106,17 @@ export function BudgetRequestDetailPage({
             <CardContent className="flex flex-col gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">
-                  Consumo medio mensal
+                  Consumo médio mensal
                 </p>
                 <p className="font-medium">
                   {request.monthlyConsumption
                     ? `${request.monthlyConsumption} kWh`
-                    : "Nao informado"}
+                    : "Não informado"}
                 </p>
               </div>
               {request.notes && (
                 <div>
-                  <p className="text-sm text-muted-foreground">Observacoes</p>
+                  <p className="text-sm text-muted-foreground">Observações</p>
                   <p className="whitespace-pre-wrap">{request.notes}</p>
                 </div>
               )}
@@ -149,10 +142,7 @@ export function BudgetRequestDetailPage({
               <CardTitle>Acoes</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-2">
-              <BudgetRequestStatusDialog
-                currentStatus={request.status}
-                requestId={request.id}
-              />
+              <BudgetRequestStatusDialog currentStatus={request.status} />
               <Button variant="outline" asChild>
                 <Link href={`/orcamentos/nova?source=${request.id}`}>
                   Editar solicitacao
@@ -173,9 +163,7 @@ export function BudgetRequestDetailPage({
             </CardHeader>
             <CardContent>
               {request.attachments.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  Nenhum anexo disponivel.
-                </p>
+                <p className="text-sm text-muted-foreground"></p>
               ) : (
                 <ul className="flex flex-col gap-2">
                   {request.attachments.map((attachment) => (
@@ -188,7 +176,7 @@ export function BudgetRequestDetailPage({
                         <div className="flex flex-col">
                           <span className="text-sm">{attachment.name}</span>
                           <span className="text-xs text-muted-foreground">
-                            {formatBytes(attachment.size)}
+                            {formatFileSize(attachment.size)}
                           </span>
                         </div>
                       </div>

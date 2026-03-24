@@ -20,7 +20,7 @@ export async function enterPortal(formData: FormData) {
 
   // Accept any non-empty values - no real credential validation
   // Form validation (required fields) is handled client-side
-  const sessionEmail = email || "usuario@hiengenharia.com"
+  const sessionEmail = email && password ? email : "usuario@hiengenharia.com"
 
   // Create the mock session with the default profile
   const session = createMockSession(sessionEmail, DEFAULT_PROFILE)

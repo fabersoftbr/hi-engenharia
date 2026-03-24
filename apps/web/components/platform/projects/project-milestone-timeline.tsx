@@ -94,11 +94,11 @@ export function ProjectMilestoneTimeline({
                       <span>Fim: {formatDate(milestone.endDate)}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span>Responsavel: {owner?.name ?? "Nao atribuido"}</span>
+                      <span>Responsável: {owner?.name ?? "Não atribuído"}</span>
                     </div>
                     {milestone.notes && (
                       <div className="mt-1">
-                        <span>Observacoes: {milestone.notes}</span>
+                        <span>Observações: {milestone.notes}</span>
                       </div>
                     )}
                   </div>

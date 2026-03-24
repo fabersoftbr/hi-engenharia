@@ -51,9 +51,6 @@ describe("empty-states", () => {
     it("renders without description when not provided", () => {
       render(<EmptyState title="Vazio" />)
       expect(screen.getByText("Vazio")).toBeInTheDocument()
-      // No paragraph for description
-      const paragraphs = screen.queryAllByRole("paragraph")
-      // Title is h3, so checking p elements
       expect(
         screen.queryByText(
           "Tente ajustar os filtros para encontrar o que procura."
@@ -83,7 +80,7 @@ describe("empty-states", () => {
     it("hides section entirely when items array is empty", () => {
       // Simulates a parent that conditionally renders based on items
       const items: string[] = []
-      const { container } = render(
+      render(
         <div data-testid="parent">
           {items.length > 0 && (
             <section data-testid="section">

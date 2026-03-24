@@ -315,6 +315,9 @@ export function DrivePage() {
   }
 
   const handleFolderAction = (folderId: string, action: string) => {
+    void folderId
+    void action
+
     // Placeholder for folder actions - simulated functionality
   }
 
@@ -333,11 +336,15 @@ export function DrivePage() {
   }
 
   const handleDeleteFile = (file: DriveFile) => {
+    void file
+
     // Simulated delete - in real app this would call an API
     showSuccessToast("Arquivo excluido")
   }
 
   const handleRename = (file: DriveFile) => {
+    void file
+
     // Placeholder for rename functionality
     showInfoToast("Funcionalidade simulada")
   }

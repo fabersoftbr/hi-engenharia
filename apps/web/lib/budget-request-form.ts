@@ -6,17 +6,17 @@ import { z } from "zod"
  */
 export const budgetRequestFormSchema = z.object({
   clientName: z
-    .string({ invalid_type_error: "Nome e obrigatorio" })
-    .min(1, "Nome e obrigatorio"),
+    .string({ invalid_type_error: "Nome é obrigatório" })
+    .min(1, "Nome é obrigatório"),
   phone: z
-    .string({ invalid_type_error: "Telefone e obrigatorio" })
-    .min(1, "Telefone e obrigatorio"),
+    .string({ invalid_type_error: "Telefone é obrigatório" })
+    .min(1, "Telefone é obrigatório"),
   city: z
-    .string({ invalid_type_error: "Cidade e obrigatoria" })
-    .min(1, "Cidade e obrigatoria"),
+    .string({ invalid_type_error: "Cidade é obrigatória" })
+    .min(1, "Cidade é obrigatória"),
   monthlyConsumption: z
-    .number({ invalid_type_error: "Consumo mensal e obrigatorio" })
-    .min(1, "Consumo mensal e obrigatorio"),
+    .number({ invalid_type_error: "Consumo mensal é obrigatório" })
+    .min(1, "Consumo mensal é obrigatório"),
   notes: z.string().optional(),
 })
 
