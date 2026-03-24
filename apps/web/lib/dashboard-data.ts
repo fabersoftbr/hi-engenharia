@@ -61,13 +61,13 @@ export interface DashboardHighlight {
 const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   admin: [
     {
-      label: "Nova solicitação de orçamento",
+      label: "Solicitar orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
-    { label: "Nova oportunidade", route: "/crm", icon: PlusIcon },
-    { label: "Novo anteprojeto", route: "/anteprojetos", icon: PlusIcon },
-    { label: "Novo comunicado", route: "/comunicacao", icon: PlusIcon },
+    { label: "Oportunidade", route: "/crm", icon: PlusIcon },
+    { label: "Anteprojeto", route: "/anteprojetos", icon: PlusIcon },
+    { label: "Comunicado", route: "/comunicacao", icon: PlusIcon },
     {
       label: "Abrir tabela de preços",
       route: "/tabela-de-precos",
@@ -76,11 +76,11 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   ],
   commercial: [
     {
-      label: "Nova solicitação de orçamento",
+      label: "Solicitar orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
-    { label: "Nova oportunidade", route: "/crm", icon: PlusIcon },
+    { label: "Oportunidade", route: "/crm", icon: PlusIcon },
     { label: "Montar proposta", route: "/propostas", icon: FileChartLineIcon },
     {
       label: "Abrir tabela de preços",
@@ -90,7 +90,7 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   ],
   partner: [
     {
-      label: "Nova solicitação de orçamento",
+      label: "Solicitar orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },
@@ -104,7 +104,7 @@ const QUICK_ACTIONS_BY_PROFILE: Record<ProfileKey, DashboardQuickAction[]> = {
   ],
   cliente: [
     {
-      label: "Nova solicitação de orçamento",
+      label: "Solicitar orçamento",
       route: "/orcamentos",
       icon: PlusIcon,
     },

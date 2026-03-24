@@ -28,14 +28,14 @@ export function DashboardQuickActions({ actions }: DashboardQuickActionsProps) {
             <Button
               key={index}
               variant="outline"
-              className="flex h-auto flex-col items-center gap-2 px-2 py-3"
+              className="flex h-auto flex-col items-center gap-2 overflow-hidden px-2 py-3"
               asChild
             >
               <Link href={action.route}>
-                <div className="flex size-7 items-center justify-center rounded-full bg-primary/10">
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10">
                   <action.icon className="size-3.5 text-primary" />
                 </div>
-                <span className="text-center text-xs leading-tight font-medium">
+                <span className="line-clamp-2 text-center text-xs leading-tight font-medium">
                   {action.label}
                 </span>
               </Link>
